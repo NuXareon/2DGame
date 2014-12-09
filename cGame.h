@@ -10,7 +10,7 @@
 
 class cGame
 {
-
+	//random
 public:
 	cGame();
 	virtual ~cGame();
