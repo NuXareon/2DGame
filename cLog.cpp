@@ -50,7 +50,7 @@ void cLog::Error(HRESULT hr, char *msg)
 
 	sprintf(s,"Error: %s\n",msg);
 	sprintf(s,"%sCode: %s\n",s,(char *)DXGetErrorString9(hr));
-	sprintf(s,"%sDescription: %s",s,DXGetErrorDescription9(hr));
+	sprintf(s,"%sDescription: %s\n",s,DXGetErrorDescription9(hr));
 	
 	f=fopen("log.txt","a+");
 	fwrite(s,sizeof(char),strlen(s),f);

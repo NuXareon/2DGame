@@ -2,19 +2,25 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{edd14a94-30b8-48b5-ae7f-503cc1cb82f1}</UniqueIdentifier>
+      <UniqueIdentifier>{0593483f-8e26-4293-9789-f01245d07dff}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{38f3afd4-e176-4fc1-b59f-a258da1c2cfd}</UniqueIdentifier>
+      <UniqueIdentifier>{adf82eac-6eb0-44ff-a31e-b8e6f90ce6dd}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{788dcc1a-058a-4e69-9dae-717bd9e30c90}</UniqueIdentifier>
+      <UniqueIdentifier>{7f724c76-8411-4bf7-86ab-4ffe72cb547f}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cAStar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cCritter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,7 +39,16 @@
     <ClCompile Include="cMouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cTrajectory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Win32Main.cpp">
@@ -41,6 +56,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cAStar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cCritter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="cGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,7 +80,16 @@
     <ClInclude Include="cMouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="cScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cTrajectory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -228,3 +228,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+!DX9SDK/Lib/x86
+!DX9SDK/Lib/x64

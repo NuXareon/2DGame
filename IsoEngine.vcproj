@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="IsoEngine"
-	ProjectGUID="{047D91A2-76CE-4EE7-BB8E-EE61BB08204D}"
+	ProjectGUID="{AF19B365-BF6F-4BCD-8926-DB57DB885DF1}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -143,6 +143,12 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath=".\cAStar.cpp">
+			</File>
+			<File
+				RelativePath=".\cCritter.cpp">
+			</File>
+			<File
 				RelativePath="cGame.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -221,6 +227,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\cPath.cpp">
+			</File>
+			<File
 				RelativePath="cScene.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -237,6 +246,12 @@
 						Optimization="2"
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\cSkeleton.cpp">
+			</File>
+			<File
+				RelativePath=".\cTrajectory.cpp">
 			</File>
 			<File
 				RelativePath="Win32Main.cpp">
@@ -261,6 +276,12 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath=".\cAStar.h">
+			</File>
+			<File
+				RelativePath=".\cCritter.h">
+			</File>
+			<File
 				RelativePath="cGame.h">
 			</File>
 			<File
@@ -279,7 +300,16 @@
 				RelativePath="cMouse.h">
 			</File>
 			<File
+				RelativePath=".\cPath.h">
+			</File>
+			<File
 				RelativePath="cScene.h">
+			</File>
+			<File
+				RelativePath=".\cSkeleton.h">
+			</File>
+			<File
+				RelativePath=".\cTrajectory.h">
 			</File>
 		</Filter>
 		<Filter

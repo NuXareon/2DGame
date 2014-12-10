@@ -1,12 +1,15 @@
 
 #include "cGraphicsLayer.h"
+#include "cGame.h"
 #include "cLog.h"
 #include <stdio.h>
 
 
 cGraphicsLayer::cGraphicsLayer()
 {
-	font = NULL;
+	g_pD3D = NULL;
+	g_pD3DDevice = NULL;
+	g_pSprite = NULL;
 }
 
 cGraphicsLayer::~cGraphicsLayer(){}
@@ -46,6 +49,9 @@ bool cGraphicsLayer::Init(HWND hWnd)
 		return false;
 	}
 
+	// Configure for 2d operations
+    hr = g_pD3DDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+    hr = g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	hr = g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	if(FAILED(hr))
 	{
@@ -57,16 +63,6 @@ bool cGraphicsLayer::Init(HWND hWnd)
 	if(FAILED(hr))
 	{
 		Log->Error(hr,"Setting viewport");
-		return false;
-	}
-
-    hr = D3DXCreateFont(g_pD3DDevice, 12, 0, FW_BOLD, 0, FALSE, 
-						DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 
-						DEFAULT_PITCH | FF_DONTCARE, TEXT("Arial"), 
-						&font );
-	if(FAILED(hr))
-	{
-		Log->Error(hr,"Creating Direct3D font");
 		return false;
 	}
 
@@ -91,59 +87,64 @@ void cGraphicsLayer::LoadData()
 {
 	D3DXCreateSprite( g_pD3DDevice, &g_pSprite ); 
 
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"1.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+	//Main menu
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"main.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								0xFF408080,NULL,NULL,&texTiles[0]);
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"2.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+								NULL,NULL,NULL,&texMain);
+	//GUI game
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"game.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								0xFF408080,NULL,NULL,&texTiles[1]);
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"3.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+								NULL,NULL,NULL,&texGame);
+	//Tiles
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"tiles.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								0xFF408080,NULL,NULL,&texTiles[2]);
-	
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"cube_white.png",0,0,1,0,D3DFMT_UNKNOWN,
+								0x00ff00ff,NULL,NULL,&texTiles);
+	//Characters
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"characters.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								NULL,NULL,NULL,&texGrid[0]);
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"cube_black.png",0,0,1,0,D3DFMT_UNKNOWN,
-								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								NULL,NULL,NULL,&texGrid[1]);
-
+								0x00ff00ff,NULL,NULL,&texCharacters);
+	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								0x00FF00FF,NULL,NULL,&texMouse);
+								0x00ff00ff,NULL,NULL,&texMouse);
+	//Iso tiles
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"1.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0xFF408080,NULL,NULL,&texTilesIso[0]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"2.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0xFF408080,NULL,NULL,&texTilesIso[1]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"3.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0xFF408080,NULL,NULL,&texTilesIso[2]);
 }
 
 void cGraphicsLayer::UnLoadData()
 {
+	if(texMain)
+	{
+		texMain->Release();
+		texMain = NULL;
+	}
+	if(texGame)
+	{
+		texGame->Release();
+		texGame = NULL;
+	}
+	if(texTiles)
+	{
+		texTiles->Release();
+		texTiles = NULL;
+	}
+	if(texCharacters)
+	{
+		texCharacters->Release();
+		texCharacters = NULL;
+	}
 	if(texMouse)
 	{
 		texMouse->Release();
 		texMouse = NULL;
-	}
-	if(texTiles[0])
-	{
-		texTiles[0]->Release();
-		texTiles[0] = NULL;
-	}
-	if(texTiles[1])
-	{
-		texTiles[1]->Release();
-		texTiles[1] = NULL;
-	}
-	if(texTiles[2])
-	{
-		texTiles[2]->Release();
-		texTiles[2] = NULL;
-	}
-	if(texGrid[0])
-	{
-		texGrid[0]->Release();
-		texGrid[0] = NULL;
-	}
-	if(texGrid[1])
-	{
-		texGrid[1]->Release();
-		texGrid[1] = NULL;
 	}
 	if(g_pSprite)
 	{
@@ -152,66 +153,208 @@ void cGraphicsLayer::UnLoadData()
 	}
 }
 
-void cGraphicsLayer::Render(int mouseX,int mouseY,cScene *Scene)
+bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
 {
+	//HRESULT Draw( LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect,
+	//				CONST D3DXVECTOR3 *pCenter,  CONST D3DXVECTOR3 *pPosition,
+	//				D3DCOLOR Color);
+
 	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
 	g_pD3DDevice->BeginScene();
 
 		//--- SPRITES ---
-
 		g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-			int i,j;
-			//Tiles
-			for(j=0;j<SCENE_HEIGHT;j++)
+			switch(state)
 			{
-				for(i=0;i<SCENE_WIDTH;i++)
-				{
-					g_pSprite->Draw(texTiles[Scene->map[i][j]],NULL,NULL, 
-									&D3DXVECTOR3( float(SCENE_Xo+((j%2)<<5)+(i<<6)), float(SCENE_Yo+(j<<4)), 0.0f), 
-									0xFFFFFFFF);
-				}
-			}
-			//Rectangular Grid
-			for(j=0;j<600;j+=32)
-			{
-				for(i=0;i<800;i+=32)
-				{
-					if(j%64 || i%64)
-					g_pSprite->Draw(texGrid[1],NULL,NULL, 
-									&D3DXVECTOR3((float)i, (float)j, 0.0f), 
-									0x33FFFFFF);
-					else
-					g_pSprite->Draw(texGrid[0],NULL,NULL, 
-									&D3DXVECTOR3((float)i, (float)j, 0.0f), 
-									0x33FFFFFF);
-				}
-			}
+				case STATE_MAIN:
+								g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+								break;
 
-			//--- SELECTED ---
-			int tx,ty,atx,aty,dx,dy;
-			Scene->TileSelected(mouseX,mouseY,&tx,&ty,&atx,&aty,&dx,&dy);
-
-			g_pSprite->Draw(texTiles[2],NULL,NULL, 
-							&D3DXVECTOR3( float(SCENE_Xo+((ty%2)<<5)+(tx<<6)), float(SCENE_Yo+(ty<<4)), 0.0f), 
-							0x77FFFFFF);
-			//--- MOUSE ---
-			g_pSprite->Draw(texMouse,NULL,NULL, 
-							&D3DXVECTOR3( float(mouseX), float(mouseY), 0.0f), 
-							0xFFFFFFFF);
+				case STATE_GAME:
+								DrawScene(Scene);
+								DrawUnits(Scene,Critter,Skeleton);
+								g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
+								break;
+			}
 
 		g_pSprite->End();
 
-		//--- INFO ---
-		RECT rc;
-		SetRect( &rc, 64, 350, 128, 400 );
-		char *info = (char *)malloc(sizeof(char)*200);
-		sprintf(info,"Map = %d x %d\nMouse = (%d,%d)\nTile = (%d,%d)\nDirect = (%d,%d)\nIncr = (%d,%d)",
-				SCENE_WIDTH,SCENE_HEIGHT,mouseX,mouseY,tx,ty,atx,aty,dx,dy);
-
-		font->DrawText(	NULL, info, -1, &rc, DT_NOCLIP, 
-						D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+		DrawMouse(Mouse);
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
+
+	return true;
+}
+
+bool cGraphicsLayer::DrawScene(cScene *Scene)
+{
+	RECT rc;
+	int x,y,n,
+		fx,fy,
+		pantx,panty;
+
+	//Tile based map
+	fx=Scene->cx+SCENE_WIDTH;
+	fy=Scene->cy+SCENE_HEIGHT;
+
+	for(y=Scene->cy;y<fy;y++)
+	{
+		panty = SCENE_Yo + ((y-Scene->cy)*TILE_SIZE_Y/2);
+
+		for(x=Scene->cx;x<fx;x++)
+		{
+			pantx = SCENE_Xo + ((x-Scene->cx)*TILE_SIZE_X)+(((y-Scene->cy)%2)*(TILE_SIZE_X/2));
+
+			n = Scene->map[(y*SCENE_AREA)+x];
+			g_pSprite->Draw(texTilesIso[n],NULL,NULL, 
+									&D3DXVECTOR3( float(pantx), float(panty), 0.0f), 
+									0xFFFFFFFF);
+			//SetRect(&rc,n<<5,0,(n+1)<<5,32);
+			//g_pSprite->Draw(texTiles,&rc,NULL, 
+			//				&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
+			//				0xFFFFFFFF);
+		}
+	}
+
+	//Draw radar
+	x=RADAR_Xo+(Scene->cx<<2);
+	y=RADAR_Yo+(Scene->cy<<2);
+	SetRect(&rc,0,32,80,100);
+	g_pSprite->Draw(texTiles,&rc,NULL, 
+					&D3DXVECTOR3(float(x),float(y),0.0f), 
+					0xFFFFFFFF);
+	return true;
+}
+
+bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
+{
+	int cx,cy,posx,posy;
+	RECT rc;
+
+	//Draw Critter
+	Critter->GetCell(&cx,&cy);
+	if(Scene->Visible(cx,cy))
+	{
+		Critter->GetRect(&rc,&posx,&posy,Scene);
+		g_pSprite->Draw(texCharacters,&rc,NULL, 
+						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+						0xFFFFFFFF);
+		if(Critter->GetSelected())
+		{
+			Critter->GetRectLife(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texMouse,&rc,NULL, 
+							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+							0xFFFFFFFF);
+		}
+	}
+	Critter->GetRectRadar(&rc,&posx,&posy);
+	g_pSprite->Draw(texTiles,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+	//Draw Skeleton
+	Skeleton->GetCell(&cx,&cy);
+	if(Scene->Visible(cx,cy))
+	{
+		Skeleton->GetRect(&rc,&posx,&posy,Scene);
+		g_pSprite->Draw(texCharacters,&rc,NULL, 
+						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+						0xFFFFFFFF);
+	}
+	Skeleton->GetRectRadar(&rc,&posx,&posy);
+	g_pSprite->Draw(texTiles,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+	//Draw Fire
+	if(Critter->GetShooting())
+	{
+		if(Critter->IsFiring())
+		{
+			//Advance animation & draw
+			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texCharacters,&rc,NULL, 
+							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+							0xFFFFFFFF);
+		}
+		else
+		{
+			//Advance animation
+			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
+		}
+	}
+	return true;
+}
+
+bool cGraphicsLayer::DrawMouse(cMouse *Mouse)
+{
+	RECT rc;
+	int mx,my,posx,posy;
+
+	//Mouse selection box
+	Mouse->GetPosition(&mx,&my);
+
+	if(Mouse->GetSelection()==SELECT_SCENE)
+	{
+		int sx,sy;
+		Mouse->GetSelectionPoint(&sx,&sy);
+		SetRect(&rc,sx,sy,mx,my);
+		DrawRect(rc,0x0000ff00);
+	}
+
+	//Mouse
+	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		
+		Mouse->GetRect(&rc,&posx,&posy);
+		HRESULT hr = g_pSprite->Draw(texMouse,&rc,NULL,&D3DXVECTOR3(float(mx+posx),float(my+posy),0.0f),0xFFFFFFFF);
+		if(FAILED(hr))
+		{
+			cLog *Log = cLog::Instance();
+			Log->Error(hr,"mouse pointer");
+			return false;
+		}
+
+	g_pSprite->End();
+
+	return true;
+}
+
+bool cGraphicsLayer::DrawRect(RECT rc, D3DCOLOR color)
+{
+	RECT rect;
+	int xo,yo,xf,yf;
+
+	if((rc.left==rc.right)&&(rc.top==rc.bottom)) return false;
+
+	if(rc.left < rc.right)
+	{
+		xo = rc.left;	xf = rc.right;
+	}
+	else
+	{
+		xo = rc.right;	xf = rc.left;
+	}
+	if(rc.top < rc.bottom)
+	{
+		yo = rc.top;	yf = rc.bottom;
+	}
+	else
+	{
+		yo = rc.bottom;	yf = rc.top;
+	}
+
+	//Top
+	SetRect(&rect,xo,yo,xf+1,yo+1);
+	g_pD3DDevice->Clear(1,(D3DRECT *)&rect,D3DCLEAR_TARGET,color,1.0f,0);
+	//Bottom
+	SetRect(&rect,xo,yf,xf,yf+1);
+	g_pD3DDevice->Clear(1,(D3DRECT *)&rect,D3DCLEAR_TARGET,color,1.0f,0);
+	//Left
+	SetRect(&rect,xo,yo,xo+1,yf+1);
+	g_pD3DDevice->Clear(1,(D3DRECT *)&rect,D3DCLEAR_TARGET,color,1.0f,0);
+	//Right
+	SetRect(&rect,xf,yo,xf+1,yf+1);
+	g_pD3DDevice->Clear(1,(D3DRECT *)&rect,D3DCLEAR_TARGET,color,1.0f,0);
+	
+	return true;
 }
