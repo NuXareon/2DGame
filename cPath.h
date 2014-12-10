@@ -15,7 +15,14 @@
 #define SO		8
 
 //Going
-#define STOP		0
+#define STOPN		0
+#define STOPS		9
+#define STOPE		10
+#define STOPO		11
+#define STOPNE		12
+#define STOPNO		13
+#define STOPSE		14
+#define STOPSO		15
 #define CONTINUE	1
 #define ARRIVE		2
 

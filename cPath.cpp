@@ -135,11 +135,18 @@ int cPath::Faced()
 }
 bool cPath::IsDone()
 {
-	return (dir == STOP);
+	return (dir == STOPN || dir == STOPE || dir == STOPS || dir == STOPO || dir == STOPNE || dir == STOPNO || dir == STOPSE || dir == STOPSO );
 }
 void cPath::Done()
 {
-	dir = STOP;
+	if (dir == N) dir = STOPN;
+	if (dir == NE) dir = STOPNE;
+	if (dir == E) dir = STOPE;
+	if (dir == SE) dir = STOPSE;
+	if (dir == S) dir = STOPS;
+	if (dir == SO) dir = STOPSO;
+	if (dir == O) dir = STOPO;
+	if (dir == NO) dir = STOPNO;
 }
 
 void cPath::CalcDir(int x1,int y1,int x2,int y2)

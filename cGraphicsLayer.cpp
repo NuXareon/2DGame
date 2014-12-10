@@ -103,6 +103,12 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"characters.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texCharacters);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "warlock.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texWarlock);
+
+
 	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -140,6 +146,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texCharacters->Release();
 		texCharacters = NULL;
+	}
+	if (texWarlock)
+	{
+		texWarlock->Release();
+		texWarlock = NULL;
 	}
 	if(texMouse)
 	{
@@ -238,7 +249,8 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	if(Scene->Visible(cx,cy))
 	{
 		Critter->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
+
+		g_pSprite->Draw(texWarlock,&rc,NULL, 
 						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 						0xFFFFFFFF);
 		if(Critter->GetSelected())

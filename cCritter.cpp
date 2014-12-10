@@ -27,28 +27,40 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
 	*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
 
-	switch(Trajectory.Faced())
+	switch (Trajectory.Faced()) // 0, 0, 64, 100
 	{
-		case STOP:	SetRect(rc,256,0,288,32);						break;
+	case STOPN:	SetRect(rc, 256, 0, 64 + (64 * 4), 100);	break;
+	case STOPS: SetRect(rc, 0, 0, 64, 100);					break;
+	case STOPSE:SetRect(rc, 448, 0, 64 + (64 * 7), 100);	break;
+	case STOPNE:SetRect(rc, 320, 0, 64 + (64 * 5), 100);	break;
+	case STOPE: SetRect(rc, 384, 0, 64 + (64 * 6), 100);	break;
+	case STOPSO:SetRect(rc, 64, 0, 64 + 64, 100);			break;
+	case STOPNO:SetRect(rc, 192, 0, 64 + (64 * 3), 100);	break;
+	case STOPO: SetRect(rc, 128, 0, 64 + (64 * 2), 100);	break;
 
-		case N:		SetRect(rc,((12+seq)<<5),0,((12+seq+1)<<5),32);	break;
-		case S:		SetRect(rc,(( 8+seq)<<5),0,(( 8+seq+1)<<5),32);	break;
-		case SE:
-		case NE:
-		case E:		SetRect(rc,(( 7-seq)<<5),0,(( 7-seq+1)<<5),32);	break;
-		case SO:
-		case NO:
-		case O:		SetRect(rc,     (seq<<5),0,   ((seq+1)<<5),32);	break;
+	case N:		SetRect(rc, 0 + (64 * seq), 800, 64 + (64 * seq), 900);		break;
+	case S:		SetRect(rc, 0 + (64 * seq), 100, 64 + (64 * seq), 200);		break;
+	case SE:	SetRect(rc, 0 + (64 * seq), 500, 64 + (64 * seq), 600);		break;
+	case NE:	SetRect(rc, 0 + (64 * seq), 700, 64 + (64 * seq), 800);		break;
+	case E:		SetRect(rc, 0 + (64 * seq), 600, 64 + (64 * seq), 700);		break;
+	case SO:	SetRect(rc, 0 + (64 * seq), 200, 64 + (64 * seq), 300);		break;
+	case NO:	SetRect(rc, 0 + (64 * seq), 400, 64 + (64 * seq), 500);		break;
+	case O:		SetRect(rc, 0 + (64 * seq), 300, 64 + (64 * seq), 400);		break;
 	}
+
 	if(!Trajectory.IsDone())
 	{
 		delay++;
-		if(delay>=4)
+		if(delay>=5)
 		{
 			seq++;
-			if(seq>3) seq=0;
+			if(seq>7) seq=0;
 			delay=0;
 		}
+	}
+	else
+	{
+		seq = 0;
 	}
 }
 
