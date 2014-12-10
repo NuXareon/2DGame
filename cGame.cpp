@@ -101,6 +101,7 @@ bool cGame::LoopProcess()
 						Critter.Move();
 						break;
 	}
+
 	return true;
 }
 
@@ -131,6 +132,10 @@ void cGame::ProcessOrder()
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
 
+    // Enemy Moves!
+	DoEnemyTurn();
+
+	//Player Moves!
 	if(Mouse->ButtonDown(LEFT))
 	{
 		Mouse->SetPointer(NORMAL);
@@ -261,4 +266,20 @@ void cGame::ProcessOrder()
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
+}
+
+// Method to implement enemy actions
+void cGame::DoEnemyTurn()
+{
+	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
+
+	if (Skeleton.PlayerIsDetected())
+	{
+		// get player cell 
+		int playerCellX, playerCellY;
+		Critter.GetCell(&playerCellX, &playerCellY);
+
+		Skeleton.GoToPlayer(Scene.map, playerCellX, playerCellY);
+	}
+
 }

@@ -32,6 +32,7 @@ private:
 	
 	int state;
 
+	void DoEnemyTurn();
 	void ProcessOrder();
 	bool Render();
 };
