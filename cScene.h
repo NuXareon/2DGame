@@ -7,19 +7,21 @@
 #define SCREEN_RES_Y	600
 
 //Visible part
-#define SCENE_WIDTH		11 
-#define SCENE_HEIGHT	32 // modificar (ara mateix el mapa no es prou gran)
+#define SCENE_WIDTH		25
+#define SCENE_HEIGHT	19 
 
 //Dimension = Area^2
 #define SCENE_AREA		32
+#define SCENE_ISO_X		50  // (550+32*32)/32
+#define SCENE_ISO_Y		32
 
 // Tile Size
 #define TILE_SIZE_X		64
 #define TILE_SIZE_Y		32
 
 //Map coordinate beginning
-#define SCENE_Xo		-32 //0-32
-#define SCENE_Yo		40  //56-16
+#define SCENE_Xo		0 //0-32
+#define SCENE_Yo		0  //56-16
 #define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH*TILE_SIZE_X) )
 #define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT*TILE_SIZE_Y) )
 

@@ -113,7 +113,7 @@ void cSkeleton::LookForPlayer(cCritter& thePlayer)
 		thePlayer.GetCell(&playerCellX, &playerCellY);
 
 		// compute distance to player
-		int mobToPlayerDistance = (int)sqrt(pow(playerCellX - this->cx, 2) + pow(playerCellY - this->cy, 2));
+		int mobToPlayerDistance = (int)sqrt(pow((float)playerCellX - this->cx, 2) + pow((float)playerCellY - this->cy, 2));
 		
 		if (mobToPlayerDistance < sightRadius)
 			playerDetected = true;
@@ -127,7 +127,7 @@ void cSkeleton::AttackPlayer(int* map, cCritter& thePlayer)
 	{
 		int playerCellX, playerCellY;
 		thePlayer.GetCell(&playerCellX, &playerCellY);
-		GoToPlayer(map, playerCellX, playerCellY);
+		GoToPlayer(&map, playerCellX, playerCellY);
 	}
 }
 

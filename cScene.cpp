@@ -41,21 +41,25 @@ void cScene::Move(int pointer)
 	if((pointer==MN)||(pointer==MNO)||(pointer==MNE))
 	{
 		if(cy>0) cy--;
+		if(cx>0) cx--;
 	}
 	//South
 	else if((pointer==MS)||(pointer==MSO)||(pointer==MSE))
 	{
-		if(cy<SCENE_AREA-SCENE_HEIGHT) cy++;
+		if(cy<SCENE_ISO_Y-SCENE_HEIGHT) cy++;
+		if(cx<SCENE_ISO_X-SCENE_WIDTH) cx++;
 	}
 	//West
 	if((pointer==MO)||(pointer==MNO)||(pointer==MSO))
 	{
+		if(cy<SCENE_ISO_Y-SCENE_HEIGHT) cy++;
 		if(cx>0) cx--;
 	}
 	//East
 	else if((pointer==ME)||(pointer==MNE)||(pointer==MSE))
 	{
-		if(cx<SCENE_AREA-SCENE_WIDTH) cx++;
+		if(cy>0) cy--;
+		if(cx<SCENE_ISO_X-SCENE_WIDTH) cx++;
 	}
 }
 
