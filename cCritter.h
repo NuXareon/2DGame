@@ -33,7 +33,8 @@ public:
 
 private:
 	int x,y;		//Position in total map
-	int cx,cy;		//Cell position in total map
+	int cx,cy;		//Cell position in total map in cartesian 
+	int ix, iy;     //Cell position in total map in isometric
 	bool selected;	//Selected for move or attack
 
 	//cTrajectory Trajectory;

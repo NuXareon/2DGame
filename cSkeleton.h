@@ -27,14 +27,15 @@ public:
 	
 	// Enemy IA
 	void LookForPlayer(cCritter& thePlayer);
-	void AttackPlayer(int& map,cCritter& thePlayer);
+	void AttackPlayer(int* map,cCritter& thePlayer);
 	bool PlayerIsDetected();
 
 private:
 	bool playerDetected; // Flag for player detection
 	int sightRadius; //Radius of sight
 	int x,y;		//Position in total map
-	int cx,cy;		//Cell position in total map
+	int cx,cy;		//Cell position in total map in cartesian
+	int ix, iy;		//Cell position in total map in isometric
 
 	cPath Trajectory; // Enemy path
 

@@ -81,15 +81,16 @@ bool cScene::Visible(int cellx,int celly)
 	return ((cellx>=cx)&&(cellx<cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<cy+SCENE_HEIGHT)) ? 1 : 0;
 }
 
-void cScene::TileSelected(int mx, int my, int *tx, int *ty, int *atx, int *aty, int *Dx, int *Dy)
+void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, float *aty, float *Dx, float *Dy)
 {
-	int rx,ry,dx,dy;
+	int rx, ry;
+	float dx, dy;
 
 	*tx=mx-(SCENE_Xo);
 	*ty=my-(SCENE_Yo);
 
-	rx=*tx%TILE_SIZE_X;
-	ry=*ty%TILE_SIZE_Y;
+	rx=(int)*tx%TILE_SIZE_X;
+	ry=(int)*ty%TILE_SIZE_Y;
 
 	*tx=*tx/TILE_SIZE_X;
 	*ty=(*ty/TILE_SIZE_Y)*2;
@@ -100,6 +101,7 @@ void cScene::TileSelected(int mx, int my, int *tx, int *ty, int *atx, int *aty, 
 	dx=0;
 	dy=0;
 
+	// old Jesus
 	//         /\
 	// -1,-1  /  \   0,-1
 	//       /0,0 \
@@ -107,18 +109,30 @@ void cScene::TileSelected(int mx, int my, int *tx, int *ty, int *atx, int *aty, 
 	// -1, 1  \  /   0, 1
 	//         \/
 
+
+	//          /\
+	// -1,1/2  /  \   1,-1/2
+	//        /0,0 \
+	//        \    /
+	// -1,1/2  \  /   1, 1/2
+	//          \/
+
 	if(rx<TILE_SIZE_X/2)
 	{
 		//Left
 		if(ry<TILE_SIZE_Y/2)
 		{
 			//Up
-			if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx=-1; dy=-1; }
+			//if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx=-1; dy=-1; }
+			if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx = -1; dy = -0.5; }
+
 		}
 		else
 		{	
 			//Down
-			if( ((TILE_SIZE_Y/2)+(rx*2)) < ry ) { dx=-1; dy=1; }
+			//if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 1; }
+			if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 0.5; }
+
 		}
 	}
 	else
@@ -129,13 +143,13 @@ void cScene::TileSelected(int mx, int my, int *tx, int *ty, int *atx, int *aty, 
 		if(ry<16)
 		{
 			//Up
-			if( (rx*2) > ry ) dy=-1;
+			if ((rx * 2) > ry){ dx = 1;  dy = -0.5; }
 		}
 		else
 		{	
 			//Down
-			if( ((TILE_SIZE_X/2)-(rx*2)) < ry ) dy=1;
-		}
+			if (((TILE_SIZE_X / 2) - (rx * 2)) < ry) { dy = 0.5; }
+		}		
 	}
 
 	*tx+=dx;

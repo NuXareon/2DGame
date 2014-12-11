@@ -122,7 +122,9 @@ bool cGame::Render()
 void cGame::ProcessOrder()
 {
 	cMouse *Mouse;
-	int mx,my,msx,msy,p,cx,cy,x,y,atx,aty,dx,dy;
+	int mx, my, msx, msy, p, cx, cy, x, y;
+	float ix, iy, atx, aty, dx, dy;
+
 	int s=5; //marge for directional pointers
 	int xo,xf,yo,yf;
 	int b4pointer;
@@ -161,7 +163,8 @@ void cGame::ProcessOrder()
 						{
 							//Mouse->GetCell(&cx,&cy);
 							Mouse->GetPosition(&mx,&my);
-							Scene.TileSelected(mx,my,&cx,&cy,&atx,&aty,&dx,&dy);
+
+							Scene.TileSelected(mx,my,&ix,&iy,&atx,&aty,&dx,&dy);
 							Critter.GoToCell(Scene.map,Scene.cx+cx,Scene.cy+cy);
 						}
 					}

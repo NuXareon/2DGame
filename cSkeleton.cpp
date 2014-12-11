@@ -121,7 +121,7 @@ void cSkeleton::LookForPlayer(cCritter& thePlayer)
 	
 }
 
-void cSkeleton::AttackPlayer(int& map, cCritter& thePlayer)
+void cSkeleton::AttackPlayer(int* map, cCritter& thePlayer)
 {
 	if (playerDetected)
 	{
