@@ -144,3 +144,18 @@ void cScene::TileSelected(int mx, int my, int *tx, int *ty, int *atx, int *aty, 
 	*Dx=dx;
 	*Dy=dy;
 }
+
+void cScene::IsoToCartesian(float ix, float iy, int& cx, int& cy)
+{
+	// 45deg roration of the 2d reticle
+	cx = (int)(2 * iy + ix) / 2;
+	cy = (int)(2 * iy - ix) / 2;
+}
+
+void cScene::CartesianToIso(int cx, int cy, float& ix, float& iy)
+{
+	// 45deg roration of the 2d reticle
+	ix = cx - cy;
+	iy = 0.5*(cx + cy);
+
+}

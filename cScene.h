@@ -43,8 +43,12 @@ public:
 	bool Visible(int cellx,int celly);
 	void TileSelected(int mouse_x,int mouse_y,int *tile_x,int *tile_y,int *atx,int *aty,int *Dx,int *Dy);
 
+	void IsoToCartesian(float ix, float iy, int& cx, int& cy); // Method to tansform isometric to cartesian coordinates
+	void CartesianToIso(int cx, int cy, float& ix, float& iy); // Method to tansform cartesian to isometric coordinates
+
 	int *map;
-	int cx,cy;
+	int cx,cy; // cartesian coordinates
+	float isox, isoy; // isometric coordinates
 };
 
 
