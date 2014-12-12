@@ -231,3 +231,7 @@ $RECYCLE.BIN/
 
 !DX9SDK/Lib/x86
 !DX9SDK/Lib/x64
+
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters

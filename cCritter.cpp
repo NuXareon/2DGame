@@ -5,9 +5,9 @@
 
 cCritter::cCritter()
 {
-	SetPosition(320,64);
-	SetCell(5,4);
-	SetSelected(false);
+	SetPosition(64,64);
+	SetCell(2,2);
+	SetSelected(true);
 
 	seq=0;
 	delay=0;
@@ -24,8 +24,14 @@ cCritter::~cCritter()
 
 void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
-	*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
+	int _x = x-64;
+	int _y = y-64;
+
+	*posx = 550 + ((float)(_x-Scene->cx*TILE_SIZE_X)-(_y-Scene->cy*TILE_SIZE_X))/2;
+	*posy = ((float)(_x-Scene->cx*TILE_SIZE_Y)+(_x-Scene->cy*TILE_SIZE_Y))/2;
+
+	//*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
+	//*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
 
 	switch (Trajectory.Faced()) // 0, 0, 64, 100
 	{

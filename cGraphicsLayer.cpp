@@ -10,6 +10,7 @@ cGraphicsLayer::cGraphicsLayer()
 	g_pD3D = NULL;
 	g_pD3DDevice = NULL;
 	g_pSprite = NULL;
+	font = NULL;
 }
 
 cGraphicsLayer::~cGraphicsLayer(){}
@@ -63,6 +64,16 @@ bool cGraphicsLayer::Init(HWND hWnd)
 	if(FAILED(hr))
 	{
 		Log->Error(hr,"Setting viewport");
+		return false;
+	}
+
+	hr = D3DXCreateFont(g_pD3DDevice, 12, 0, FW_BOLD, 0, FALSE, 
+						DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 
+						DEFAULT_PITCH | FF_DONTCARE, TEXT("Arial"), 
+						&font );
+	if(FAILED(hr))
+	{
+		Log->Error(hr,"Creating Direct3D font");
 		return false;
 	}
 
@@ -185,6 +196,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 				case STATE_GAME:
 								DrawScene(Scene);
 								DrawUnits(Scene,Critter,Skeleton);
+								DrawDebug(Scene, Mouse);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;
 			}
@@ -301,6 +313,41 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
 		}
 	}
+	return true;
+}
+
+bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
+{
+	//--- SELECTED TILE ---
+	float tx,ty,atx,aty,dx,dy;
+	int mouseX,mouseY;
+	Mouse->GetPosition(&mouseX,&mouseY);
+	Scene->TileSelected(mouseX,mouseY,&tx,&ty,&atx,&aty,&dx,&dy);
+
+	int _x = floor(tx)-Scene->cx;
+	int _y = floor(ty)-Scene->cy;
+	float __pantx = 550 + TILE_SIZE_X*((float)_x-_y)/2;
+	float __panty = TILE_SIZE_Y*((float)_x+_y)/2;
+
+	g_pSprite->Draw(texTilesIso[0],NULL,NULL, 
+							&D3DXVECTOR3( __pantx, __panty, 0.0f), 
+							0xFFFF0000);
+
+	//--- INFO ---
+	RECT rc;
+	int cx,cy;
+	cx = Scene->cx; cy = Scene->cy;
+	SetRect( &rc, 400, 350, 320, 544 );
+	char *info = (char *)malloc(sizeof(char)*200);
+	sprintf(info,"Map = %d x %d\nScene = %d , %d\nMouse = (%d,%d)\nTile = (%f,%f)\nDirect = (%f,%f)\nIncr = (%f,%f) (incremets are for pussies)",
+			SCENE_WIDTH,SCENE_HEIGHT,cx,cy,mouseX,mouseY,tx,ty,atx,aty,dx,dy);
+
+	font->DrawText(	NULL, info, -1, &rc, DT_NOCLIP, 
+					D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+	SetRect( &rc, 5, 5, 69, 149 );
+	font->DrawText(	NULL, info, -1, &rc, DT_NOCLIP, 
+				D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+
 	return true;
 }
 

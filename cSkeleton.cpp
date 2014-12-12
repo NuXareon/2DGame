@@ -6,8 +6,8 @@ cSkeleton::cSkeleton() :
 playerDetected(false),
 sightRadius(4) 
 {
-	SetPosition(64,64);
-	SetCell(2,2);
+	SetPosition(0,0);
+	SetCell(0,0);
 }
 cSkeleton::~cSkeleton()
 {
@@ -67,8 +67,13 @@ void cSkeleton::Move()
 
 void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	*posx = SCENE_Xo + x - (Scene->cx<<5);
-	*posy = SCENE_Yo + y - (Scene->cy<<5);
+	int _x = x-Scene->cx*TILE_SIZE_X;
+	int _y = y-Scene->cy*TILE_SIZE_Y;
+
+	*posx = 550 + ((float)_x-_y)/2;
+	*posy = ((float)_x+_y)/2;
+	//*posx = SCENE_Xo + x - (Scene->cx<<5);
+	//*posy = SCENE_Yo + y - (Scene->cy<<5);
 
 	SetRect(rc,128,32,160,64);
 }
@@ -127,7 +132,7 @@ void cSkeleton::AttackPlayer(int* map, cCritter& thePlayer)
 	{
 		int playerCellX, playerCellY;
 		thePlayer.GetCell(&playerCellX, &playerCellY);
-		GoToPlayer(&map, playerCellX, playerCellY);
+		GoToPlayer(map, playerCellX, playerCellY);
 	}
 }
 

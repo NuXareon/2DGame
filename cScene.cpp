@@ -90,21 +90,26 @@ void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, floa
 	int rx, ry;
 	float dx, dy;
 
-	*tx=mx-(SCENE_Xo);
-	*ty=my-(SCENE_Yo);
+	*tx=(my+(mx-550-TILE_SIZE_X/2)/2)-(SCENE_Xo);
+	*ty=(my-(mx-550-TILE_SIZE_Y)/2)-(SCENE_Yo);
 
 	rx=(int)*tx%TILE_SIZE_X;
 	ry=(int)*ty%TILE_SIZE_Y;
 
-	*tx=*tx/TILE_SIZE_X;
-	*ty=(*ty/TILE_SIZE_Y)*2;
+	*tx=*tx/TILE_SIZE_Y+cx;
+	*ty=*ty/TILE_SIZE_Y+cy;
 
 	*atx=*tx;
 	*aty=*ty;
 
 	dx=0;
 	dy=0;
-
+	/*
+	int _x = x-Scene->cx;
+	int _y = y-Scene->cy;
+	float __pantx = 550 + TILE_SIZE_X*((float)_x-_y)/2;
+	float __panty = TILE_SIZE_Y*((float)_x+_y)/2;
+	*/
 	// old Jesus
 	//         /\
 	// -1,-1  /  \   0,-1
@@ -120,22 +125,22 @@ void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, floa
 	//        \    /
 	// -1,1/2  \  /   1, 1/2
 	//          \/
-
+	/*
 	if(rx<TILE_SIZE_X/2)
 	{
 		//Left
 		if(ry<TILE_SIZE_Y/2)
 		{
 			//Up
-			//if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx=-1; dy=-1; }
-			if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx = -1; dy = -0.5; }
+			if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx=-1; dy=-1; }
+			//if( ((TILE_SIZE_Y/2)-(rx*2)) > ry ) { dx = -1; dy = -0.5; }
 
 		}
 		else
 		{	
 			//Down
-			//if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 1; }
-			if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 0.5; }
+			if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 1; }
+			//if (((TILE_SIZE_Y / 2) + (rx * 2)) < ry) { dx = -1; dy = 0.5; }
 
 		}
 	}
@@ -155,12 +160,13 @@ void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, floa
 			if (((TILE_SIZE_X / 2) - (rx * 2)) < ry) { dy = 0.5; }
 		}		
 	}
-
+	
 	*tx+=dx;
 	*ty+=dy;
-
-	*Dx=dx;
-	*Dy=dy;
+	*/
+	*Dx=0.0f;
+	*Dy=0.0f;
+	
 }
 
 void cScene::IsoToCartesian(float ix, float iy, int& cx, int& cy)
