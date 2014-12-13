@@ -32,21 +32,23 @@ public:
 	bool IsFiring();
 
 private:
-	int x,y;		//Position in total map
-	int cx,cy;		//Cell position in total map in cartesian 
-	int ix, iy;     //Cell position in total map in isometric
-	bool selected;	//Selected for move or attack
+	int x,y;			//Position in total map
+	int ix,iy;			//Position in total isometric map
+	int cx,cy;			//Cell position in total map in cartesian 
+	int icx, icy;		//Cell position in total map in isometric
+	bool selected;		//Selected for move or attack
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;
 
-	int seq;		//Sequence animation control
-	int delay;		//Animation delay
+	int seq;			//Sequence animation control
+	int delay;			//Animation delay
 
-	bool attack;	//Order to attack established (moving for attack)
-	bool shoot;		//Begin attack (to shoot)
-	int shoot_seq;	//Shooter sequence animation control
-	int shoot_delay;//Shooter animation delay
+	bool attack;		//Order to attack established (moving for attack)
+	bool shoot;			//Begin attack (to shoot)
+	int shoot_seq;		//Shooter sequence animation control
+	int shoot_delay;	//Shooter animation delay
+	int sprite_height;	//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 };
 
 #endif

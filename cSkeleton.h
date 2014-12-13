@@ -31,21 +31,22 @@ public:
 	bool PlayerIsDetected();
 
 private:
-	bool playerDetected; // Flag for player detection
-	int sightRadius; //Radius of sight
-	int x,y;		//Position in total map
-	int cx,cy;		//Cell position in total map in cartesian
-	int ix, iy;		//Cell position in total map in isometric
+	bool playerDetected;	// Flag for player detection
+	int sightRadius;		//Radius of sight
+	int x,y;				//Position in total map
+	int cx,cy;				//Cell position in total map in cartesian
+	int ix, iy;				//Cell position in total map in isometric
+	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 
-	cPath Trajectory; // Enemy path
+	cPath Trajectory;		// Enemy path
 
-	int seq;		//Sequence animation control
-	int delay;		//Animation delay
+	int seq;				//Sequence animation control
+	int delay;				//Animation delay
 
-	bool attack;	//Order to attack established (moving for attack)
-	bool shoot;		//Begin attack (to shoot)
-	int shoot_seq;	//Shooter sequence animation control
-	int shoot_delay;//Shooter animation delay
+	bool attack;			//Order to attack established (moving for attack)
+	bool shoot;				//Begin attack (to shoot)
+	int shoot_seq;			//Shooter sequence animation control
+	int shoot_delay;		//Shooter animation delay
 };
 
 #endif

@@ -43,10 +43,10 @@ public:
 	cAStar *AStar;
 	int *world;
 
-	void Make(int *map,int cx,int cy,int cxdest,int cydest);	//Make new path
-	void ReMake(int *map,int cxdest,int cydest);				//Make new path overlapping previous
-	int  NextStep(int *px,int *py,int *cx,int *cy);				//Calculate next step position
-	int  NextCell();										//Calculate next cell
+	void Make(int *map,int cx,int cy,int cxdest,int cydest);			//Make new path
+	void ReMake(int *map,int cxdest,int cydest);						//Make new path overlapping previous
+	int  NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy);		//Calculate next step position
+	int  NextCell();													//Calculate next cell
 
 	int  Faced();
 	bool IsDone();

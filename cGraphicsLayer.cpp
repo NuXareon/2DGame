@@ -223,22 +223,22 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 	fy=Scene->cy+SCENE_HEIGHT;
 
 	//for(y=Scene->cy;y<fy;y++)
-	for(y=0;y<32;++y)
+	for(y=0;y<SCENE_AREA;++y)
 	{
-		int _panty = SCENE_Yo + ((y-Scene->cy)*TILE_SIZE_Y/2);
+		//int _panty = SCENE_Yo + ((y-Scene->cy)*TILE_SIZE_Y/2);
 		
 		//for(x=Scene->cx;x<fx;x++)
-		for(x=0;x<32;++x)
+		for(x=0;x<SCENE_AREA;++x)
 		{
-			int _pantx = SCENE_Xo + ((x-Scene->cx)*TILE_SIZE_X)+(((y-Scene->cy)%2)*(TILE_SIZE_X/2));
-			int _x = x-Scene->cx;
-			int _y = y-Scene->cy;
-			float __pantx = 550 + TILE_SIZE_X*((float)_x-_y)/2;
-			float __panty = TILE_SIZE_Y*((float)_x+_y)/2;
+			//int _pantx = SCENE_Xo + ((x-Scene->cx)*TILE_SIZE_X)+(((y-Scene->cy)%2)*(TILE_SIZE_X/2));
+			int screenTileX = x-Scene->cx;
+			int screenTileY = y-Scene->cy;
+			float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
+			float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
 
 			n = Scene->map[(y*SCENE_AREA)+x];
 			g_pSprite->Draw(texTilesIso[n],NULL,NULL, 
-									&D3DXVECTOR3( __pantx, __panty, 0.0f), 
+									&D3DXVECTOR3( screenX, screenY, 0.0f), 
 									0xFFFFFFFF);
 			//SetRect(&rc,n<<5,0,(n+1)<<5,32);
 			//g_pSprite->Draw(texTiles,&rc,NULL, 
@@ -324,13 +324,13 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	Mouse->GetPosition(&mouseX,&mouseY);
 	Scene->TileSelected(mouseX,mouseY,&tx,&ty,&atx,&aty,&dx,&dy);
 
-	int _x = floor(tx)-Scene->cx;
-	int _y = floor(ty)-Scene->cy;
-	float __pantx = 550 + TILE_SIZE_X*((float)_x-_y)/2;
-	float __panty = TILE_SIZE_Y*((float)_x+_y)/2;
+	int screenTileX = floor(tx)-Scene->cx;
+	int screenTileY = floor(ty)-Scene->cy;
+	float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
+	float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
 
 	g_pSprite->Draw(texTilesIso[0],NULL,NULL, 
-							&D3DXVECTOR3( __pantx, __panty, 0.0f), 
+							&D3DXVECTOR3( screenX, screenY, 0.0f), 
 							0xFFFF0000);
 
 	//--- INFO ---

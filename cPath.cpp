@@ -72,7 +72,7 @@ void cPath::ReMake(int *map,int cxdest,int cydest)
 	}
 }
 
-int cPath::NextStep(int *px,int *py,int *cx,int *cy)
+int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy)
 {
 	int move=CONTINUE;
 
@@ -87,7 +87,32 @@ int cPath::NextStep(int *px,int *py,int *cx,int *cy)
 		case SE:(*py)+=STEP_LENGTH; (*px)+=STEP_LENGTH; break;
 		case SO:(*py)+=STEP_LENGTH; (*px)-=STEP_LENGTH; break;
 	}
-
+	/*
+	switch(dir)
+	{
+		case N:	(*iy)-=STEP_LENGTH;						break;
+		case S:	(*iy)+=STEP_LENGTH;						break;
+		case E:	(*ix)+=STEP_LENGTH*2;						break;
+		case O:	(*ix)-=STEP_LENGTH*2;						break;
+		case NE:(*iy)-=STEP_LENGTH; (*ix)+=STEP_LENGTH*2; break;
+		case NO:(*iy)-=STEP_LENGTH; (*ix)-=STEP_LENGTH*2; break;
+		case SE:(*iy)+=STEP_LENGTH; (*ix)+=STEP_LENGTH*2; break;
+		case SO:(*iy)+=STEP_LENGTH; (*ix)-=STEP_LENGTH*2; break;
+	}
+	*/
+	
+	switch(dir)
+	{
+		case O:	(*ix)-=STEP_LENGTH*1.5; (*iy)+=STEP_LENGTH*0.5; break;
+		case E:	(*ix)+=STEP_LENGTH*1.5; (*iy)-=STEP_LENGTH*0.5;	break;
+		case S:	(*ix)-=STEP_LENGTH*0.5;	(*iy)+=STEP_LENGTH*1.5;	break;
+		case N:	(*ix)+=STEP_LENGTH*0.5;	(*iy)-=STEP_LENGTH*1.5;	break;
+		case NE:(*ix)+=STEP_LENGTH*2;		(*iy)-=STEP_LENGTH*2;		break;
+		case NO:(*ix)-=STEP_LENGTH; (*iy)-=STEP_LENGTH;	break;
+		case SE:(*ix)+=STEP_LENGTH; (*iy)+=STEP_LENGTH;	break;
+		case SO:(*ix)-=STEP_LENGTH*2;		(*iy)+=STEP_LENGTH*2;		break;
+	}
+	
 	//Calculate next cell
 	if( (((*px)%32)==0) && (((*py)%32)==0))
 	{

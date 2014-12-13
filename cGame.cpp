@@ -161,11 +161,11 @@ void cGame::ProcessOrder()
 						//Movement
 						else
 						{
-							//Mouse->GetCell(&cx,&cy);
-							Mouse->GetPosition(&mx,&my);
+							Mouse->GetCell(&cx,&cy);
+							//Mouse->GetPosition(&mx,&my);
 
-							Scene.TileSelected(mx,my,&ix,&iy,&atx,&aty,&dx,&dy);
-							Critter.GoToCell(Scene.map,Scene.cx+cx,Scene.cy+cy);
+							//Scene.TileSelected(mx,my,&ix,&iy,&atx,&aty,&dx,&dy);
+							Critter.GoToCell(Scene.map,cx+Scene.cx,cy+Scene.cy);
 						}
 					}
 				}
@@ -223,6 +223,20 @@ void cGame::ProcessOrder()
 			Mouse->SetPointer(SELECT);
 			return;
 		}
+				//Arrow mouse pointers to move through scene
+		if	   (Mouse->In(             s,             s,SCREEN_RES_X-s,SCREEN_RES_Y-s)) Mouse->SetPointer(NORMAL);
+		else if(Mouse->In(             s,             0,SCREEN_RES_X-s,             s)) Mouse->SetPointer(MN);
+		else if(Mouse->In(             s,SCREEN_RES_Y-s,SCREEN_RES_X-s,  SCREEN_RES_Y)) Mouse->SetPointer(MS);
+		else if(Mouse->In(SCREEN_RES_X-s,             s,  SCREEN_RES_X,SCREEN_RES_Y-s)) Mouse->SetPointer(ME);
+		else if(Mouse->In(             0,             s,             s,SCREEN_RES_Y-s)) Mouse->SetPointer(MO);
+		else if(Mouse->In(             0,             0,             s,             s)) Mouse->SetPointer(MNO);
+		else if(Mouse->In(             0,SCREEN_RES_Y-s,             s,  SCREEN_RES_Y)) Mouse->SetPointer(MSO);
+		else if(Mouse->In(SCREEN_RES_X-s,             0,  SCREEN_RES_X,             s)) Mouse->SetPointer(MNE);
+		else if(Mouse->In(SCREEN_RES_X-s,SCREEN_RES_Y-s,  SCREEN_RES_X,  SCREEN_RES_Y)) Mouse->SetPointer(MSE);
+		else																			Mouse->SetPointer(NORMAL);
+
+		p = Mouse->GetPointer();
+		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
 		//Mouse over Enemy
 		Skeleton.GetCell(&cx,&cy);
 		if(Mouse->InCell(&Scene,cx,cy))
@@ -241,28 +255,16 @@ void cGame::ProcessOrder()
 			//Critter selected pointing, where to move trough radar
 			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
 		}	
-		//Arrow mouse pointers to move through scene
-		if	   (Mouse->In(             s,             s,SCREEN_RES_X-s,SCREEN_RES_Y-s)) Mouse->SetPointer(NORMAL);
-		else if(Mouse->In(             s,             0,SCREEN_RES_X-s,             s)) Mouse->SetPointer(MN);
-		else if(Mouse->In(             s,SCREEN_RES_Y-s,SCREEN_RES_X-s,  SCREEN_RES_Y)) Mouse->SetPointer(MS);
-		else if(Mouse->In(SCREEN_RES_X-s,             s,  SCREEN_RES_X,SCREEN_RES_Y-s)) Mouse->SetPointer(ME);
-		else if(Mouse->In(             0,             s,             s,SCREEN_RES_Y-s)) Mouse->SetPointer(MO);
-		else if(Mouse->In(             0,             0,             s,             s)) Mouse->SetPointer(MNO);
-		else if(Mouse->In(             0,SCREEN_RES_Y-s,             s,  SCREEN_RES_Y)) Mouse->SetPointer(MSO);
-		else if(Mouse->In(SCREEN_RES_X-s,             0,  SCREEN_RES_X,             s)) Mouse->SetPointer(MNE);
-		else if(Mouse->In(SCREEN_RES_X-s,SCREEN_RES_Y-s,  SCREEN_RES_X,  SCREEN_RES_Y)) Mouse->SetPointer(MSE);
-		else																			Mouse->SetPointer(NORMAL);
-
-		p = Mouse->GetPointer();
-		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
 	}
 	if(Mouse->ButtonDown(RIGHT))
 	{
+		/* 
 		if(Critter.GetSelected())
 		{
 			Critter.SetSelected(false);
 			Mouse->SetPointer(NORMAL);
 		}
+		*/
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();

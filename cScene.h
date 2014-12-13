@@ -19,6 +19,9 @@
 #define TILE_SIZE_X		64
 #define TILE_SIZE_Y		32
 
+// Map Offset
+#define ISO_OFFSET_X	550
+
 //Map coordinate beginning
 #define SCENE_Xo		0 //0-32
 #define SCENE_Yo		0  //56-16

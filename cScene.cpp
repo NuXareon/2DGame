@@ -25,7 +25,7 @@ void cScene::LoadMap(char *file)
 		for(j=0;j<SCENE_AREA;j++)
 		{
 			fscanf(f,"%d",&n);
-			map[k]=n%2;				/// TREURE %2, parche perque funcioni el mapa antic amb les tiles de iso
+			map[k]=n;
 			k++;
 		}
 	}
@@ -90,8 +90,8 @@ void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, floa
 	int rx, ry;
 	float dx, dy;
 
-	*tx=(my+(mx-550-TILE_SIZE_X/2)/2)-(SCENE_Xo);
-	*ty=(my-(mx-550-TILE_SIZE_Y)/2)-(SCENE_Yo);
+	*tx=(my+(mx-ISO_OFFSET_X-TILE_SIZE_X/2)/2)-(SCENE_Xo);
+	*ty=(my-(mx-ISO_OFFSET_X-TILE_SIZE_Y)/2)-(SCENE_Yo);
 
 	rx=(int)*tx%TILE_SIZE_X;
 	ry=(int)*ty%TILE_SIZE_Y;

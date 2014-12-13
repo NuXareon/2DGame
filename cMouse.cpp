@@ -130,8 +130,17 @@ bool cMouse::Read()
 	}
 	if((x<SCENE_Xf)&&(y>=SCENE_Yo))
 	{
-		cx=(x-SCENE_Xo)>>5;
-		cy=(y-SCENE_Yo)>>5;
+		cx=(y+(x-ISO_OFFSET_X-TILE_SIZE_X/2)/2)-(SCENE_Xo);
+		cy=(y-(x-ISO_OFFSET_X-TILE_SIZE_Y)/2)-(SCENE_Yo);
+
+		int rx=(int)cx%TILE_SIZE_X;
+		int ry=(int)cy%TILE_SIZE_Y;
+
+		cx=cx/TILE_SIZE_Y;
+		cy=cy/TILE_SIZE_Y;
+
+		//cx=(x-SCENE_Xo)>>5;
+		//cy=(y-SCENE_Yo)>>5;
 	}
 	else
 	{

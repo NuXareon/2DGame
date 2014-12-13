@@ -5,9 +5,11 @@
 
 cCritter::cCritter()
 {
+	ix = 64; iy = 64;
 	SetPosition(64,64);
 	SetCell(2,2);
 	SetSelected(true);
+	sprite_height = 64;
 
 	seq=0;
 	delay=0;
@@ -24,11 +26,11 @@ cCritter::~cCritter()
 
 void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	int _x = x-64;
-	int _y = y-64;
+	int offX = ix-sprite_height;
+	int offY = iy-sprite_height;
 
-	*posx = 550 + ((float)(_x-Scene->cx*TILE_SIZE_X)-(_y-Scene->cy*TILE_SIZE_X))/2;
-	*posy = ((float)(_x-Scene->cx*TILE_SIZE_Y)+(_x-Scene->cy*TILE_SIZE_Y))/2;
+	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
+	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
 
 	//*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
 	//*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
@@ -72,8 +74,8 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 void cCritter::GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
-	*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
+	*posx = SCENE_Xo + x - (Scene->cx<<5);
+	*posy = SCENE_Yo + y - (Scene->cy<<5);
 
 	//Life dependency not implemented
 	SetRect(rc,0,32,32,64);
@@ -139,7 +141,7 @@ void cCritter::Move()
 
 	if(!Trajectory.IsDone())
 	{
-		mov=Trajectory.NextStep(&x,&y,&cx,&cy);
+		mov=Trajectory.NextStep(&x,&y,&cx,&cy,&ix,&iy);
 
 		if(mov==ARRIVE)
 		{
