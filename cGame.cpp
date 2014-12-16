@@ -50,7 +50,7 @@ bool cGame::Loop()
 	//Process
 	res = LoopProcess();
 	if(!res) return false;
-	Skeleton.GoToCell(Scene.map,3,7);
+
 	//Output
 	res = LoopOutput();
 	if(!res) return false;
@@ -135,7 +135,7 @@ void cGame::ProcessOrder()
 	Mouse->GetPosition(&mx,&my);
 
     // Enemy Moves!
-	//DoEnemyTurn();
+	DoEnemyTurn();
 
 	//Player Moves!
 	if(Mouse->ButtonDown(LEFT))

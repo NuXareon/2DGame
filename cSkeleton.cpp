@@ -17,21 +17,21 @@ cSkeleton::~cSkeleton()
 }
 
 
-void cSkeleton::GoToCell(int *map, int destcx, int destcy)
+void cSkeleton::GoToCell(int *map, int destcx, int destcy, int type)
 {
 	// "leave all we're doing"
 	attack = false;
 	shoot = false;
 
 	// Go
-	if (Trajectory.IsDone())	Trajectory.Make(map, cx, cy, destcx, destcy,0);
-	else					Trajectory.ReMake(map, destcx, destcy,0);
+	if (Trajectory.IsDone())	Trajectory.Make(map, cx, cy, destcx, destcy,type);
+	else					Trajectory.ReMake(map, destcx, destcy,type);
 }
 
 void cSkeleton::GoToPlayer(int *map, int destcx, int destcy)
 {
 	//(Only implemented attack right to left)
-	GoToCell(map, destcx + 1, destcy);
+	GoToCell(map, destcx, destcy,1);
 
 	attack = true;
 	shoot = false;
