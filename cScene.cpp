@@ -114,6 +114,86 @@ void cScene::LoadMap(char *file)
 	
 }
 
+
+void cScene::LoadMapLogic()
+{
+	int i, j, k, n;
+
+	cLog *Log = cLog::Instance();
+
+	mapLogic = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+
+	if (level == 1)
+	{
+		FILE *f;
+		f = fopen("level1_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapLogic[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 2)
+	{
+		FILE *f;
+		f = fopen("level2_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapLogic[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 3)
+	{
+		FILE *f;
+		f = fopen("level3_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapLogic[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 4)
+	{
+		FILE *f;
+		f = fopen("level4_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapLogic[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+
+}
+
 void cScene::Move(int pointer)
 {
 	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15
@@ -263,4 +343,10 @@ void cScene::CartesianToIso(int cx, int cy, float& ix, float& iy)
 	ix = cx - cy;
 	iy = 0.5*(cx + cy);
 
+}
+
+
+int cScene::GetLevel()
+{
+	return level;
 }

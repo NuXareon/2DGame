@@ -47,6 +47,8 @@ public:
 	virtual ~cScene();
 
 	void LoadMap(char *file);
+	void LoadMapLogic();
+
 	void Move(int pointer); // ajustar condicions? --v
 	void MoveByRadar(int x,int y);
 	bool Visible(int cellx,int celly);
@@ -55,8 +57,11 @@ public:
 	void IsoToCartesian(float ix, float iy, int& cx, int& cy); // Method to tansform isometric to cartesian coordinates
 	void CartesianToIso(int cx, int cy, float& ix, float& iy); // Method to tansform cartesian to isometric coordinates
 
+	int GetLevel();
+
 	int level; //level number
 	int *map; // level map
+	int *mapLogic; //Map level with event triggers
 
 	int cx,cy; // cartesian coordinates
 	float isox, isoy; // isometric coordinates
