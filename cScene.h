@@ -11,9 +11,13 @@
 #define SCENE_HEIGHT	19 
 
 //Dimension = Area^2
-#define SCENE_AREA		32
-#define SCENE_ISO_X		50  // (550+32*32)/32
-#define SCENE_ISO_Y		32
+#define SCENE_AREA		64  // Level size 64x64
+//#define SCENE_ISO_X		50  // (550+32*32)/32
+//#define SCENE_ISO_X		50  // (550+32*32)/32
+//#define SCENE_ISO_Y		32
+#define SCENE_ISO_X		73  // (550+64*64)/64
+#define SCENE_ISO_Y		64
+
 
 // Tile Size
 #define TILE_SIZE_X		64
@@ -51,7 +55,9 @@ public:
 	void IsoToCartesian(float ix, float iy, int& cx, int& cy); // Method to tansform isometric to cartesian coordinates
 	void CartesianToIso(int cx, int cy, float& ix, float& iy); // Method to tansform cartesian to isometric coordinates
 
-	int *map;
+	int level; //level number
+	int *map; // level map
+
 	int cx,cy; // cartesian coordinates
 	float isox, isoy; // isometric coordinates
 };

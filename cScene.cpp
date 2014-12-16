@@ -2,35 +2,116 @@
 #include "cScene.h"
 #include "cMouse.h"
 #include <stdio.h>
+#include "cLog.h"
 
 
-cScene::cScene()
+
+cScene::cScene():
+level(1)
 {
 	cx=0;
 	cy=0;
 }
-cScene::~cScene(){}
+
+cScene::~cScene()
+{
+	free(map);
+}
 
 void cScene::LoadMap(char *file)
 {
 	int i,j,k,n;
-	
+
+	cLog *Log = cLog::Instance();
+
 	map=(int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 
-	FILE *f;
-	f=fopen("map.txt","r");
-	k=0;
-	for(i=0;i<SCENE_AREA;i++)
+	if (level == 1)
 	{
-		for(j=0;j<SCENE_AREA;j++)
+		FILE *f;
+		f = fopen("level1.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
 		{
-			fscanf(f,"%d",&n);
-			map[k]=n;
-			k++;
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				map[k] = n;
+				k++;
+			}
 		}
-	}
 
-	fclose(f);
+		fclose(f);
+	}
+	else if (level == 2)
+	{
+		FILE *f;
+		f = fopen("level2.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				map[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 3)
+	{
+		FILE *f;
+		f = fopen("level3.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				map[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 4)
+	{
+		FILE *f;
+		f = fopen("level4.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				map[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else
+	{
+		FILE *f;
+		f = fopen("map.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				map[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	
 }
 
 void cScene::Move(int pointer)

@@ -239,6 +239,7 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 			n = Scene->map[(y*SCENE_AREA)+x];
 			g_pSprite->Draw(texTilesIso[n],NULL,NULL, 
 									&D3DXVECTOR3( screenX, screenY, 0.0f), 
+
 									0xFFFFFFFF);
 			//SetRect(&rc,n<<5,0,(n+1)<<5,32);
 			//g_pSprite->Draw(texTiles,&rc,NULL, 
