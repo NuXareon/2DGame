@@ -16,6 +16,16 @@ cSkeleton::~cSkeleton()
 
 }
 
+void cSkeleton::Init(int nx, int ny)
+{
+	SetPosition(nx*32,ny*32);
+	SetCell(nx,ny);
+	ix=48*nx-16*ny;
+	iy=48*ny-16*nx;
+	//ix=(nx+ny)*TILE_SIZE_X;
+	//iy=(nx-ny)*TILE_SIZE_Y;
+}
+
 
 void cSkeleton::GoToCell(int *map, int destcx, int destcy, int type)
 {

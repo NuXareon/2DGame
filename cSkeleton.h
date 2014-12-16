@@ -13,6 +13,7 @@ class cSkeleton
 public:
 	cSkeleton(void);
 	virtual ~cSkeleton(void);
+	void Init(int x, int y);
 
 	void GoToCell(int *map, int destcx, int destcy,int type); //type= 0 - normal, 1 - attack
 	void GoToPlayer(int *map, int destcx, int destcy);

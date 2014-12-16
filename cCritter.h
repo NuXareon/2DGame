@@ -13,6 +13,7 @@ class cCritter
 public:
 	cCritter(void);
 	virtual ~cCritter(void);
+	void Init(int x, int y);
 
 	void GoToCell(int *map,int destcx,int destcy,int type);  //type= 0 - normal, 1 - attack
 	void GoToEnemy(int *map,int destcx,int destcy);

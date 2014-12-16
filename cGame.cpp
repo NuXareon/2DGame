@@ -135,7 +135,7 @@ void cGame::ProcessOrder()
 	Mouse->GetPosition(&mx,&my);
 
     // Enemy Moves!
-	DoEnemyTurn();
+	//DoEnemyTurn();
 
 	//Player Moves!
 	if(Mouse->ButtonDown(LEFT))
@@ -273,6 +273,8 @@ void cGame::ProcessOrder()
 // Method to implement enemy actions
 void cGame::DoEnemyTurn()
 {
+	//for (int
+	// Old code
 	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
 
 	if (Skeleton.PlayerIsDetected())
@@ -283,5 +285,4 @@ void cGame::DoEnemyTurn()
 
 		Skeleton.GoToPlayer(Scene.map, playerCellX, playerCellY);
 	}
-
 }

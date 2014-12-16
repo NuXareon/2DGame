@@ -24,6 +24,16 @@ cCritter::~cCritter()
 
 }
 
+void cCritter::Init(int nx, int ny)
+{
+	SetPosition(nx*32,ny*32);
+	SetCell(nx,ny);
+	ix=48*nx-16*ny;
+	iy=48*ny-16*nx;
+	//ix=(nx+ny)*TILE_SIZE_X;
+	//iy=(nx-ny)*TILE_SIZE_Y;
+}
+
 void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
 	int offX = ix-sprite_height;

@@ -29,6 +29,8 @@ private:
 	cScene Scene;
 	cCritter Critter;
 	cSkeleton Skeleton;
+	cSkeleton Enemies[10];
+	int nEnemies;
 	
 	int state;
 
