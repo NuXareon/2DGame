@@ -36,7 +36,7 @@ private:
 	int sightRadius;		//Radius of sight
 	int x,y;				//Position in total map
 	int cx,cy;				//Cell position in total map in cartesian
-	int ix, iy;				//Cell position in total map in isometric
+	int ix, iy;				//Position in total map in isometric
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 
 	cPath Trajectory;		// Enemy path

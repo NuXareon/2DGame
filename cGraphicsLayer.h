@@ -29,10 +29,10 @@ public:
 	
 	void LoadData();
 	void UnLoadData();
-	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
+	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 
 	bool DrawScene(cScene *Scene);
-	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
+	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 	bool DrawDebug(cScene *Scene, cMouse *Mouse);
 	bool DrawMouse(cMouse *Mouse);
 	bool DrawRect(RECT rc, D3DCOLOR color);

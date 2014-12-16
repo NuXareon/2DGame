@@ -175,7 +175,7 @@ void cGraphicsLayer::UnLoadData()
 	}
 }
 
-bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
+bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[],int nEnemies)
 {
 	//HRESULT Draw( LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect,
 	//				CONST D3DXVECTOR3 *pCenter,  CONST D3DXVECTOR3 *pPosition,
@@ -195,7 +195,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 
 				case STATE_GAME:
 								DrawScene(Scene);
-								DrawUnits(Scene,Critter,Skeleton);
+								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
 								DrawDebug(Scene, Mouse);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;
@@ -258,45 +258,62 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 	return true;
 }
 
-bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
+bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton,cSkeleton Enemies[],int nEnemies)
 {
 	int cx,cy,posx,posy;
 	RECT rc;
 
 	//Draw Critter
 	Critter->GetCell(&cx,&cy);
-	if(Scene->Visible(cx,cy))
-	{
-		Critter->GetRect(&rc,&posx,&posy,Scene);
+	//if(Scene->Visible(cx,cy))
+	//{
+	Critter->GetRect(&rc,&posx,&posy,Scene);
 
-		g_pSprite->Draw(texWarlock,&rc,NULL, 
+	g_pSprite->Draw(texWarlock,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+	/*
+	if(Critter->GetSelected())
+	{
+		Critter->GetRectLife(&rc,&posx,&posy,Scene);
+		g_pSprite->Draw(texMouse,&rc,NULL, 
 						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 						0xFFFFFFFF);
-		if(Critter->GetSelected())
-		{
-			Critter->GetRectLife(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texMouse,&rc,NULL, 
-							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-							0xFFFFFFFF);
-		}
-	}
+		*/
+	//}
+	//}
+	/*
 	Critter->GetRectRadar(&rc,&posx,&posy);
 	g_pSprite->Draw(texTiles,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
+	*/
 	//Draw Skeleton
-	Skeleton->GetCell(&cx,&cy);
-	if(Scene->Visible(cx,cy))
-	{
-		Skeleton->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
-						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);
-	}
+	//Skeleton->GetCell(&cx,&cy);
+	//if(Scene->Visible(cx,cy))
+	//{
+	Skeleton->GetRect(&rc,&posx,&posy,Scene);
+	g_pSprite->Draw(texCharacters,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+	//}
+	/*
 	Skeleton->GetRectRadar(&rc,&posx,&posy);
 	g_pSprite->Draw(texTiles,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
+					*/
+	//Draw enemies
+	for (int i = 0; i < nEnemies; ++i) {
+		cSkeleton enemy = Enemies[i];
+		//enemy.GetCell(&cx,&cy);
+
+		enemy.GetRect(&rc,&posx,&posy,Scene);
+		g_pSprite->Draw(texCharacters,&rc,NULL, 
+						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+						0xFFFFFFFF);
+	}
+
 	//Draw Fire
 	if(Critter->GetShooting())
 	{

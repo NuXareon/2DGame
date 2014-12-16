@@ -29,6 +29,11 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Scene.LoadMap("map.txt");
 
+	// Provisional initialization for testing purposes
+	Enemies[0].Init(5,7);
+	Enemies[1].Init(10,10);
+	nEnemies=2;
+
 	return true;
 }
 
@@ -99,6 +104,7 @@ bool cGame::LoopProcess()
 						ProcessOrder();
 						Critter.Move();
 						Skeleton.Move();
+						for(int i = 0; i < nEnemies; ++i) Enemies[i].Move();
 						break;
 	}
 
@@ -115,7 +121,7 @@ bool cGame::LoopOutput()
 bool cGame::Render()
 {
 	bool res;
-	res = Graphics.Render(state,Input.GetMouse(),&Scene,&Critter,&Skeleton);
+	res = Graphics.Render(state,Input.GetMouse(),&Scene,&Critter,&Skeleton,Enemies,nEnemies);
 	return res;
 }
 
@@ -124,6 +130,7 @@ void cGame::ProcessOrder()
 	cMouse *Mouse;
 	int mx, my, msx, msy, p, cx, cy, x, y;
 	float ix, iy, atx, aty, dx, dy;
+	bool attack;
 
 	int s=5; //marge for directional pointers
 	int xo,xf,yo,yf;
@@ -135,7 +142,7 @@ void cGame::ProcessOrder()
 	Mouse->GetPosition(&mx,&my);
 
     // Enemy Moves!
-	//DoEnemyTurn();
+	DoEnemyTurn();
 
 	//Player Moves!
 	if(Mouse->ButtonDown(LEFT))
@@ -151,15 +158,28 @@ void cGame::ProcessOrder()
 				{
 					if(release_and_press)
 					{
+						attack=false;
 						//Attack
 						Skeleton.GetCell(&cx,&cy);
 						if(Mouse->InCell(&Scene,cx,cy))
 						{
-							if(!Critter.GetShooting())
+							if(!Critter.GetShooting()){
 								Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy);
+								attack=true;
+							}
+						}
+						for (int i = 0; i < nEnemies; ++i) {
+							Enemies[i].GetCell(&cx,&cy);
+							if(Mouse->InCell(&Scene,cx,cy))
+							{
+								if(!Critter.GetShooting()) { // TODO: Comprovar que esta atacant al enemy correcte
+									Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy);
+									attack=true;
+								}
+							}
 						}
 						//Movement
-						else
+						if (!attack) //Si estas atacant a un enemic el seguent goto sera un moviment normal!
 						{
 							Mouse->GetCell(&cx,&cy);
 							//Mouse->GetPosition(&mx,&my);
@@ -238,23 +258,35 @@ void cGame::ProcessOrder()
 		p = Mouse->GetPointer();
 		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
 		//Mouse over Enemy
+		attack=false;
 		Skeleton.GetCell(&cx,&cy);
 		if(Mouse->InCell(&Scene,cx,cy))
 		{
 			Mouse->SetPointer(ATTACK);
+			attack=true;
 		}
-		else if(Mouse->In(s,SCENE_Yo,SCENE_Xf,SCENE_Yf-s))
+		for (int i = 0; i < nEnemies; ++i) {
+			Enemies[i].GetCell(&cx,&cy);
+			if(Mouse->InCell(&Scene,cx,cy))
+			{
+				Mouse->SetPointer(ATTACK);
+				attack=true;
+			}
+		}
+		if(!attack&&Mouse->In(s,SCENE_Yo,SCENE_Xf,SCENE_Yf-s))
 		{
 			//Critter selected pointing, where to move
 			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
 			//Critter selected but mouse out map
 			else						Mouse->SetPointer(NORMAL);
 		}
+		/*
 		else if(Mouse->In(RADAR_Xo,RADAR_Yo,RADAR_Xf,RADAR_Yf))
 		{
 			//Critter selected pointing, where to move trough radar
 			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
 		}	
+		*/
 	}
 	if(Mouse->ButtonDown(RIGHT))
 	{
@@ -273,8 +305,20 @@ void cGame::ProcessOrder()
 // Method to implement enemy actions
 void cGame::DoEnemyTurn()
 {
-	//for (int
-	// Old code
+	for (int i = 0; i < nEnemies; ++i) {
+		cSkeleton enemy = Enemies[i];
+		enemy.LookForPlayer(Critter); // search for player within sigh radius
+
+		if (enemy.PlayerIsDetected())
+		{
+			// get player cell 
+			int playerCellX, playerCellY;
+			Critter.GetCell(&playerCellX, &playerCellY);
+
+			enemy.GoToPlayer(Scene.map, playerCellX, playerCellY);
+		}
+	}
+
 	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
 
 	if (Skeleton.PlayerIsDetected())
