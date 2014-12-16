@@ -2,6 +2,8 @@
 #ifndef __SKELETON_H__
 #define __SKELETON_H__
 
+#define SKELETON_ID		0
+
 #include <windows.h>
 #include "cCritter.h"
 #include <cmath>
@@ -25,7 +27,10 @@ public:
 	void GetPosition(int *posx,int *posy);
 	void SetCell(int cellx,int celly);
 	void GetCell(int *cellx,int *celly);
-	
+	bool isActive();
+
+	void reduceHP(int x);
+
 	// Enemy IA
 	void LookForPlayer(cCritter& thePlayer);
 	void AttackPlayer(int* map,cCritter& thePlayer);
@@ -38,6 +43,10 @@ private:
 	int cx,cy;				//Cell position in total map in cartesian
 	int ix, iy;				//Position in total map in isometric
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
+
+	bool active;
+	int hp,damage,speed;
+	int type;
 
 	cPath Trajectory;		// Enemy path
 

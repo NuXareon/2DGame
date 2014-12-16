@@ -16,7 +16,7 @@ public:
 	void Init(int x, int y);
 
 	void GoToCell(int *map,int destcx,int destcy,int type);  //type= 0 - normal, 1 - attack
-	void GoToEnemy(int *map,int destcx,int destcy);
+	void GoToEnemy(int *map,int destcx,int destcy,int targetId);
 	void Move();
 	void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
 	void GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene);
@@ -30,7 +30,12 @@ public:
 	void SetSelected(bool sel);
 	bool GetSelected();
 	bool GetShooting();
+	void stopAttack();
+	int getTarget();
+	void setTarget(int t);
 	bool IsFiring();
+	bool isHit();
+	int getDamage();
 
 private:
 	int x,y;			//Position in total map
@@ -39,6 +44,7 @@ private:
 	int icx, icy;		//Cell position in total map in isometric
 	bool selected;		//Selected for move or attack
 	int hp, energy, damage, attackSpeed;
+	int target;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;

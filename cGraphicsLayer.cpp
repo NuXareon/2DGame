@@ -119,6 +119,10 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texWarlock);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skeleton.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texSkeleton);
+
 
 	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
@@ -134,6 +138,11 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"3.bmp",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texTilesIso[2]);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"UI-example.png",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0xFF408080,NULL,NULL,&texUI);
+
 }
 
 void cGraphicsLayer::UnLoadData()
@@ -168,6 +177,11 @@ void cGraphicsLayer::UnLoadData()
 		texMouse->Release();
 		texMouse = NULL;
 	}
+	if(texUI)
+	{
+		texUI->Release();
+		texUI = NULL;
+	}
 	if(g_pSprite)
 	{
 		g_pSprite->Release();
@@ -197,6 +211,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 								DrawScene(Scene);
 								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
 								DrawDebug(Scene, Mouse);
+								DrawUI();
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;
 			}
@@ -293,7 +308,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	//if(Scene->Visible(cx,cy))
 	//{
 	Skeleton->GetRect(&rc,&posx,&posy,Scene);
-	g_pSprite->Draw(texCharacters,&rc,NULL, 
+	g_pSprite->Draw(texSkeleton,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
 	//}
@@ -307,11 +322,12 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	for (int i = 0; i < nEnemies; ++i) {
 		cSkeleton enemy = Enemies[i];
 		//enemy.GetCell(&cx,&cy);
-
-		enemy.GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
-						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);
+		if (enemy.isActive()){
+			enemy.GetRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texSkeleton,&rc,NULL, 
+							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+							0xFFFFFFFF);
+		}
 	}
 
 	//Draw Fire
@@ -366,6 +382,16 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	font->DrawText(	NULL, info, -1, &rc, DT_NOCLIP, 
 				D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
 
+	return true;
+} //572 202
+
+bool cGraphicsLayer::DrawUI()
+{
+	RECT rc;
+	SetRect( &rc, 0, 0, 572, 202);
+	g_pSprite->Draw(texUI,&rc,NULL, 
+					&D3DXVECTOR3(float((800-572)/2),float(600-202),0.0f), 
+					0xFFFFFFFF);
 	return true;
 }
 

@@ -8,8 +8,11 @@ sightRadius(4)
 {
 	SetPosition(0,0);
 	SetCell(0,0);
-	sprite_height = 0;
+	sprite_height = 68;
 	ix=iy=0;
+	active=true;
+	hp=100;
+	type=SKELETON_ID;
 }
 cSkeleton::~cSkeleton()
 {
@@ -22,8 +25,6 @@ void cSkeleton::Init(int nx, int ny)
 	SetCell(nx,ny);
 	ix=48*nx-16*ny;
 	iy=48*ny-16*nx;
-	//ix=(nx+ny)*TILE_SIZE_X;
-	//iy=(nx-ny)*TILE_SIZE_Y;
 }
 
 
@@ -90,7 +91,8 @@ void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 	//*posx = SCENE_Xo + x - (Scene->cx<<5);
 	//*posy = SCENE_Yo + y - (Scene->cy<<5);
 
-	SetRect(rc,128,32,160,64);
+	if (type == SKELETON_ID) SetRect(rc,0,0,64,100); //TODO: variar dependiendo de animacion
+	else SetRect(rc,128,32,160,64); //useless
 }
 
 void cSkeleton::GetRectRadar(RECT *rc,int *posx,int *posy)
@@ -154,4 +156,15 @@ void cSkeleton::AttackPlayer(int* map, cCritter& thePlayer)
 bool cSkeleton::PlayerIsDetected()
 {
 	return playerDetected;
+}
+
+bool cSkeleton::isActive()
+{
+	return active;
+}
+
+void cSkeleton::reduceHP(int x)
+{
+	hp -= x;
+	if (hp<=0) active=false;
 }

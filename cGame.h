@@ -36,6 +36,7 @@ private:
 
 	void DoEnemyTurn();
 	void ProcessOrder();
+	void ProcessAttacks();
 	bool Render();
 };
 

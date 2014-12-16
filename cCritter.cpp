@@ -18,6 +18,10 @@ cCritter::cCritter()
 	shoot=false;
 	shoot_seq=0;
 	shoot_delay=0;
+
+	hp=100;
+	energy=6;
+	damage=20;
 }
 cCritter::~cCritter()
 {
@@ -137,13 +141,14 @@ void cCritter::GoToCell(int *map,int destcx,int destcy,int type)
 	else					Trajectory.ReMake(map,destcx,destcy,type);
 }
 
-void cCritter::GoToEnemy(int *map,int destcx,int destcy)
+void cCritter::GoToEnemy(int *map,int destcx,int destcy,int enemyId)
 {
 	//(Only implemented attack right to left)
 	GoToCell(map,destcx,destcy,1);
 
 	attack=true;
 	shoot=false;
+	target=enemyId;
 }
 void cCritter::Move()
 {
@@ -207,7 +212,29 @@ bool cCritter::GetShooting()
 {
 	return shoot;
 }
+int cCritter::getTarget()
+{
+	return target;
+}
+void cCritter::setTarget(int t)
+{
+	target=t;
+}
 bool cCritter::IsFiring()
 {
 	return (shoot_seq<8);
+}
+bool cCritter::isHit()
+{
+	return (shoot_seq==8&&shoot_delay==0);
+}
+int cCritter::getDamage()
+{
+	return damage;
+}
+
+void cCritter::stopAttack()
+{
+	attack=false;
+	shoot=false;
 }

@@ -105,6 +105,7 @@ bool cGame::LoopProcess()
 						Critter.Move();
 						Skeleton.Move();
 						for(int i = 0; i < nEnemies; ++i) Enemies[i].Move();
+						ProcessAttacks();
 						break;
 	}
 
@@ -164,17 +165,19 @@ void cGame::ProcessOrder()
 						if(Mouse->InCell(&Scene,cx,cy))
 						{
 							if(!Critter.GetShooting()){
-								Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy);
+								Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,0);
 								attack=true;
 							}
 						}
 						for (int i = 0; i < nEnemies; ++i) {
-							Enemies[i].GetCell(&cx,&cy);
-							if(Mouse->InCell(&Scene,cx,cy))
-							{
-								if(!Critter.GetShooting()) { // TODO: Comprovar que esta atacant al enemy correcte
-									Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy);
-									attack=true;
+							if (Enemies[i].isActive()){
+								Enemies[i].GetCell(&cx,&cy);
+								if(Mouse->InCell(&Scene,cx,cy))
+								{
+									//if(!Critter.GetShooting()&&Critter.getTarget()!=i) { // TODO: Comprovar que esta atacant al enemy correcte
+										Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,i);
+										attack=true;
+									//}
 								}
 							}
 						}
@@ -266,11 +269,13 @@ void cGame::ProcessOrder()
 			attack=true;
 		}
 		for (int i = 0; i < nEnemies; ++i) {
-			Enemies[i].GetCell(&cx,&cy);
-			if(Mouse->InCell(&Scene,cx,cy))
-			{
-				Mouse->SetPointer(ATTACK);
-				attack=true;
+			if (Enemies[i].isActive()) {
+				Enemies[i].GetCell(&cx,&cy);
+				if(Mouse->InCell(&Scene,cx,cy))
+				{
+					Mouse->SetPointer(ATTACK);
+					attack=true;
+				}
 			}
 		}
 		if(!attack&&Mouse->In(s,SCENE_Yo,SCENE_Xf,SCENE_Yf-s))
@@ -300,6 +305,15 @@ void cGame::ProcessOrder()
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
+}
+
+void cGame::ProcessAttacks()
+{
+	if (Critter.GetShooting()&&Critter.isHit()) {
+		int enemyId = Critter.getTarget();
+		Enemies[enemyId].reduceHP(Critter.getDamage());
+		if (!Enemies[enemyId].isActive()) Critter.stopAttack();
+	}
 }
 
 // Method to implement enemy actions

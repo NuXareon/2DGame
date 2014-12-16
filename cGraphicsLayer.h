@@ -34,6 +34,7 @@ public:
 	bool DrawScene(cScene *Scene);
 	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 	bool DrawDebug(cScene *Scene, cMouse *Mouse);
+	bool DrawUI();
 	bool DrawMouse(cMouse *Mouse);
 	bool DrawRect(RECT rc, D3DCOLOR color);
 
@@ -47,6 +48,8 @@ private:
 	LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
 	LPDIRECT3DTEXTURE9 texTilesIso[3];
 	LPDIRECT3DTEXTURE9 texWarlock;
+	LPDIRECT3DTEXTURE9 texSkeleton;
+	LPDIRECT3DTEXTURE9 texUI;
 
 	LPD3DXFONT font;
 };
