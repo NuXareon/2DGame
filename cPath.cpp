@@ -16,10 +16,11 @@ cPath::cPath()
 
 cPath::~cPath(){}
 
-void cPath::Make(int *map,int cx,int cy,int cxdest,int cydest)
+void cPath::Make(int *map,int cx,int cy,int cxdest,int cydest, int t)
 {
 	int status;		//find path?
 	int ncx,ncy;	//next cell
+	type = t;
 
 	//Exists movement?
 	if((cx!=cxdest)||(cy!=cydest))
@@ -43,7 +44,12 @@ void cPath::Make(int *map,int cx,int cy,int cxdest,int cydest)
 
 			//1st Direction
 			AStar->NextCell(&ncx,&ncy);
-			CalcDir(x,y,ncx,ncy);
+			if (type==1&&ncx==xf&&ncy==yf){
+				AStar->EndPathfinder();
+				delete AStar;
+				AStar = NULL;
+			}
+			else CalcDir(x,y,ncx,ncy);
 		}
 		else
 		{
@@ -62,10 +68,11 @@ void cPath::Make(int *map,int cx,int cy,int cxdest,int cydest)
 	}
 }
 
-void cPath::ReMake(int *map,int cxdest,int cydest)
+void cPath::ReMake(int *map,int cxdest,int cydest, int t)
 {
 	if(xf!=cxdest && yf!=cydest)
 	{
+		type = t;
 		world=map;
 		nxf=cxdest;
 		nyf=cydest;
@@ -107,10 +114,10 @@ int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy)
 		case E:	(*ix)+=STEP_LENGTH*1.5; (*iy)-=STEP_LENGTH*0.5;	break;
 		case S:	(*ix)-=STEP_LENGTH*0.5;	(*iy)+=STEP_LENGTH*1.5;	break;
 		case N:	(*ix)+=STEP_LENGTH*0.5;	(*iy)-=STEP_LENGTH*1.5;	break;
-		case NE:(*ix)+=STEP_LENGTH*2;		(*iy)-=STEP_LENGTH*2;		break;
-		case NO:(*ix)-=STEP_LENGTH; (*iy)-=STEP_LENGTH;	break;
-		case SE:(*ix)+=STEP_LENGTH; (*iy)+=STEP_LENGTH;	break;
-		case SO:(*ix)-=STEP_LENGTH*2;		(*iy)+=STEP_LENGTH*2;		break;
+		case NE:(*ix)+=STEP_LENGTH*2;	(*iy)-=STEP_LENGTH*2;	break;
+		case NO:(*ix)-=STEP_LENGTH;		(*iy)-=STEP_LENGTH;		break;
+		case SE:(*ix)+=STEP_LENGTH;		(*iy)+=STEP_LENGTH;		break;
+		case SO:(*ix)-=STEP_LENGTH*2;	(*iy)+=STEP_LENGTH*2;	break;
 	}
 	
 	//Calculate next cell
@@ -128,7 +135,7 @@ int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy)
 			AStar->EndPathfinder();
 			delete AStar;
 			AStar = NULL;
-			Make(world,*cx,*cy,nxf,nyf);
+			Make(world,*cx,*cy,nxf,nyf,type);
 			//move=CONTINUE;
 		}
 	}
@@ -149,6 +156,12 @@ int cPath::NextCell()
 	else
 	{
 		AStar->NextCell(&ncx,&ncy);
+		if (type==1&&ncx==xf&&ncy==yf){
+			AStar->EndPathfinder();
+			delete AStar;
+			AStar = NULL;
+			return ARRIVE;
+		}
 		CalcDir(x,y,ncx,ncy);
 		return CONTINUE;
 	}

@@ -14,7 +14,7 @@ public:
 	cCritter(void);
 	virtual ~cCritter(void);
 
-	void GoToCell(int *map,int destcx,int destcy);
+	void GoToCell(int *map,int destcx,int destcy,int type);  //type= 0 - normal, 1 - attack
 	void GoToEnemy(int *map,int destcx,int destcy);
 	void Move();
 	void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
@@ -37,6 +37,7 @@ private:
 	int cx,cy;			//Cell position in total map in cartesian 
 	int icx, icy;		//Cell position in total map in isometric
 	bool selected;		//Selected for move or attack
+	int hp, energy, damage, attackSpeed;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;

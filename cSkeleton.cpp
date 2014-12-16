@@ -9,6 +9,7 @@ sightRadius(4)
 	SetPosition(0,0);
 	SetCell(0,0);
 	sprite_height = 0;
+	ix=iy=0;
 }
 cSkeleton::~cSkeleton()
 {
@@ -23,8 +24,8 @@ void cSkeleton::GoToCell(int *map, int destcx, int destcy)
 	shoot = false;
 
 	// Go
-	if (Trajectory.IsDone())	Trajectory.Make(map, cx, cy, destcx, destcy);
-	else					Trajectory.ReMake(map, destcx, destcy);
+	if (Trajectory.IsDone())	Trajectory.Make(map, cx, cy, destcx, destcy,0);
+	else					Trajectory.ReMake(map, destcx, destcy,0);
 }
 
 void cSkeleton::GoToPlayer(int *map, int destcx, int destcy)
@@ -41,8 +42,7 @@ void cSkeleton::Move()
 
 	if (!Trajectory.IsDone())
 	{
-		int tempx,tmpy;
-		mov = Trajectory.NextStep(&x, &y, &cx, &cy,&tempx,&tmpy);
+		mov = Trajectory.NextStep(&x, &y, &cx, &cy,&ix,&iy);
 
 		if (mov == ARRIVE)
 		{
@@ -69,11 +69,11 @@ void cSkeleton::Move()
 
 void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	int offX = x-sprite_height;
-	int offY = y-sprite_height;
+	int offX = ix-sprite_height;
+	int offY = iy-sprite_height;
 
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
-	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offX-Scene->cy*TILE_SIZE_Y))/2;
+	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
 
 	//*posx = ISO_OFFSET_X + ((float)offX-offY)/2;
 	//*posy = ((float)offX+offY)/2;

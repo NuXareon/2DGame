@@ -116,21 +116,21 @@ void cCritter::GetRectRadar(RECT *rc,int *posx,int *posy)
 	SetRect(rc,80,32,84,36);
 }
 
-void cCritter::GoToCell(int *map,int destcx,int destcy)
+void cCritter::GoToCell(int *map,int destcx,int destcy,int type)
 {
 	// "leave all we're doing"
 	attack=false;
 	shoot=false;
 
 	// Go
-	if(Trajectory.IsDone())	Trajectory.Make(map,cx,cy,destcx,destcy);
-	else					Trajectory.ReMake(map,destcx,destcy);
+	if(Trajectory.IsDone())	Trajectory.Make(map,cx,cy,destcx,destcy,type);
+	else					Trajectory.ReMake(map,destcx,destcy,type);
 }
 
 void cCritter::GoToEnemy(int *map,int destcx,int destcy)
 {
 	//(Only implemented attack right to left)
-	GoToCell(map,destcx+1,destcy);
+	GoToCell(map,destcx,destcy,1);
 
 	attack=true;
 	shoot=false;

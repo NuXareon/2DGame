@@ -40,11 +40,12 @@ public:
 	int xf,yf;	//objective cell
 	int nxf,nyf;//new objective cell (superposed case)
 	int dir;	//direction
+	int type;	//0=normal movement, 1=attack(stops 1 tile before end)
 	cAStar *AStar;
 	int *world;
 
-	void Make(int *map,int cx,int cy,int cxdest,int cydest);			//Make new path
-	void ReMake(int *map,int cxdest,int cydest);						//Make new path overlapping previous
+	void Make(int *map,int cx,int cy,int cxdest,int cydest, int t);			//Make new path
+	void ReMake(int *map,int cxdest,int cydest, int t);						//Make new path overlapping previous
 	int  NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy);		//Calculate next step position
 	int  NextCell();													//Calculate next cell
 

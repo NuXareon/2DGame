@@ -43,7 +43,6 @@ void cGame::Finalize()
 bool cGame::Loop()
 {
 	bool res;
-
 	//Input
 	res = LoopInput();
 	if(!res) return false;
@@ -51,7 +50,7 @@ bool cGame::Loop()
 	//Process
 	res = LoopProcess();
 	if(!res) return false;
-
+	Skeleton.GoToCell(Scene.map,3,7);
 	//Output
 	res = LoopOutput();
 	if(!res) return false;
@@ -99,6 +98,7 @@ bool cGame::LoopProcess()
 		case STATE_GAME:
 						ProcessOrder();
 						Critter.Move();
+						Skeleton.Move();
 						break;
 	}
 
@@ -135,7 +135,7 @@ void cGame::ProcessOrder()
 	Mouse->GetPosition(&mx,&my);
 
     // Enemy Moves!
-	DoEnemyTurn();
+	//DoEnemyTurn();
 
 	//Player Moves!
 	if(Mouse->ButtonDown(LEFT))
@@ -165,7 +165,7 @@ void cGame::ProcessOrder()
 							//Mouse->GetPosition(&mx,&my);
 
 							//Scene.TileSelected(mx,my,&ix,&iy,&atx,&aty,&dx,&dy);
-							Critter.GoToCell(Scene.map,cx+Scene.cx,cy+Scene.cy);
+							Critter.GoToCell(Scene.map,cx+Scene.cx,cy+Scene.cy,0);
 						}
 					}
 				}
@@ -186,7 +186,7 @@ void cGame::ProcessOrder()
 					int radar_cell_x = (mx-RADAR_Xo) >> 2, //[672..799]/4=[0..31]
 						radar_cell_y = (my-RADAR_Yo) >> 2; //[ 60..187]/4=[0..31]
 
-					Critter.GoToCell(Scene.map,radar_cell_x,radar_cell_y);
+					Critter.GoToCell(Scene.map,radar_cell_x,radar_cell_y,0);
 				}
 			}
 			else
