@@ -5,8 +5,7 @@
 
 //Intitialize EventManager instance
 cGame::cGame() :
-Event(&Scene, &Critter, &Mobs),
-isEventUp(false)
+Event(&Scene, &Critter, &Mobs)
 {
 }
 cGame::~cGame(){}
@@ -37,6 +36,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene.LoadMapLogic();
 
 	// Provisional initialization for testing purposes (TODO: range!)
+/*
 	Enemies[0].Init(5,7,100,5,2,4,0,SKELETON_TYPE);
 	Enemies[1].Init(30,7,200,10,1,4,0,GOLEM_TYPE);
 	Enemies[2].Init(50,7,100,4,2,7,4,FIRELOCK_TYPE);
@@ -46,6 +46,16 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Enemies[6].Init(55,53,50,20,4,4,0,EXPLOSION_TYPE);
 	Enemies[7].Init(53,53,50,20,4,4,0,EXPLOSION_TYPE);
 	nEnemies=8;
+	//Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
+	//Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+	//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
+	//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+	//nEnemies = 4;
+	*/
+
+	nEnemies = LoadEnemies();
+
+	Skeleton.SetActive(false);
 
 	//
 	return true;
@@ -95,24 +105,50 @@ bool cGame::LoopProcess()
 {
 	cMouse *Mouse;
 	Mouse = Input.GetMouse();
-
-	switch(state)
+	bool release_and_press = false;
+	switch (state)
 	{
-		case STATE_MAIN:
-						if(Mouse->ButtonDown(LEFT))
-						{
-							//Play button
-							if(Mouse->In(334,236,420,278))
-							{
-								state = STATE_GAME;
-							}
-							//Exit button
-							else if(Mouse->In(426,236,512,278))
-							{
-								return false;
-							}
-						}
-						break;
+	case STATE_MAIN:
+		if (Mouse->ButtonDown(LEFT))
+		{
+			//Play button
+			if (Mouse->In(270, 440, 510, 500))
+			{
+				state = STATE_CREATION;
+			}
+			//Exit button
+			else if (Mouse->In(270, 510, 510, 570))
+			{
+				return false;
+			}
+		}
+		break;
+	case STATE_CREATION:
+		static int release_and_press;
+		if (Mouse->ButtonDown(LEFT))
+		{
+			if (release_and_press)
+			{
+				if (Mouse->In(357, 460, 430, 590))
+				{
+					state = STATE_GAME;
+				}
+				else if (Mouse->In(310, 470, 345, 513))
+				{
+					Critter.prevHead();
+				}
+				else if (Mouse->In(440, 470, 475, 513))
+				{
+					Critter.nextHead();
+				}
+			}
+			release_and_press = false;
+		}
+		else if (Mouse->ButtonUp(LEFT))
+		{
+			release_and_press = true;
+		}
+		break;
 
 		case STATE_GAME:
 						ProcessOrder();
@@ -357,7 +393,7 @@ void cGame::DoEnemyTurn()
 		}
 	}
 
-	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
+/*	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
 
 	if (Skeleton.PlayerIsDetected())
 	{
@@ -366,7 +402,7 @@ void cGame::DoEnemyTurn()
 		Critter.GetCell(&playerCellX, &playerCellY);
 
 		Skeleton.GoToPlayer(Scene.map, playerCellX, playerCellY);
-	}
+	}*/
 }
 
 void cGame::ProcessEvents()
@@ -377,8 +413,80 @@ void cGame::ProcessEvents()
 		if (Event.GetEventType() == 2) //Next Level
 		{
 			Event.GoToNextLevel();
+
+			for (int i = 0; i < nEnemies; i++)
+				Enemies[i].SetActive(false);
+
+			nEnemies = LoadEnemies();
 		}
 
+		// Ambush event on level 2
+		if (Scene.level == 2 && Event.GetEventType() == 3)
+		{
+			for (int i = 0; i < nEnemies; i++)
+				Enemies[i].SetActive(true);
+		}
 	}
+
+}
+
+int cGame::LoadEnemies()
+{
+	
+	int numEnem = 0;
+
+	for (int i = 0; i < (SCENE_AREA*SCENE_AREA); i++)
+	{
+		if (Scene.mapLogic[i]>3)
+		{
+			int x = i%SCENE_AREA;
+			int y = (int)i / SCENE_AREA;
+
+			//Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
+			//Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+			//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
+			//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+			//nEnemies = 4;
+
+			if (Scene.mapLogic[i] == 4)
+			{
+				Enemies[numEnem].Init(x,y,100,5,2,5,0,SKELETON_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			else if (Scene.mapLogic[i] == 5)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2,5,0, GOLEM_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			else if (Scene.mapLogic[i] == 6)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2,8,5, FIRELOCK_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			else if (Scene.mapLogic[i] == 7)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2,7,0, EXPLOSION_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+		}	
+	}
+
+	//Deactivating mobs in level 2 for the ambush
+	if (Scene.level == 2)
+	{
+		for (int i = 0; i < nEnemies; i++)
+		{
+			if (Enemies[i].GetType() == GOLEM_TYPE)
+				continue;
+
+			Enemies[i].SetActive(false);
+		}
+	}
+
+	return numEnem;
 
 }

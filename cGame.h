@@ -8,8 +8,9 @@
 #include "cEventManager.h"
 #include <vector>
 
-#define STATE_MAIN	0
-#define STATE_GAME	1
+#define STATE_MAIN		0
+#define STATE_CREATION	1
+#define STATE_GAME		2
 
 class cGame
 {
@@ -26,6 +27,8 @@ private:
 	bool LoopProcess();
 	bool LoopOutput();
 
+	int LoadEnemies();
+
 	cGraphicsLayer Graphics;
 	cInputLayer Input;
 	cScene Scene;
@@ -35,7 +38,6 @@ private:
 	int nEnemies;
 
 	cEventManager Event;
-	bool isEventUp;
 
 	//Dynamic vector of enemies
 	std::vector <cSkeleton> Mobs;

@@ -6,6 +6,7 @@
 #include "cTrajectory.h"
 #include "cPath.h"
 
+
 class cScene;
 
 class cCritter
@@ -35,12 +36,17 @@ public:
 	void setTarget(int t);
 	bool IsFiring();
 	bool isHit();
+	bool isDead();
 	int getDamage();
 	bool reduceHP(int hp);
 
 	void updateAttackSeq();
 	void PutInStart(int level); //Puts the player at the level start
 	void Restart();
+	void nextHead();
+	void prevHead();
+	int getHead();
+	void getRectHead(RECT *rc, int *offy, int *offx);
 
 	void UseSkill1(int cx, int cy, int enemyId);
 	void updateSkill1Seq();
@@ -58,6 +64,7 @@ private:
 	bool selected;		//Selected for move or attack
 	int hp, energy, damage, step_length;
 	int target;
+	int head;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;

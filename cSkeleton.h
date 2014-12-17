@@ -33,6 +33,8 @@ public:
 	MonsterType GetType();
 	bool isActive();
 
+	void SetActive(bool turn);
+
 	void updateAttackSeq();
 	void reduceHP(int x);
 

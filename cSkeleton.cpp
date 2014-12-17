@@ -10,7 +10,7 @@ sightRadius(4)
 	SetCell(0,0);
 	sprite_height = 68;
 	ix=iy=0;
-	active=true;
+	active=false;
 	hp=100;
 	damage=5;
 	step_length=2;
@@ -199,6 +199,11 @@ bool cSkeleton::PlayerIsDetected()
 bool cSkeleton::isActive()
 {
 	return active;
+}
+
+void cSkeleton::SetActive(bool turn)
+{
+	active = turn;
 }
 
 void cSkeleton::reduceHP(int x)
