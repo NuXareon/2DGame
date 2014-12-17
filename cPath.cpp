@@ -77,20 +77,20 @@ void cPath::ReMake(int *map,int cxdest,int cydest, int t)
 	}
 }
 
-int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy)
+int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy, int step_length)
 {
 	int move=CONTINUE;
 
 	switch(dir)
 	{
-		case N:	(*py)-=STEP_LENGTH;						break;
-		case S:	(*py)+=STEP_LENGTH;						break;
-		case E:	(*px)+=STEP_LENGTH;						break;
-		case O:	(*px)-=STEP_LENGTH;						break;
-		case NE:(*py)-=STEP_LENGTH; (*px)+=STEP_LENGTH; break;
-		case NO:(*py)-=STEP_LENGTH; (*px)-=STEP_LENGTH; break;
-		case SE:(*py)+=STEP_LENGTH; (*px)+=STEP_LENGTH; break;
-		case SO:(*py)+=STEP_LENGTH; (*px)-=STEP_LENGTH; break;
+		case N:	(*py)-=step_length;						break;
+		case S:	(*py)+=step_length;						break;
+		case E:	(*px)+=step_length;						break;
+		case O:	(*px)-=step_length;						break;
+		case NE:(*py)-=step_length; (*px)+=step_length; break;
+		case NO:(*py)-=step_length; (*px)-=step_length; break;
+		case SE:(*py)+=step_length; (*px)+=step_length; break;
+		case SO:(*py)+=step_length; (*px)-=step_length; break;
 	}
 	/*
 	switch(dir)
@@ -108,14 +108,14 @@ int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy)
 	
 	switch(dir)
 	{
-		case O:	(*ix)-=STEP_LENGTH*1.5; (*iy)+=STEP_LENGTH*0.5; break;
-		case E:	(*ix)+=STEP_LENGTH*1.5; (*iy)-=STEP_LENGTH*0.5;	break;
-		case S:	(*ix)-=STEP_LENGTH*0.5;	(*iy)+=STEP_LENGTH*1.5;	break;
-		case N:	(*ix)+=STEP_LENGTH*0.5;	(*iy)-=STEP_LENGTH*1.5;	break;
-		case NE:(*ix)+=STEP_LENGTH*2;	(*iy)-=STEP_LENGTH*2;	break;
-		case NO:(*ix)-=STEP_LENGTH;		(*iy)-=STEP_LENGTH;		break;
-		case SE:(*ix)+=STEP_LENGTH;		(*iy)+=STEP_LENGTH;		break;
-		case SO:(*ix)-=STEP_LENGTH*2;	(*iy)+=STEP_LENGTH*2;	break;
+		case O:	(*ix)-=step_length*1.5; (*iy)+=step_length*0.5; break;
+		case E:	(*ix)+=step_length*1.5; (*iy)-=step_length*0.5;	break;
+		case S:	(*ix)-=step_length*0.5;	(*iy)+=step_length*1.5;	break;
+		case N:	(*ix)+=step_length*0.5;	(*iy)-=step_length*1.5;	break;
+		case NE:(*ix)+=step_length*2;	(*iy)-=step_length*2;	break;
+		case NO:(*ix)-=step_length;		(*iy)-=step_length;		break;
+		case SE:(*ix)+=step_length;		(*iy)+=step_length;		break;
+		case SO:(*ix)-=step_length*2;	(*iy)+=step_length*2;	break;
 	}
 	
 	//Calculate next cell

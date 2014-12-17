@@ -36,10 +36,12 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene.LoadMap("map.txt");
 	Scene.LoadMapLogic();
 
-	// Provisional initialization for testing purposes
-	Enemies[0].Init(5,7);
-	Enemies[1].Init(10,10);
-	nEnemies=2;
+	// Provisional initialization for testing purposes (TODO: range!)
+	Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
+	Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+	Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
+	Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+	nEnemies=4;
 
 	//
 	return true;

@@ -12,19 +12,24 @@ sightRadius(4)
 	ix=iy=0;
 	active=true;
 	hp=100;
-	type=SKELETON_ID;
+	damage=5;
+	step_length=2;
+	type=SKELETON_TYPE;
 }
 cSkeleton::~cSkeleton()
 {
 
 }
 
-void cSkeleton::Init(int nx, int ny)
+void cSkeleton::Init(int nx, int ny,int _hp, int damage, int _step_length, MonsterType _type)
 {
 	SetPosition(nx*32,ny*32);
 	SetCell(nx,ny);
 	ix=48*nx-16*ny;
 	iy=48*ny-16*nx;
+	hp = _hp;
+	step_length = _step_length;
+	type = _type;
 }
 
 
@@ -53,7 +58,7 @@ void cSkeleton::Move()
 
 	if (!Trajectory.IsDone())
 	{
-		mov = Trajectory.NextStep(&x, &y, &cx, &cy,&ix,&iy);
+		mov = Trajectory.NextStep(&x, &y, &cx, &cy,&ix,&iy,step_length);
 
 		if (mov == ARRIVE)
 		{
@@ -87,7 +92,10 @@ void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
 
 
-	if (type == SKELETON_ID) SetRect(rc,0,0,64,100); //TODO: variar dependiendo de animacion
+	if (type == SKELETON_TYPE) SetRect(rc,0,0,64,100); //TODO: variar dependiendo de animacion
+	else if (type == GOLEM_TYPE) SetRect(rc,0,0,80,110);
+	else if (type == FIRELOCK_TYPE) SetRect(rc,0,0,64,100);
+	else if (type == EXPLOSION_TYPE) SetRect(rc,0,0,64,100);
 	else SetRect(rc,128,32,160,64); //useless
 }
 
@@ -119,7 +127,10 @@ void cSkeleton::GetCell(int *cellx,int *celly)
 	*cellx = cx;
 	*celly = cy;
 }
-
+MonsterType cSkeleton::GetType()
+{
+	return type;
+}
 // Method for player detection IA
 
 void cSkeleton::LookForPlayer(cCritter& thePlayer)

@@ -2,11 +2,11 @@
 #ifndef __SKELETON_H__
 #define __SKELETON_H__
 
-#define SKELETON_ID		0
-
 #include <windows.h>
 #include "cCritter.h"
 #include <cmath>
+
+enum MonsterType {SKELETON_TYPE, GOLEM_TYPE, FIRELOCK_TYPE, EXPLOSION_TYPE};
 
 class cScene;
 
@@ -15,7 +15,7 @@ class cSkeleton
 public:
 	cSkeleton(void);
 	virtual ~cSkeleton(void);
-	void Init(int x, int y);
+	void Init(int x, int y, int hp, int damage, int step_length, MonsterType type);
 
 	void GoToCell(int *map, int destcx, int destcy,int type); //type= 0 - normal, 1 - attack
 	void GoToPlayer(int *map, int destcx, int destcy);
@@ -27,6 +27,7 @@ public:
 	void GetPosition(int *posx,int *posy);
 	void SetCell(int cellx,int celly);
 	void GetCell(int *cellx,int *celly);
+	MonsterType GetType();
 	bool isActive();
 
 	void reduceHP(int x);
@@ -45,8 +46,8 @@ private:
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 
 	bool active;
-	int hp,damage,speed;
-	int type;
+	int hp,damage,step_length;
+	MonsterType type;
 
 	cPath Trajectory;		// Enemy path
 
