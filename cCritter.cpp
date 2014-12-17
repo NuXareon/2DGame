@@ -5,9 +5,11 @@
 
 cCritter::cCritter()
 {
-	ix = 64; iy = 64;
-	SetPosition(64,64);
-	SetCell(2,2);
+	//ix = 64; iy = 64;
+	//SetPosition(64,64);
+	//SetCell(2,2);
+	
+	Init(3, 61);
 	SetSelected(true);
 	sprite_height = 64;
 
@@ -232,4 +234,22 @@ void cCritter::stopAttack()
 {
 	attack=false;
 	shoot=false;
+}
+
+void cCritter::PutInStart(int level)
+{
+	if (level == 2)
+	{
+		Init(3, 30);
+	}
+	else if (level == 3)
+	{
+		Init(3, 60);
+	}
+	else if (level == 4)
+	{
+		Init(24, 62);
+	}
+
+
 }

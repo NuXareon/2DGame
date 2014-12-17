@@ -5,6 +5,8 @@
 #include "cGraphicsLayer.h"
 #include "cInputLayer.h"
 #include "cScene.h"
+#include "cEventManager.h"
+#include <vector>
 
 #define STATE_MAIN	0
 #define STATE_GAME	1
@@ -31,9 +33,16 @@ private:
 	cSkeleton Skeleton;
 	cSkeleton Enemies[10];
 	int nEnemies;
-	
+
+	cEventManager Event;
+	bool isEventUp;
+
+	//Dynamic vector of enemies
+	std::vector <cSkeleton> Mobs;
+
 	int state;
 
+	void ProcessEvents();
 	void DoEnemyTurn();
 	void ProcessOrder();
 	void ProcessAttacks();

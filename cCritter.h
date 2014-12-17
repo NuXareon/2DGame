@@ -37,6 +37,8 @@ public:
 	bool isHit();
 	int getDamage();
 
+	void PutInStart(int level); //Puts the player at the level start
+
 private:
 	int x,y;			//Position in total map
 	int ix,iy;			//Position in total isometric map

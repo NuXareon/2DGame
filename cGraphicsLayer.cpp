@@ -337,7 +337,7 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	cx = Scene->cx; cy = Scene->cy;
 	SetRect( &rc, 400, 350, 320, 544 );
 	char *info = (char *)malloc(sizeof(char)*200);
-	sprintf(info,"Map = %d x %d\nScene = %d , %d\nMouse = (%d,%d)\nTile = (%f,%f)\nDirect = (%f,%f)\nIncr = (%f,%f) (incremets are for pussies)",
+	sprintf(info,"Map = %d x %d\nScene = %d , %d\nMouse = (%d,%d)\nTile = (%f,%f)\nDirect = (%f,%f)\nIncr = (%f,%f) (incremets are for pussies)\nEvent = %f",
 			SCENE_WIDTH,SCENE_HEIGHT,cx,cy,mouseX,mouseY,tx,ty,atx,aty,dx,dy);
 
 	font->DrawText(	NULL, info, -1, &rc, DT_NOCLIP, 

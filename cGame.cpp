@@ -2,7 +2,13 @@
 #include "cGame.h"
 #include "cLog.h"
 
-cGame::cGame() {}
+
+//Intitialize EventManager instance
+cGame::cGame() :
+Event(&Scene, &Critter, &Mobs),
+isEventUp(false)
+{
+}
 cGame::~cGame(){}
 
 bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
@@ -34,6 +40,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Enemies[1].Init(10,10);
 	nEnemies=2;
 
+	//
 	return true;
 }
 
@@ -106,6 +113,7 @@ bool cGame::LoopProcess()
 						Skeleton.Move();
 						for(int i = 0; i < nEnemies; ++i) Enemies[i].Move();
 						ProcessAttacks();
+						ProcessEvents();
 						break;
 	}
 
@@ -314,4 +322,18 @@ void cGame::DoEnemyTurn()
 
 		Skeleton.GoToPlayer(Scene.map, playerCellX, playerCellY);
 	}
+}
+
+void cGame::ProcessEvents()
+{
+
+	if (Event.CheckForEvent())
+	{
+		if (Event.GetEventType() == 2) //Next Level
+		{
+			Event.GoToNextLevel();
+		}
+
+	}
+
 }

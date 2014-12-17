@@ -7,15 +7,20 @@
 
 
 cScene::cScene():
-level(1)
+level(2)
 {
 	cx=0;
 	cy=0;
+
+	map = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+	mapLogic = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+
 }
 
 cScene::~cScene()
 {
 	free(map);
+	free(mapLogic);
 }
 
 void cScene::LoadMap(char *file)
@@ -23,8 +28,6 @@ void cScene::LoadMap(char *file)
 	int i,j,k,n;
 
 	cLog *Log = cLog::Instance();
-
-	map=(int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 
 	if (level == 1)
 	{
@@ -120,8 +123,6 @@ void cScene::LoadMapLogic()
 	int i, j, k, n;
 
 	cLog *Log = cLog::Instance();
-
-	mapLogic = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 
 	if (level == 1)
 	{
