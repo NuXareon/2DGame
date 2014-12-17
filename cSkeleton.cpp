@@ -24,13 +24,14 @@ cSkeleton::~cSkeleton()
 
 }
 
-void cSkeleton::Init(int nx, int ny,int _hp, int damage, int _step_length, MonsterType _type)
+void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, MonsterType _type)
 {
 	SetPosition(nx*32,ny*32);
 	SetCell(nx,ny);
 	ix=48*nx-16*ny;
 	iy=48*ny-16*nx;
 	hp = _hp;
+	damage = _damage;
 	step_length = _step_length;
 	type = _type;
 }
@@ -132,6 +133,18 @@ void cSkeleton::GetCell(int *cellx,int *celly)
 	*cellx = cx;
 	*celly = cy;
 }
+bool cSkeleton::GetShooting()
+{
+	return shoot;
+}
+int cSkeleton::getDamage()
+{
+	return damage;
+}
+bool cSkeleton::isHit()
+{
+	return (shoot_seq==8&&shoot_delay==0);  // TODO: update depending enemy attack animation;
+}
 MonsterType cSkeleton::GetType()
 {
 	return type;
@@ -151,13 +164,15 @@ void cSkeleton::LookForPlayer(cCritter& thePlayer)
 		
 		if (mobToPlayerDistance < sightRadius)
 			playerDetected = true;
+		else 
+			playerDetected = false;
 	}
 	
 }
 
 void cSkeleton::AttackPlayer(int* map, cCritter& thePlayer)
 {
-	if (playerDetected)
+	if (playerDetected&&!shoot)
 	{
 		int playerCellX, playerCellY;
 		thePlayer.GetCell(&playerCellX, &playerCellY);
@@ -184,4 +199,24 @@ void cSkeleton::reduceHP(int x)
 {
 	hp -= x;
 	if (hp<=0) active=false;
+}
+
+void cSkeleton::updateAttackSeq()
+{
+	if (shoot) {
+		shoot_delay++;
+		if(shoot_delay==4)
+		{
+			shoot_seq++;
+			if(shoot_seq==16) {
+				shoot_seq=0;
+				shoot=false;
+			}
+			shoot_delay=0;
+		}
+	}
+	else {
+		shoot_delay=0;
+		shoot_seq=0;
+	}
 }

@@ -232,6 +232,12 @@ int cCritter::getDamage()
 	return damage;
 }
 
+bool cCritter::reduceHP(int _hp)
+{
+	hp -= _hp;
+	return (hp<=0);
+}
+
 void cCritter::stopAttack()
 {
 	attack=false;
@@ -240,7 +246,11 @@ void cCritter::stopAttack()
 
 void cCritter::PutInStart(int level)
 {
-	if (level == 2)
+	if (level == 1)
+	{
+		Init(3,61);
+	}
+	else if (level == 2)
 	{
 		Init(3, 30);
 	}
@@ -263,6 +273,9 @@ void cCritter::Restart()
 	shoot = false;
 	shoot_seq = 0;
 	shoot_delay = 0;
+
+	hp=100;
+	energy=6;
 
 	Trajectory.Restart();
 

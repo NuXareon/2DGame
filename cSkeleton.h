@@ -27,11 +27,15 @@ public:
 	void GetPosition(int *posx,int *posy);
 	void SetCell(int cellx,int celly);
 	void GetCell(int *cellx,int *celly);
+	bool GetShooting();
+	int getDamage();
+	bool isHit();
 	MonsterType GetType();
 	bool isActive();
 
 	void SetActive(bool turn);
 
+	void updateAttackSeq();
 	void reduceHP(int x);
 
 	// Enemy IA

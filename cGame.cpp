@@ -43,6 +43,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	//nEnemies = 4;
 	nEnemies = LoadEnemies();
 
+
 	//
 	return true;
 }
@@ -298,12 +299,19 @@ void cGame::ProcessAttacks()
 		Enemies[enemyId].reduceHP(Critter.getDamage());
 		if (!Enemies[enemyId].isActive()) Critter.stopAttack();
 	}
-	/*
 	for (int i = 0; i < nEnemies; i++) {
-		cSkeleton enemy = Enemies[i];
-
+		if (Enemies[i].isActive()) {
+			Enemies[i].updateAttackSeq();
+			if (Enemies[i].GetShooting()&&Enemies[i].isHit()) { // TODO: Check distance from target for ranged enemies
+				bool dead = Critter.reduceHP(Enemies[i].getDamage());
+				if(dead) {
+					Critter.Restart();
+					Critter.PutInStart(Scene.level);
+					// TODO: Reset enemies (read logical map?)
+				}
+			}
+		}
 	}
-	*/
 }
 
 // Method to implement enemy actions
@@ -312,7 +320,7 @@ void cGame::DoEnemyTurn()
 	for (int i = 0; i < nEnemies; ++i) {
 		Enemies[i].LookForPlayer(Critter); // search for player within sigh radius
 
-		if (Enemies[i].PlayerIsDetected())
+		if (Enemies[i].PlayerIsDetected()&&!Enemies[i].GetShooting())
 		{
 			// get player cell 
 			int playerCellX, playerCellY;
