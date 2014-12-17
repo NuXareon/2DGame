@@ -405,7 +405,7 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton,cSkeleton Enemies[],int nEnemies)
 {
 	int cx,cy,posx,posy;
-	float ix,iy;
+	float ix,iy,off;
 	RECT rc;
 
 	//Draw Critter
@@ -415,9 +415,9 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	g_pSprite->Draw(texWarlock,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
-	Critter->getRectHead(&rc);
+	Critter->getRectHead(&rc,&off);
 	g_pSprite->Draw(texHead, &rc, NULL,
-		&D3DXVECTOR3(float(posx+8), float(posy-18), 0.0f),
+		&D3DXVECTOR3(float(posx+8+off), float(posy-18+3*off), 0.0f),
 		0xFFFFFFFF);
 	/*
 	if(Critter->GetSelected())

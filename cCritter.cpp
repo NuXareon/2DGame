@@ -9,6 +9,8 @@ cCritter::cCritter()
 	//SetPosition(64,64);
 	//SetCell(2,2);
 	head=0;
+	head_offset=0;
+	head_dir=0;
 	
 	Init(3, 61);
 	//PutInStart(2);
@@ -484,7 +486,7 @@ bool cCritter::isDead()
 		return(true);
 }
 
-void cCritter::getRectHead(RECT *rc)
+void cCritter::getRectHead(RECT *rc, float *off)
 {
 	if (hp > 0)
 	{
@@ -547,6 +549,10 @@ void cCritter::getRectHead(RECT *rc)
 				case STOPN:			SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
 			}
 		}
+		if (head_dir) head_offset-=0.05f;
+		else head_offset+=0.05f;
+		if (head_offset>=1.0f||head_offset<=-1.0f) head_dir=!head_dir;
+		*off=head_offset;
 	}
 	else
 	{
