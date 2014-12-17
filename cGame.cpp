@@ -92,24 +92,50 @@ bool cGame::LoopProcess()
 {
 	cMouse *Mouse;
 	Mouse = Input.GetMouse();
-
-	switch(state)
+	bool release_and_press = false;
+	switch (state)
 	{
-		case STATE_MAIN:
-						if(Mouse->ButtonDown(LEFT))
-						{
-							//Play button
-							if (Mouse->In(270, 440, 510, 500))
-							{
-								state = STATE_GAME;
-							}
-							//Exit button
-							else if (Mouse->In(270, 510, 510, 570))
-							{
-								return false;
-							}
-						}
-						break;
+	case STATE_MAIN:
+		if (Mouse->ButtonDown(LEFT))
+		{
+			//Play button
+			if (Mouse->In(270, 440, 510, 500))
+			{
+				state = STATE_CREATION;
+			}
+			//Exit button
+			else if (Mouse->In(270, 510, 510, 570))
+			{
+				return false;
+			}
+		}
+		break;
+	case STATE_CREATION:
+		static int release_and_press;
+		if (Mouse->ButtonDown(LEFT))
+		{
+			if (release_and_press)
+			{
+				if (Mouse->In(357, 460, 430, 590))
+				{
+					state = STATE_GAME;
+				}
+				else if (Mouse->In(310, 470, 345, 513))
+				{
+					Critter.prevHead();
+				}
+				else if (Mouse->In(440, 470, 475, 513))
+				{
+					Critter.nextHead();
+				}
+			}
+			release_and_press = false;
+		}
+		else if (Mouse->ButtonUp(LEFT))
+		{
+			release_and_press = true;
+		}
+		break;
 
 		case STATE_GAME:
 						ProcessOrder();

@@ -8,8 +8,9 @@
 #include "cEventManager.h"
 #include <vector>
 
-#define STATE_MAIN	0
-#define STATE_GAME	1
+#define STATE_MAIN		0
+#define STATE_CREATION	1
+#define STATE_GAME		2
 
 class cGame
 {

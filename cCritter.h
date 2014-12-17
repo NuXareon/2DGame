@@ -41,6 +41,9 @@ public:
 	void updateAttackSeq();
 	void PutInStart(int level); //Puts the player at the level start
 	void Restart();
+	void nextHead();
+	void prevHead();
+	int getHead();
 
 private:
 	int x,y;			//Position in total map
@@ -50,6 +53,7 @@ private:
 	bool selected;		//Selected for move or attack
 	int hp, energy, damage, step_length;
 	int target;
+	int head=0;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;

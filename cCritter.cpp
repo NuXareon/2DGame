@@ -66,29 +66,21 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 	case STOPO: SetRect(rc, 192, 0, 64 + (64 * 3), 100);	break;
 
-	case N:		SetRect(rc, 0 + (64 * seq), 800, 64 + (64 * seq), 900);
-				SetRect(rc, 0 + (64 * seq), 700, 64 + (64 * seq), 800);		break;
+	case N:		SetRect(rc, 0 + (64 * seq), 700, 64 + (64 * seq), 800);		break;
 
-	case S:		SetRect(rc, 0 + (64 * seq), 100, 64 + (64 * seq), 200);		
-				SetRect(rc, 0 + (64 * seq), 200, 64 + (64 * seq), 300);		break;
+	case S:		SetRect(rc, 0 + (64 * seq), 200, 64 + (64 * seq), 300);		break;
 
-	case SE:	SetRect(rc, 0 + (64 * seq), 500, 64 + (64 * seq), 600);
-				SetRect(rc, 0 + (64 * seq), 100, 64 + (64 * seq), 200);		break;
+	case SE:	SetRect(rc, 0 + (64 * seq), 100, 64 + (64 * seq), 200);		break;
 
-	case NE:	SetRect(rc, 0 + (64 * seq), 700, 64 + (64 * seq), 800);		
-				SetRect(rc, 0 + (64 * seq), 600, 64 + (64 * seq), 700);		break;
+	case NE:	SetRect(rc, 0 + (64 * seq), 600, 64 + (64 * seq), 700);		break;
 
-	case E:		SetRect(rc, 0 + (64 * seq), 600, 64 + (64 * seq), 700);
-				SetRect(rc, 0 + (64 * seq), 500, 64 + (64 * seq), 600);		break;
+	case E:		SetRect(rc, 0 + (64 * seq), 500, 64 + (64 * seq), 600);		break;
 
-	case SO:	SetRect(rc, 0 + (64 * seq), 200, 64 + (64 * seq), 300);
-				SetRect(rc, 0 + (64 * seq), 300, 64 + (64 * seq), 400);		break;
+	case SO:	SetRect(rc, 0 + (64 * seq), 300, 64 + (64 * seq), 400);		break;
 	
-	case NO:	SetRect(rc, 0 + (64 * seq), 400, 64 + (64 * seq), 500);
-				SetRect(rc, 0 + (64 * seq), 800, 64 + (64 * seq), 900);		break;
+	case NO:	SetRect(rc, 0 + (64 * seq), 800, 64 + (64 * seq), 900);		break;
 
-	case O:		SetRect(rc, 0 + (64 * seq), 300, 64 + (64 * seq), 400);
-				SetRect(rc, 0 + (64 * seq), 400, 64 + (64 * seq), 500);		break;
+	case O:		SetRect(rc, 0 + (64 * seq), 400, 64 + (64 * seq), 500);		break;
 	}
 
 	if(!Trajectory.IsDone())
@@ -318,4 +310,22 @@ void cCritter::updateAttackSeq()
 		shoot_delay=0;
 		shoot_seq=0;
 	}
+}
+void cCritter::nextHead()
+{
+	if (head < 29)
+	{
+		head++;
+	}
+}
+void cCritter::prevHead()
+{
+	if (head>0)
+	{
+		head--;
+	}
+}
+int cCritter::getHead()
+{
+	return (head);
 }

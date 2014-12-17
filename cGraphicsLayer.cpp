@@ -103,8 +103,11 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "buttons.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
-		NULL, NULL, NULL, &texButtons);
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								NULL, NULL, NULL, &texButtons);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "create_character.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								NULL, NULL, NULL, &texCreation);
 	//GUI game
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"game.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -121,6 +124,9 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "warlock.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texWarlock);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "heads_white.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texHead);
 
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skeleton.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
@@ -153,9 +159,19 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texTilesIso[2]);
 
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"UI-example.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"UI.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texUI);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skillicons.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texIcons);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "HP.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texHP);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "mana.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texMana);
 
 }
 
@@ -166,6 +182,27 @@ void cGraphicsLayer::UnLoadData()
 		texMain->Release();
 		texMain = NULL;
 	}
+	if (texCreation)
+	{
+		texCreation->Release();
+		texCreation = NULL;
+	}
+	if (texMana)
+	{
+		texMana->Release();
+		texMana = NULL;
+	}
+	if (texHP)
+	{
+		texHP->Release();
+		texHP = NULL;
+	}
+	if (texIcons)
+	{
+		texIcons->Release();
+		texIcons = NULL;
+	}
+
 	if (texButtons)
 	{
 
@@ -191,6 +228,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texWarlock->Release();
 		texWarlock = NULL;
+	}
+	if (texHead)
+	{
+		texHead->Release();
+		texHead = NULL;
 	}
 	if (texSkeleton)
 	{
@@ -240,12 +282,13 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 
 		//--- SPRITES ---
 		g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		RECT rc;
 
 			switch(state)
 			{
 				case STATE_MAIN:
 
-								RECT rc;
+								
 								g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
 								rc.left = 0;
 								rc.top = 0;
@@ -269,6 +312,21 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 									rc.right = 480;
 								}
 								g_pSprite->Draw(texButtons, &rc, NULL, &D3DXVECTOR3(270.0f, 510.0f, 0.0f), 0xFFFFFFFF);
+								break;
+
+				case STATE_CREATION:
+
+								
+								rc.left = 0;
+								rc.top = 0;
+								rc.bottom = 100;
+								rc.right = 64;
+								g_pSprite->Draw(texCreation, NULL, NULL, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+								g_pSprite->Draw(texWarlock, &rc, NULL, &D3DXVECTOR3(358.0f, 487.0f, 0.0f), 0xFFFFFFFF);
+								rc.right = 50;
+								rc.top = 0 + (Critter->getHead()*50);
+								rc.bottom =50 + (Critter->getHead() * 50);
+								g_pSprite->Draw(texHead, &rc, NULL, &D3DXVECTOR3(366.0f, 470.0f, 0.0f), 0xFFFFFFFF);
 								break;
 
 				case STATE_GAME:
