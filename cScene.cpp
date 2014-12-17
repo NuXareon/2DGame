@@ -14,6 +14,7 @@ level(1)
 
 	map = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 	mapLogic = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+	mapTiles = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 
 }
 
@@ -21,6 +22,7 @@ cScene::~cScene()
 {
 	free(map);
 	free(mapLogic);
+	free(mapTiles);
 }
 
 void cScene::LoadMap(char *file)
@@ -195,6 +197,84 @@ void cScene::LoadMapLogic()
 
 }
 
+
+
+void cScene::LoadMapTiles()
+{
+	int i, j, k, n;
+
+	cLog *Log = cLog::Instance();
+
+	if (level == 1)
+	{
+		FILE *f;
+		f = fopen("level1_Tiles.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapTiles[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 2)
+	{
+		FILE *f;
+		f = fopen("level2_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapTiles[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 3)
+	{
+		FILE *f;
+		f = fopen("level3_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapTiles[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+	else if (level == 4)
+	{
+		FILE *f;
+		f = fopen("level4_Logic.txt", "r");
+		k = 0;
+		for (i = 0; i<SCENE_AREA; i++)
+		{
+			for (j = 0; j<SCENE_AREA; j++)
+			{
+				fscanf(f, "%d", &n);
+				mapTiles[k] = n;
+				k++;
+			}
+		}
+
+		fclose(f);
+	}
+
+}
 void cScene::Move(int pointer)
 {
 	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15
@@ -335,6 +415,7 @@ void cScene::TileSelected(int mouse_x,int mouse_y,float *tx, float *ty)
 	 float atx, aty, Dx, Dy;
 	 TileSelectedDebug(mouse_x, mouse_y, tx, ty, &atx, &aty, &Dx, &Dy);
 }
+
 void cScene::IsoToCartesian(float ix, float iy, int& cx, int& cy)
 {
 	// 45deg roration of the 2d reticle

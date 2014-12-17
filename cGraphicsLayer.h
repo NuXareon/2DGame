@@ -46,7 +46,7 @@ private:
 
 	LPDIRECT3DTEXTURE9 texMain,texGame;
 	LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
-	LPDIRECT3DTEXTURE9 texTilesIso[3];
+	LPDIRECT3DTEXTURE9 texTilesIso[8];
 	LPDIRECT3DTEXTURE9 texWarlock;
 	LPDIRECT3DTEXTURE9 texSkeleton;
 	LPDIRECT3DTEXTURE9 texGolem;
