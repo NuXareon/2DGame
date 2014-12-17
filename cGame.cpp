@@ -34,6 +34,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Graphics.LoadData();
 
 	Scene.LoadMap("map.txt");
+	Scene.LoadMapLogic();
 
 	// Provisional initialization for testing purposes
 	Enemies[0].Init(5,7);

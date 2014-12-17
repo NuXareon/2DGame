@@ -40,6 +40,7 @@ void cEventManager::GoToNextLevel()
 	Scene->LoadMapLogic();
 
 	Player->PutInStart(Scene->level);
+	IsDone();
 }
 
 int cEventManager::GetEventType()
