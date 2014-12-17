@@ -38,9 +38,9 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	// Provisional initialization for testing purposes (TODO: range!)
 	Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
-	Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+	Enemies[1].Init(30,7,200,10,1,GOLEM_TYPE);
 	Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
-	Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+	Enemies[3].Init(55,55,50,15,4,EXPLOSION_TYPE);
 	nEnemies=4;
 
 	//
@@ -298,12 +298,19 @@ void cGame::ProcessAttacks()
 		Enemies[enemyId].reduceHP(Critter.getDamage());
 		if (!Enemies[enemyId].isActive()) Critter.stopAttack();
 	}
-	/*
 	for (int i = 0; i < nEnemies; i++) {
-		cSkeleton enemy = Enemies[i];
-
+		if (Enemies[i].isActive()) {
+			Enemies[i].updateAttackSeq();
+			if (Enemies[i].GetShooting()&&Enemies[i].isHit()) { // TODO: Check distance from target for ranged enemies
+				bool dead = Critter.reduceHP(Enemies[i].getDamage());
+				if(dead) {
+					Critter.Restart();
+					Critter.PutInStart(Scene.level);
+					// TODO: Reset enemies (read logical map?)
+				}
+			}
+		}
 	}
-	*/
 }
 
 // Method to implement enemy actions
@@ -312,7 +319,7 @@ void cGame::DoEnemyTurn()
 	for (int i = 0; i < nEnemies; ++i) {
 		Enemies[i].LookForPlayer(Critter); // search for player within sigh radius
 
-		if (Enemies[i].PlayerIsDetected())
+		if (Enemies[i].PlayerIsDetected()&&!Enemies[i].GetShooting())
 		{
 			// get player cell 
 			int playerCellX, playerCellY;

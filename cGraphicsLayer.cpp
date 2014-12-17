@@ -341,7 +341,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 			}
 		}
 	}
-
+	/*
 	//Draw Fire
 	if(Critter->GetShooting())
 	{
@@ -359,6 +359,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
 		}
 	}
+	*/
 	return true;
 }
 

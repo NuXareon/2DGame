@@ -36,6 +36,7 @@ public:
 	bool IsFiring();
 	bool isHit();
 	int getDamage();
+	bool reduceHP(int hp);
 
 	void updateAttackSeq();
 	void PutInStart(int level); //Puts the player at the level start
