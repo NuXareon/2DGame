@@ -86,10 +86,6 @@ void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
 
-	//*posx = ISO_OFFSET_X + ((float)offX-offY)/2;
-	//*posy = ((float)offX+offY)/2;
-	//*posx = SCENE_Xo + x - (Scene->cx<<5);
-	//*posy = SCENE_Yo + y - (Scene->cy<<5);
 
 	if (type == SKELETON_ID) SetRect(rc,0,0,64,100); //TODO: variar dependiendo de animacion
 	else SetRect(rc,128,32,160,64); //useless

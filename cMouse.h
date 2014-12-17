@@ -48,7 +48,7 @@ public:
 
 	void SetPosition(int xo, int yo);
 	void GetPosition(int *xpos, int *ypos);
-	void GetCell(int *xcell,int *ycell);
+	void GetCell(int *xcell,int *ycell);		// Do not use this function, instead use GetPosition() and Scene->TileSelected();
 	void SetPointer(int p);
 	int  GetPointer();
 	void SetSelection(int s);

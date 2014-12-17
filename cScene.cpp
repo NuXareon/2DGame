@@ -246,7 +246,7 @@ bool cScene::Visible(int cellx,int celly)
 	return ((cellx>=cx)&&(cellx<cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<cy+SCENE_HEIGHT)) ? 1 : 0;
 }
 
-void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, float *aty, float *Dx, float *Dy)
+void cScene::TileSelectedDebug(int mx, int my, float *tx, float *ty, float *atx, float *aty, float *Dx, float *Dy)
 {
 	int rx, ry;
 	float dx, dy;
@@ -327,9 +327,13 @@ void cScene::TileSelected(int mx, int my, float *tx, float *ty, float *atx, floa
 	*/
 	*Dx=0.0f;
 	*Dy=0.0f;
-	
 }
 
+void cScene::TileSelected(int mouse_x,int mouse_y,float *tx, float *ty)
+{
+	 float atx, aty, Dx, Dy;
+	 TileSelectedDebug(mouse_x, mouse_y, tx, ty, &atx, &aty, &Dx, &Dy);
+}
 void cScene::IsoToCartesian(float ix, float iy, int& cx, int& cy)
 {
 	// 45deg roration of the 2d reticle

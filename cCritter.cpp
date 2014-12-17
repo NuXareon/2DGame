@@ -34,8 +34,6 @@ void cCritter::Init(int nx, int ny)
 	SetCell(nx,ny);
 	ix=48*nx-16*ny;
 	iy=48*ny-16*nx;
-	//ix=(nx+ny)*TILE_SIZE_X;
-	//iy=(nx-ny)*TILE_SIZE_Y;
 }
 
 void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -45,9 +43,6 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
-
-	//*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
-	//*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
 
 	switch (Trajectory.Faced()) // 0, 0, 64, 100
 	{

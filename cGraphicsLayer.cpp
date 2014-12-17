@@ -237,15 +237,10 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 	fx=Scene->cx+SCENE_WIDTH;
 	fy=Scene->cy+SCENE_HEIGHT;
 
-	//for(y=Scene->cy;y<fy;y++)
 	for(y=0;y<SCENE_AREA;++y)
 	{
-		//int _panty = SCENE_Yo + ((y-Scene->cy)*TILE_SIZE_Y/2);
-		
-		//for(x=Scene->cx;x<fx;x++)
 		for(x=0;x<SCENE_AREA;++x)
 		{
-			//int _pantx = SCENE_Xo + ((x-Scene->cx)*TILE_SIZE_X)+(((y-Scene->cy)%2)*(TILE_SIZE_X/2));
 			int screenTileX = x-Scene->cx;
 			int screenTileY = y-Scene->cy;
 			float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
@@ -256,20 +251,8 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 									&D3DXVECTOR3( screenX, screenY, 0.0f), 
 
 									0xFFFFFFFF);
-			//SetRect(&rc,n<<5,0,(n+1)<<5,32);
-			//g_pSprite->Draw(texTiles,&rc,NULL, 
-			//				&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
-			//				0xFFFFFFFF);
 		}
 	}
-
-	//Draw radar
-	x=RADAR_Xo+(Scene->cx<<2);
-	y=RADAR_Yo+(Scene->cy<<2);
-	SetRect(&rc,0,32,80,100);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(x),float(y),0.0f), 
-					0xFFFFFFFF);
 	return true;
 }
 
@@ -280,8 +263,6 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 
 	//Draw Critter
 	Critter->GetCell(&cx,&cy);
-	//if(Scene->Visible(cx,cy))
-	//{
 	Critter->GetRect(&rc,&posx,&posy,Scene);
 
 	g_pSprite->Draw(texWarlock,&rc,NULL, 
@@ -296,32 +277,15 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 						0xFFFFFFFF);
 		*/
 	//}
-	//}
-	/*
-	Critter->GetRectRadar(&rc,&posx,&posy);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
-	*/
-	//Draw Skeleton
-	//Skeleton->GetCell(&cx,&cy);
-	//if(Scene->Visible(cx,cy))
-	//{
+
 	Skeleton->GetRect(&rc,&posx,&posy,Scene);
 	g_pSprite->Draw(texSkeleton,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
-	//}
-	/*
-	Skeleton->GetRectRadar(&rc,&posx,&posy);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
-					*/
+
 	//Draw enemies
 	for (int i = 0; i < nEnemies; ++i) {
 		cSkeleton enemy = Enemies[i];
-		//enemy.GetCell(&cx,&cy);
 		if (enemy.isActive()){
 			enemy.GetRect(&rc,&posx,&posy,Scene);
 			g_pSprite->Draw(texSkeleton,&rc,NULL, 
@@ -356,7 +320,7 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	float tx,ty,atx,aty,dx,dy;
 	int mouseX,mouseY;
 	Mouse->GetPosition(&mouseX,&mouseY);
-	Scene->TileSelected(mouseX,mouseY,&tx,&ty,&atx,&aty,&dx,&dy);
+	Scene->TileSelectedDebug(mouseX,mouseY,&tx,&ty,&atx,&aty,&dx,&dy);
 
 	int screenTileX = floor(tx)-Scene->cx;
 	int screenTileY = floor(ty)-Scene->cy;

@@ -52,7 +52,8 @@ public:
 	void Move(int pointer); // ajustar condicions? --v
 	void MoveByRadar(int x,int y);
 	bool Visible(int cellx,int celly);
-	void TileSelected(int mouse_x,int mouse_y,float *tx, float *ty,float *atx,float *aty,float *Dx,float *Dy);  // Note: tx and ty are floats, in order to get de correct tile use [floor(tx),floor(ty)].
+	void TileSelectedDebug(int mouse_x,int mouse_y,float *tx, float *ty,float *atx,float *aty,float *Dx,float *Dy);  // Note: tx and ty are floats, in order to get de correct tile use [floor(tx),floor(ty)].
+	void TileSelected(int mouse_x,int mouse_y,float *tx, float *ty);
 
 	void IsoToCartesian(float ix, float iy, int& cx, int& cy); // Method to tansform isometric to cartesian coordinates
 	void CartesianToIso(int cx, int cy, float& ix, float& iy); // Method to tansform cartesian to isometric coordinates

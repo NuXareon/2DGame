@@ -130,13 +130,14 @@ void cGame::ProcessOrder()
 {
 	cMouse *Mouse;
 	int mx, my, msx, msy, p, cx, cy, x, y;
-	float ix, iy, atx, aty, dx, dy;
+	float ix, iy, atx, aty, dx, dy, fcx, fcy;
 	bool attack;
 
 	int s=5; //marge for directional pointers
 	int xo,xf,yo,yf;
 	int b4pointer;
 	static int release_and_press;
+	RECT rc;
 
 	Mouse = Input.GetMouse();
 	b4pointer = Mouse->GetPointer();
@@ -161,34 +162,33 @@ void cGame::ProcessOrder()
 					{
 						attack=false;
 						//Attack
-						Skeleton.GetCell(&cx,&cy);
-						if(Mouse->InCell(&Scene,cx,cy))
+						Skeleton.GetRect(&rc, &x, &y, &Scene);
+						if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 						{
 							if(!Critter.GetShooting()){
+								Skeleton.GetCell(&cx,&cy);
 								Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,0);
 								attack=true;
 							}
 						}
 						for (int i = 0; i < nEnemies; ++i) {
 							if (Enemies[i].isActive()){
-								Enemies[i].GetCell(&cx,&cy);
-								if(Mouse->InCell(&Scene,cx,cy))
+								Enemies[i].GetRect(&rc,&x,&y,&Scene);
+								if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 								{
-									//if(!Critter.GetShooting()&&Critter.getTarget()!=i) { // TODO: Comprovar que esta atacant al enemy correcte
-										Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,i);
-										attack=true;
-									//}
+									Enemies[i].GetCell(&cx,&cy);
+									Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,i);
+									attack=true;
 								}
 							}
 						}
 						//Movement
 						if (!attack) //Si estas atacant a un enemic el seguent goto sera un moviment normal!
 						{
-							Mouse->GetCell(&cx,&cy);
-							//Mouse->GetPosition(&mx,&my);
-
-							//Scene.TileSelected(mx,my,&ix,&iy,&atx,&aty,&dx,&dy);
-							Critter.GoToCell(Scene.map,cx+Scene.cx,cy+Scene.cy,0);
+							Mouse->GetPosition(&x,&y);
+							Scene.TileSelected(x,y,&fcx,&fcy);
+							cx=floor(fcx); cy=floor(fcy);
+							Critter.GoToCell(Scene.map,cx,cy,0);
 						}
 					}
 				}
@@ -198,24 +198,6 @@ void cGame::ProcessOrder()
 					Mouse->SetSelection(SELECT_SCENE);
 					Mouse->SetSelectionPoint(mx,my);
 				}
-			}
-		}
-		else if(Mouse->In(RADAR_Xo,RADAR_Yo,RADAR_Xf,RADAR_Yf))
-		{
-			if(Critter.GetSelected())
-			{
-				if(release_and_press)
-				{
-					int radar_cell_x = (mx-RADAR_Xo) >> 2, //[672..799]/4=[0..31]
-						radar_cell_y = (my-RADAR_Yo) >> 2; //[ 60..187]/4=[0..31]
-
-					Critter.GoToCell(Scene.map,radar_cell_x,radar_cell_y,0);
-				}
-			}
-			else
-			{
-				Mouse->SetSelection(SELECT_RADAR);
-				Scene.MoveByRadar(mx,my);
 			}
 		}
 		release_and_press = false;
@@ -241,7 +223,9 @@ void cGame::ProcessOrder()
 
 		//Mouse over Critter
 		Critter.GetCell(&cx,&cy);
-		if(Mouse->InCell(&Scene,cx,cy))
+		Mouse->GetPosition(&x,&y);
+		Scene.TileSelected(x,y,&fcx,&fcy);
+		if(cx==floor(fcx)&&cy==floor(fcy))
 		{
 			Mouse->SetPointer(SELECT);
 			return;
@@ -270,8 +254,8 @@ void cGame::ProcessOrder()
 		}
 		for (int i = 0; i < nEnemies; ++i) {
 			if (Enemies[i].isActive()) {
-				Enemies[i].GetCell(&cx,&cy);
-				if(Mouse->InCell(&Scene,cx,cy))
+				Enemies[i].GetRect(&rc,&x,&y,&Scene);
+				if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 				{
 					Mouse->SetPointer(ATTACK);
 					attack=true;
@@ -285,23 +269,11 @@ void cGame::ProcessOrder()
 			//Critter selected but mouse out map
 			else						Mouse->SetPointer(NORMAL);
 		}
-		/*
-		else if(Mouse->In(RADAR_Xo,RADAR_Yo,RADAR_Xf,RADAR_Yf))
-		{
-			//Critter selected pointing, where to move trough radar
-			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
-		}	
-		*/
+
 	}
 	if(Mouse->ButtonDown(RIGHT))
 	{
-		/* 
-		if(Critter.GetSelected())
-		{
-			Critter.SetSelected(false);
-			Mouse->SetPointer(NORMAL);
-		}
-		*/
+
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
@@ -320,16 +292,15 @@ void cGame::ProcessAttacks()
 void cGame::DoEnemyTurn()
 {
 	for (int i = 0; i < nEnemies; ++i) {
-		cSkeleton enemy = Enemies[i];
-		enemy.LookForPlayer(Critter); // search for player within sigh radius
+		Enemies[i].LookForPlayer(Critter); // search for player within sigh radius
 
-		if (enemy.PlayerIsDetected())
+		if (Enemies[i].PlayerIsDetected())
 		{
 			// get player cell 
 			int playerCellX, playerCellY;
 			Critter.GetCell(&playerCellX, &playerCellY);
 
-			enemy.GoToPlayer(Scene.map, playerCellX, playerCellY);
+			Enemies[i].GoToPlayer(Scene.map, playerCellX, playerCellY);
 		}
 	}
 

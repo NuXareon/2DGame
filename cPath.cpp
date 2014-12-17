@@ -45,9 +45,7 @@ void cPath::Make(int *map,int cx,int cy,int cxdest,int cydest, int t)
 			//1st Direction
 			AStar->NextCell(&ncx,&ncy);
 			if (type==1&&ncx==xf&&ncy==yf){
-				AStar->EndPathfinder();
-				delete AStar;
-				AStar = NULL;
+				Done();
 			}
 			else CalcDir(x,y,ncx,ncy);
 		}
