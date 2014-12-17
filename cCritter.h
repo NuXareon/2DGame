@@ -6,6 +6,7 @@
 #include "cTrajectory.h"
 #include "cPath.h"
 
+
 class cScene;
 
 class cCritter
@@ -35,6 +36,7 @@ public:
 	void setTarget(int t);
 	bool IsFiring();
 	bool isHit();
+	bool isDead();
 	int getDamage();
 	bool reduceHP(int hp);
 
@@ -44,6 +46,7 @@ public:
 	void nextHead();
 	void prevHead();
 	int getHead();
+	void getRectHead(RECT *rc, int *offy, int *offx);
 
 private:
 	int x,y;			//Position in total map
