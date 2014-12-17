@@ -25,6 +25,7 @@
 
 // Map Offset
 #define ISO_OFFSET_X	550
+#define ISO_OFFSET_Y	-58
 
 //Map coordinate beginning
 #define SCENE_Xo		0 //0-32

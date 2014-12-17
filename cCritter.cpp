@@ -150,7 +150,7 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 			if (shoot_delay >= 20)
 			{
 				shoot_seq++;
-				if (shoot_seq > 3) shoot_seq = 0;
+				if (shoot_seq > 5) shoot_seq = 0;
 				shoot_delay = 0;
 			}
 
@@ -191,10 +191,13 @@ void cCritter::GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	*posx = SCENE_Xo + x - (Scene->cx*TILE_SIZE_X+(Scene->cy%2)*TILE_SIZE_X/2);
-	*posy = SCENE_Yo + y - (Scene->cy*TILE_SIZE_Y/2);
+	int offX = ix - sprite_height;
+	int offY = iy - sprite_height;
 
-	SetRect(rc,shoot_seq<<5,64,(shoot_seq+1)<<5,96);
+	*posx = ISO_OFFSET_X + ((float)(offX - Scene->cx*TILE_SIZE_X) - (offY - Scene->cy*TILE_SIZE_X)) / 2;
+	*posy = ((float)(offX - Scene->cx*TILE_SIZE_Y) + (offY - Scene->cy*TILE_SIZE_Y)) / 2;
+
+	SetRect(rc,shoot_seq*200,0,(shoot_seq+1)*200,200);
 	switch(shoot_seq)
 	{
 		case 0:	*posx+=5;	break;
@@ -203,8 +206,6 @@ void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 		case 3: *posx-=16;	break;
 		case 4: *posx-=24;	break;
 		case 5:	*posx-=32;	break;
-		case 6: *posx-=32;	break;
-		case 7: *posx-=32;	break;
 	}
 	/*
 	shoot_delay++;
@@ -316,7 +317,7 @@ void cCritter::setTarget(int t)
 }
 bool cCritter::IsFiring()
 {
-	return (shoot_seq<8);
+	return (shoot_seq<6);
 }
 bool cCritter::isHit()
 {
