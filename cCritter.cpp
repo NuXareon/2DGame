@@ -457,7 +457,7 @@ int cCritter::GetSkill1Range()
 }
 void cCritter::nextHead()
 {
-	if (head < 4)
+	if (head < 29)
 	{
 		head++;
 	}
