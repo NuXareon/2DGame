@@ -77,7 +77,7 @@ void cPath::ReMake(int *map,int cxdest,int cydest, int t)
 	}
 }
 
-int cPath::NextStep(int *px,int *py,int *cx,int *cy,int *ix,int *iy, int step_length) // TODO: ix/iy floats
+int cPath::NextStep(int *px,int *py,int *cx,int *cy,float *ix,float *iy, int step_length) // TODO: ix/iy floats
 {
 	int move=CONTINUE;
 
@@ -146,10 +146,12 @@ int cPath::NextCell()
 
 	if((x==xf)&&(y==yf))
 	{
-		AStar->EndPathfinder();
-		delete AStar;
-		AStar = NULL;
-		return ARRIVE;
+		if (AStar) {
+			AStar->EndPathfinder();
+			delete AStar;
+			AStar = NULL;
+			return ARRIVE;
+		}
 	}
 	else
 	{

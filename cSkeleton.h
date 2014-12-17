@@ -15,12 +15,12 @@ class cSkeleton
 public:
 	cSkeleton(void);
 	virtual ~cSkeleton(void);
-	void Init(int x, int y, int hp, int damage, int step_length, MonsterType type);
+	void Init(int x, int y, int hp, int damage, int step_length, int sight, int range, MonsterType type);
 
 	void GoToCell(int *map, int destcx, int destcy,int type); //type= 0 - normal, 1 - attack
 	void GoToPlayer(int *map, int destcx, int destcy);
 	void Move();
-	void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
 	void GetRectRadar(RECT *rc,int *posx,int *posy);
 
 	void SetPosition(int posx,int posy);
@@ -48,11 +48,11 @@ private:
 	int sightRadius;		//Radius of sight
 	int x,y;				//Position in total map
 	int cx,cy;				//Cell position in total map in cartesian
-	int ix, iy;				//Position in total map in isometric
+	float ix, iy;				//Position in total map in isometric
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 
 	bool active;
-	int hp,damage,step_length;
+	int hp,damage,step_length,attackRange;
 	MonsterType type;
 
 	cPath Trajectory;		// Enemy path

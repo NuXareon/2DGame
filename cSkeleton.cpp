@@ -24,7 +24,7 @@ cSkeleton::~cSkeleton()
 
 }
 
-void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, MonsterType _type)
+void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, int sight, int range, MonsterType _type)
 {
 	SetPosition(nx*32,ny*32);
 	SetCell(nx,ny);
@@ -34,6 +34,8 @@ void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, Mons
 	damage = _damage;
 	step_length = _step_length;
 	type = _type;
+	sightRadius=sight;
+	attackRange=range;
 }
 
 
@@ -71,6 +73,14 @@ void cSkeleton::Move()
 		}
 		else if (mov == CONTINUE)
 		{
+			if (attack && (attackRange > 0)) {
+				int mobToPlayerDistance = (int)sqrt(pow((float)Trajectory.xf - cx, 2) + pow((float)Trajectory.yf - cy, 2));
+				if (mobToPlayerDistance <= attackRange) {
+					Trajectory.Done();
+					seq=0;
+					shoot=true;
+				}
+			}
 		}
 	}
 	else
@@ -87,10 +97,10 @@ void cSkeleton::Move()
 }
 
 
-void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
+void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene)
 {
-	int offX = ix-sprite_height;
-	int offY = iy-sprite_height;
+	float offX = ix-sprite_height;
+	float offY = iy-sprite_height;
 
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
@@ -143,6 +153,7 @@ int cSkeleton::getDamage()
 }
 bool cSkeleton::isHit()
 {
+	if (type==EXPLOSION_TYPE) return (shoot_seq==2);
 	return (shoot_seq==8&&shoot_delay==0);  // TODO: update depending enemy attack animation;
 }
 MonsterType cSkeleton::GetType()
@@ -208,6 +219,7 @@ void cSkeleton::updateAttackSeq()
 		if(shoot_delay==4)
 		{
 			shoot_seq++;
+			if(type==EXPLOSION_TYPE&&shoot_seq==2) active=false;
 			if(shoot_seq==16) {
 				shoot_seq=0;
 				shoot=false;

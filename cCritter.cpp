@@ -8,6 +8,7 @@ cCritter::cCritter()
 	//ix = 64; iy = 64;
 	//SetPosition(64,64);
 	//SetCell(2,2);
+	head=0;
 	
 	Init(3, 61);
 	//PutInStart(2);
@@ -21,6 +22,14 @@ cCritter::cCritter()
 	shoot=false;
 	shoot_seq=0;
 	shoot_delay=0;
+
+	skill1 = false;
+	skill1_seq=0;
+	skill1_delay=0;
+	skill1_cd=0;
+	skill1_range=10;
+	skill1_cost=1;
+	skill1_damage=20;
 
 	hp=100;
 	energy=6;
@@ -355,6 +364,7 @@ void cCritter::Restart()
 
 	attack = false;
 	shoot = false;
+	skill1=false;
 	shoot_seq = 0;
 	shoot_delay = 0;
 
@@ -380,6 +390,70 @@ void cCritter::updateAttackSeq()
 		shoot_delay=0;
 		shoot_seq=0;
 	}
+}
+
+void cCritter::updateSkill1Seq()
+{
+	if (skill1) {
+		skill1_delay++;
+		if(skill1_delay==2)
+		{
+			skill1_seq++;
+			if(skill1_seq==8) {
+				skill1_seq=0;
+				skill1=false;
+			}
+			skill1_delay=0;
+		}
+	}
+	else {
+		skill1_delay=0;
+		skill1_seq=0;
+	}
+	if (skill1_cd>0)--skill1_cd;
+}
+
+
+void cCritter::UseSkill1(int cx, int cy, int enemyId)
+{
+	if(!skill1&&skill1_cd==0&&energy>=skill1_cost) {
+		energy-=skill1_cost;
+		skill1_seq=0;
+		skill1_delay=0;
+		skill1_cd=60;
+		skill1x=cx;
+		skill1y=cy;
+		skill1_target=enemyId;
+		skill1=true;
+		shoot=false;
+		//attack=false;
+		//Trajectory.Restart();
+	}
+}
+
+bool cCritter::GetSkill1()
+{
+	return skill1;
+}
+
+bool cCritter::Skill1Hit() 
+{
+	return (skill1_seq==0&&skill1_delay==1);
+}
+
+int cCritter::GetSkill1Target()
+{
+	return skill1_target;
+}
+
+int cCritter::getSkill1Damage()
+{
+	return skill1_damage;
+}
+
+int cCritter::GetSkill1Range()
+{
+	return skill1_range;
 }
 void cCritter::nextHead()
 {

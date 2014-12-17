@@ -48,15 +48,23 @@ public:
 	int getHead();
 	void getRectHead(RECT *rc);
 
+	void UseSkill1(int cx, int cy, int enemyId);
+	void updateSkill1Seq();
+	bool GetSkill1();
+	bool Skill1Hit();
+	int GetSkill1Target();
+	int getSkill1Damage();
+	int GetSkill1Range();
+
 private:
 	int x,y;			//Position in total map
-	int ix,iy;			//Position in total isometric map
+	float ix,iy;			//Position in total isometric map
 	int cx,cy;			//Cell position in total map in cartesian 
 	int icx, icy;		//Cell position in total map in isometric
 	bool selected;		//Selected for move or attack
 	int hp, energy, damage, step_length;
 	int target;
-	int head=0;
+	int head;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;
@@ -68,6 +76,15 @@ private:
 	bool shoot;			//Begin attack (to shoot)
 	int shoot_seq;		//Shooter sequence animation control
 	int shoot_delay;	//Shooter animation delay
+	bool skill1;
+	int skill1x,skill1y;
+	int skill1_seq;
+	int skill1_delay;
+	int skill1_cd;
+	int skill1_range;
+	int skill1_cost;
+	int skill1_damage;
+	int skill1_target;
 	int sprite_height;	//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 };
 
