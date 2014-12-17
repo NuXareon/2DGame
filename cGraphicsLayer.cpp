@@ -390,7 +390,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	g_pSprite->Draw(texWarlock,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
-	Critter->getRectHead(&rc, &posx, &posy);
+	Critter->getRectHead(&rc);
 	g_pSprite->Draw(texHead, &rc, NULL,
 		&D3DXVECTOR3(float(posx+8), float(posy-18), 0.0f),
 		0xFFFFFFFF);

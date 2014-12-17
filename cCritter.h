@@ -46,7 +46,7 @@ public:
 	void nextHead();
 	void prevHead();
 	int getHead();
-	void getRectHead(RECT *rc, int *offy, int *offx);
+	void getRectHead(RECT *rc);
 
 private:
 	int x,y;			//Position in total map

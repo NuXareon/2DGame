@@ -98,6 +98,52 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 		{
 			seq = 0;
 		}
+
+		if (shoot)
+		{
+			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			{
+			case STOPN:	SetRect(rc, 0 + (64 * shoot_seq), 1200, 64 + (64 * shoot_seq), 1300);		break;
+
+			case STOPS: SetRect(rc, 0 + (64 * shoot_seq), 1000, 64 + (64 * shoot_seq), 1100);		break;
+
+			case STOPSE:SetRect(rc, 0 + (64 * shoot_seq), 1000, 64 + (64 * shoot_seq), 1100);		break;
+
+			case STOPNE:SetRect(rc, 0 + (64 * shoot_seq), 900, 64 + (64 * shoot_seq), 1000);		break;
+
+			case STOPE: SetRect(rc, 0 + (64 * shoot_seq), 900, 64 + (64 * shoot_seq), 1000);		break;
+
+			case STOPSO:SetRect(rc, 0 + (64 * shoot_seq), 1100, 64 + (64 * shoot_seq), 1200);		break;
+
+			case STOPNO:SetRect(rc, 0 + (64 * shoot_seq), 1200, 64 + (64 * shoot_seq), 1300);		break;
+
+			case STOPO: SetRect(rc, 0 + (64 * shoot_seq), 1100, 64 + (64 * shoot_seq), 1200);		break;
+
+			case N:		SetRect(rc, 0 + (64 * shoot_seq), 1200, 64 + (64 * shoot_seq), 1300);		break;
+
+			case S:		SetRect(rc, 0 + (64 * shoot_seq), 1000, 64 + (64 * shoot_seq), 1100);		break;
+
+			case SE:	SetRect(rc, 0 + (64 * shoot_seq), 1000, 64 + (64 * shoot_seq), 1100);		break;
+
+			case NE:	SetRect(rc, 0 + (64 * shoot_seq), 900, 64 + (64 * shoot_seq), 1000);		break;
+
+			case E:		SetRect(rc, 0 + (64 * shoot_seq), 900, 64 + (64 * shoot_seq), 1000);		break;
+
+			case SO:	SetRect(rc, 0 + (64 * shoot_seq), 1100, 64 + (64 * shoot_seq), 1200);		break;
+
+			case NO:	SetRect(rc, 0 + (64 * shoot_seq), 1200, 64 + (64 * shoot_seq), 1300);		break;
+
+			case O:		SetRect(rc, 0 + (64 * shoot_seq), 1100, 64 + (64 * shoot_seq), 1200);		break;
+			}
+			shoot_delay++;
+			if (shoot_delay >= 20)
+			{
+				shoot_seq++;
+				if (shoot_seq > 3) shoot_seq = 0;
+				shoot_delay = 0;
+			}
+
+		}
 	}
 	else
 	{
@@ -364,10 +410,8 @@ bool cCritter::isDead()
 		return(true);
 }
 
-void cCritter::getRectHead(RECT *rc, int *offy, int *offx)
+void cCritter::getRectHead(RECT *rc)
 {
-	offy - 18;
-	offx + 8;
 	if (hp > 0)
 	{
 		if (!shoot)
@@ -375,58 +419,58 @@ void cCritter::getRectHead(RECT *rc, int *offy, int *offx)
 
 			switch (Trajectory.Faced())
 			{
-			case N:			SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break;
-			case STOPN:		SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break;
+			case NO:			SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break; // N - > NE   NO - > N  O -> NO SO -> O S -> SO SE -> S
+			case STOPNO:		SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break;
 
-			case NO:		SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
-			case STOPNO:	SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
+			case O:		SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
+			case STOPO:	SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
 
-			case O:			SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break;
-			case STOPO:		SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break;
+			case SO:			SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break;
+			case STOPSO:		SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break;
 
-			case SO:		SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
-			case STOPSO:	SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
+			case S:		SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
+			case STOPS:	SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
 
-			case S:			SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;
-			case STOPS:		SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;
+			case SE:			SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;
+			case STOPSE:		SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;
 
-			case SE:		SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
-			case STOPSE:	SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
+			case E:		SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
+			case STOPE:	SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
 
-			case E:			SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break;
-			case STOPE:		SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break;
+			case NE:			SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break;
+			case STOPNE:		SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break;
 
-			case NE:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
-			case STOPNE:	SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
+			case N:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
+			case STOPN:	SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
 			}
 		}
 		else
 		{
 			switch (Trajectory.Faced())
 			{
-				case N:			SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break; 
-				case STOPN:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
+				case NO:			SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break; 
+				case STOPNO:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
 
-				case NO:		SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
-				case STOPNO:	SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break; // O, NO
+				case O:				SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break;
+				case STOPO:			SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break; // O, NO
 
-				case O:			SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break; 
-				case STOPO:		SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break; // O, NO
+				case SO:			SetRect(rc, 100, 0 + head * 50, 150, 50 + head * 50);	break; 
+				case STOPSO:		SetRect(rc, 150, 0 + head * 50, 200, 50 + head * 50);	break; // O, NO
 
-				case SO:		SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
-				case STOPSO:	SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break; //S, SO
+				case S:				SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break;
+				case STOPS:			SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break; //S, SO
 
-				case S:			SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;  
-				case STOPS:		SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break; //S, SO
+				case SE:			SetRect(rc, 0, 0 + head * 50, 50, 50 + head * 50);		break;  
+				case STOPSE:		SetRect(rc, 50, 0 + head * 50, 100, 50 + head * 50);	break; //S, SO
 
-				case SE:		SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
-				case STOPSE:	SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break; // E, SE
+				case E:				SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break;
+				case STOPE:			SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break; // E, SE
 
-				case E:			SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break; 
-				case STOPE:		SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break; // E, SE
+				case NE:			SetRect(rc, 300, 0 + head * 50, 350, 50 + head * 50);	break; 
+				case STOPNE:		SetRect(rc, 350, 0 + head * 50, 400, 50 + head * 50);	break; // E, SE
 
-				case NE:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
-				case STOPNE:	SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
+				case N:				SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
+				case STOPN:			SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
 			}
 		}
 	}
