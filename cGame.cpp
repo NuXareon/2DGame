@@ -99,12 +99,12 @@ bool cGame::LoopProcess()
 						if(Mouse->ButtonDown(LEFT))
 						{
 							//Play button
-							if(Mouse->In(334,236,420,278))
+							if (Mouse->In(270, 440, 510, 500))
 							{
 								state = STATE_GAME;
 							}
 							//Exit button
-							else if(Mouse->In(426,236,512,278))
+							else if (Mouse->In(270, 510, 510, 570))
 							{
 								return false;
 							}

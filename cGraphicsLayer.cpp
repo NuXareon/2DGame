@@ -102,6 +102,9 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"main.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "buttons.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		NULL, NULL, NULL, &texButtons);
 	//GUI game
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"game.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -162,6 +165,12 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texMain->Release();
 		texMain = NULL;
+	}
+	if (texButtons)
+	{
+
+		texButtons->Release();
+		texButtons = NULL; 
 	}
 	if(texGame)
 	{
@@ -235,7 +244,31 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 			switch(state)
 			{
 				case STATE_MAIN:
+
+								RECT rc;
 								g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+								rc.left = 0;
+								rc.top = 0;
+								rc.bottom = 60;
+								rc.right = 240;
+								if (Mouse->In(270, 440, 270 + 240, 440 + 60))
+								{
+									rc.left = 240;
+									rc.right = 480;
+
+								}
+								g_pSprite->Draw(texButtons, &rc, NULL, &D3DXVECTOR3(270.0f, 440.0f, 0.0f), 0xFFFFFFFF);
+
+								rc.left = 0;
+								rc.right = 240;
+								rc.top = 60;
+								rc.bottom = 120;
+								if (Mouse->In(270, 510, 270 + 240, 510 + 60))
+								{
+									rc.left = 240;
+									rc.right = 480;
+								}
+								g_pSprite->Draw(texButtons, &rc, NULL, &D3DXVECTOR3(270.0f, 510.0f, 0.0f), 0xFFFFFFFF);
 								break;
 
 				case STATE_GAME:
