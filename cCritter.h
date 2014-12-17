@@ -38,6 +38,7 @@ public:
 	int getDamage();
 
 	void PutInStart(int level); //Puts the player at the level start
+	void Restart();
 
 private:
 	int x,y;			//Position in total map

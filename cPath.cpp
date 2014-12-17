@@ -220,3 +220,17 @@ void cPath::CalcDir(int x1,int y1,int x2,int y2)
 	}
 }
 
+void cPath::Restart()
+{
+	//Delete A*
+	if (AStar)
+	{
+		AStar->EndPathfinder();
+		delete AStar;
+		AStar = NULL;
+	}
+	//Reset trajectory settings
+	Done();
+	nxf = -1;
+	nyf = -1;
+}

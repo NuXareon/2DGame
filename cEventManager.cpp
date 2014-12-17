@@ -39,6 +39,7 @@ void cEventManager::GoToNextLevel()
 	Scene->LoadMap("map.txt");
 	Scene->LoadMapLogic();
 
+	Player->Restart();
 	Player->PutInStart(Scene->level);
 	IsDone();
 }

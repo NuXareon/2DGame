@@ -253,3 +253,17 @@ void cCritter::PutInStart(int level)
 
 
 }
+
+void cCritter::Restart()
+{
+	seq = 0;
+	delay = 0;
+
+	attack = false;
+	shoot = false;
+	shoot_seq = 0;
+	shoot_delay = 0;
+
+	Trajectory.Restart();
+
+}
