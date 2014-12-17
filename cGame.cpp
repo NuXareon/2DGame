@@ -41,8 +41,10 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
 	//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
 	//nEnemies = 4;
+
 	nEnemies = LoadEnemies();
 
+	Skeleton.SetActive(false);
 
 	//
 	return true;
@@ -330,7 +332,7 @@ void cGame::DoEnemyTurn()
 		}
 	}
 
-	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
+/*	Skeleton.LookForPlayer(Critter); // search for player within sigh radius
 
 	if (Skeleton.PlayerIsDetected())
 	{
@@ -339,7 +341,7 @@ void cGame::DoEnemyTurn()
 		Critter.GetCell(&playerCellX, &playerCellY);
 
 		Skeleton.GoToPlayer(Scene.map, playerCellX, playerCellY);
-	}
+	}*/
 }
 
 void cGame::ProcessEvents()
@@ -353,18 +355,26 @@ void cGame::ProcessEvents()
 
 			for (int i = 0; i < nEnemies; i++)
 				Enemies[i].SetActive(false);
+
 			nEnemies = LoadEnemies();
 		}
 
+		// Ambush event on level 2
+		if (Scene.level == 2 && Event.GetEventType() == 3)
+		{
+			for (int i = 0; i < nEnemies; i++)
+				Enemies[i].SetActive(true);
+		}
 	}
 
 }
 
 int cGame::LoadEnemies()
 {
+	
 	int numEnem = 0;
 
-	for (int i = 0; i < SCENE_AREA*SCENE_AREA; i++)
+	for (int i = 0; i < (SCENE_AREA*SCENE_AREA); i++)
 	{
 		if (Scene.mapLogic[i]>3)
 		{
@@ -383,25 +393,37 @@ int cGame::LoadEnemies()
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
-			if (Scene.mapLogic[i] == 5)
+			else if (Scene.mapLogic[i] == 5)
 			{
 				Enemies[numEnem].Init(x, y, 100, 5, 2, GOLEM_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
-			if (Scene.mapLogic[i] == 6)
+			else if (Scene.mapLogic[i] == 6)
 			{
 				Enemies[numEnem].Init(x, y, 100, 5, 2, FIRELOCK_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
-			if (Scene.mapLogic[i] == 7)
+			else if (Scene.mapLogic[i] == 7)
 			{
 				Enemies[numEnem].Init(x, y, 100, 5, 2, EXPLOSION_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
 		}	
+	}
+
+	//Deactivating mobs in level 2 for the ambush
+	if (Scene.level == 2)
+	{
+		for (int i = 0; i < nEnemies; i++)
+		{
+			if (Enemies[i].GetType() == GOLEM_TYPE)
+				continue;
+
+			Enemies[i].SetActive(false);
+		}
 	}
 
 	return numEnem;
