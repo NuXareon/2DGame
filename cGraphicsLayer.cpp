@@ -290,6 +290,7 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton,cSkeleton Enemies[],int nEnemies)
 {
 	int cx,cy,posx,posy;
+	float ix,iy;
 	RECT rc;
 
 	//Draw Critter
@@ -309,34 +310,34 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 		*/
 	//}
 
-	Skeleton->GetRect(&rc,&posx,&posy,Scene);
+	Skeleton->GetRect(&rc,&ix,&iy,Scene);
 	g_pSprite->Draw(texSkeleton,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					&D3DXVECTOR3(ix,iy,0.0f), 
 					0xFFFFFFFF);
 
 	//Draw enemies
 	for (int i = 0; i < nEnemies; ++i) {
 		cSkeleton enemy = Enemies[i];
 		if (enemy.isActive()){
-			enemy.GetRect(&rc,&posx,&posy,Scene);
+			enemy.GetRect(&rc,&ix,&iy,Scene);
 			if (enemy.GetType() == SKELETON_TYPE){
 				g_pSprite->Draw(texSkeleton,&rc,NULL, 
-								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			} 
 			else if (enemy.GetType() == GOLEM_TYPE){
 				g_pSprite->Draw(texGolem,&rc,NULL, 
-								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
 			else if (enemy.GetType() == FIRELOCK_TYPE){
 				g_pSprite->Draw(texFirelock,&rc,NULL, 
-								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
 			else if (enemy.GetType() == EXPLOSION_TYPE){
 				g_pSprite->Draw(texExplosion,&rc,NULL, 
-								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
 		}
@@ -397,7 +398,7 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 				D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
 
 	return true;
-} //572 202
+}
 
 bool cGraphicsLayer::DrawUI()
 {

@@ -15,6 +15,9 @@ sightRadius(4)
 	damage=5;
 	step_length=2;
 	type=SKELETON_TYPE;
+
+	shoot_delay=0;
+	shoot_seq=0;
 }
 cSkeleton::~cSkeleton()
 {
@@ -83,10 +86,10 @@ void cSkeleton::Move()
 }
 
 
-void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
+void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene)
 {
-	int offX = ix-sprite_height;
-	int offY = iy-sprite_height;
+	float offX = ix-sprite_height;
+	float offY = iy-sprite_height;
 
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
@@ -97,6 +100,8 @@ void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 	else if (type == FIRELOCK_TYPE) SetRect(rc,0,0,64,100);
 	else if (type == EXPLOSION_TYPE) SetRect(rc,0,0,64,100);
 	else SetRect(rc,128,32,160,64); //useless
+
+
 }
 
 void cSkeleton::GetRectRadar(RECT *rc,int *posx,int *posy)

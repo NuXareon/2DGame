@@ -111,7 +111,7 @@ void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 		case 6: *posx-=32;	break;
 		case 7: *posx-=32;	break;
 	}
-	
+	/*
 	shoot_delay++;
 	if(shoot_delay==4)
 	{
@@ -119,6 +119,7 @@ void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 		if(shoot_seq==16) shoot_seq=0;
 		shoot_delay=0;
 	}
+	*/
 }
 
 void cCritter::GetRectRadar(RECT *rc,int *posx,int *posy)
@@ -142,7 +143,6 @@ void cCritter::GoToCell(int *map,int destcx,int destcy,int type)
 
 void cCritter::GoToEnemy(int *map,int destcx,int destcy,int enemyId)
 {
-	//(Only implemented attack right to left)
 	GoToCell(map,destcx,destcy,1);
 
 	attack=true;
@@ -266,4 +266,21 @@ void cCritter::Restart()
 
 	Trajectory.Restart();
 
+}
+
+void cCritter::updateAttackSeq()
+{
+	if (shoot) {
+		shoot_delay++;
+		if(shoot_delay==4)
+		{
+			shoot_seq++;
+			if(shoot_seq==16) shoot_seq=0;
+			shoot_delay=0;
+		}
+	}
+	else {
+		shoot_delay=0;
+		shoot_seq=0;
+	}
 }
