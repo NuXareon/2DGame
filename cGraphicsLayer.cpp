@@ -400,7 +400,7 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 			int screenTileX = x-Scene->cx;
 			int screenTileY = y-Scene->cy;
 			float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
-			float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
+			float screenY = ISO_OFFSET_Y + TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
 
 			n = Scene->mapTiles[(y*SCENE_AREA)+x];
 			n--;
@@ -506,9 +506,9 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	int screenTileX = floor(tx)-Scene->cx;
 	int screenTileY = floor(ty)-Scene->cy;
 	float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
-	float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
+	float screenY = ISO_OFFSET_Y + TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
 
-	g_pSprite->Draw(texTilesIso[0],NULL,NULL, 
+	g_pSprite->Draw(texTilesIso[4],NULL,NULL, 
 							&D3DXVECTOR3( screenX, screenY, 0.0f), 
 							0xFFFF0000);
 
