@@ -143,6 +143,7 @@ int cSkeleton::getDamage()
 }
 bool cSkeleton::isHit()
 {
+	if (type==EXPLOSION_TYPE) return (shoot_seq==2);
 	return (shoot_seq==8&&shoot_delay==0);  // TODO: update depending enemy attack animation;
 }
 MonsterType cSkeleton::GetType()
@@ -203,6 +204,7 @@ void cSkeleton::updateAttackSeq()
 		if(shoot_delay==4)
 		{
 			shoot_seq++;
+			if(type==EXPLOSION_TYPE&&shoot_seq==2) active=false;
 			if(shoot_seq==16) {
 				shoot_seq=0;
 				shoot=false;

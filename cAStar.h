@@ -4,7 +4,7 @@
 
 #define mapWidth		64
 #define mapHeight		64
-#define numberPeople	11
+#define numberPeople	1
 
 class cAStar  
 {

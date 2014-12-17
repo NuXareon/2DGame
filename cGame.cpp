@@ -40,8 +40,12 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
 	Enemies[1].Init(30,7,200,10,1,GOLEM_TYPE);
 	Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
-	Enemies[3].Init(55,55,50,15,4,EXPLOSION_TYPE);
-	nEnemies=4;
+	Enemies[3].Init(55,55,50,20,4,EXPLOSION_TYPE);
+	Enemies[4].Init(50,50,50,20,4,EXPLOSION_TYPE);
+	Enemies[5].Init(53,55,50,20,4,EXPLOSION_TYPE);
+	Enemies[6].Init(55,53,50,20,4,EXPLOSION_TYPE);
+	Enemies[7].Init(53,53,50,20,4,EXPLOSION_TYPE);
+	nEnemies=8;
 
 	//
 	return true;

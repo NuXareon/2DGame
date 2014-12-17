@@ -146,10 +146,12 @@ int cPath::NextCell()
 
 	if((x==xf)&&(y==yf))
 	{
-		AStar->EndPathfinder();
-		delete AStar;
-		AStar = NULL;
-		return ARRIVE;
+		if (AStar) {
+			AStar->EndPathfinder();
+			delete AStar;
+			AStar = NULL;
+			return ARRIVE;
+		}
 	}
 	else
 	{
