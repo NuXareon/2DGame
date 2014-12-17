@@ -173,8 +173,8 @@ void cGame::ProcessOrder()
 					{
 						attack=false;
 						//Attack
-						Skeleton.GetRect(&rc, &ix, &iy, &Scene);
-						if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
+						Skeleton.GetRect(&rc, &x, &y, &Scene);
+						if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 						{
 							if(!Critter.GetShooting()){
 								Skeleton.GetCell(&cx,&cy);
@@ -184,8 +184,8 @@ void cGame::ProcessOrder()
 						}
 						for (int i = 0; i < nEnemies; ++i) {
 							if (Enemies[i].isActive()){
-								Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
-								if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
+								Enemies[i].GetRect(&rc,&x,&y,&Scene);
+								if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 								{
 									Enemies[i].GetCell(&cx,&cy);
 									Critter.GoToEnemy(Scene.map,cx,cy,i);
@@ -265,8 +265,8 @@ void cGame::ProcessOrder()
 		}
 		for (int i = 0; i < nEnemies; ++i) {
 			if (Enemies[i].isActive()) {
-				Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
-				if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
+				Enemies[i].GetRect(&rc,&x,&y,&Scene);
+				if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 				{
 					Mouse->SetPointer(ATTACK);
 					attack=true;

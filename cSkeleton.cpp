@@ -86,10 +86,10 @@ void cSkeleton::Move()
 }
 
 
-void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene)
+void cSkeleton::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	float offX = ix-sprite_height;
-	float offY = iy-sprite_height;
+	int offX = ix-sprite_height;
+	int offY = iy-sprite_height;
 
 	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
 	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
