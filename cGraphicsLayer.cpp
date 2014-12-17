@@ -157,15 +157,30 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texMouse);
 	//Iso tiles
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"1.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"t1.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texTilesIso[0]);
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"2.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"t2.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texTilesIso[1]);
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"3.bmp",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"t3.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0xFF408080,NULL,NULL,&texTilesIso[2]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "t4.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								0xFF408080, NULL, NULL, &texTilesIso[3]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "t5.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								0xFF408080, NULL, NULL, &texTilesIso[4]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "t6.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								0xFF408080, NULL, NULL, &texTilesIso[5]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "t7.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+								0xFF408080, NULL, NULL, &texTilesIso[6]);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "t8.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0xFF408080, NULL, NULL, &texTilesIso[7]);
 
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"UI.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -387,11 +402,11 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 			float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
 			float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
 
-			n = Scene->map[(y*SCENE_AREA)+x];
-			g_pSprite->Draw(texTilesIso[n],NULL,NULL, 
-									&D3DXVECTOR3( screenX, screenY, 0.0f), 
+			n = Scene->mapTiles[(y*SCENE_AREA)+x];
+			n--;
 
-									0xFFFFFFFF);
+			if (n>=0)
+			g_pSprite->Draw(texTilesIso[n],NULL,NULL,&D3DXVECTOR3( screenX, screenY, 0.0f),0xFFFFFFFF);
 		}
 	}
 	return true;
@@ -400,7 +415,7 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton,cSkeleton Enemies[],int nEnemies)
 {
 	int cx,cy,posx,posy;
-	float ix,iy;
+	float ix,iy,off;
 	RECT rc;
 
 	//Draw Critter
@@ -410,9 +425,9 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	g_pSprite->Draw(texWarlock,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
-	Critter->getRectHead(&rc);
+	Critter->getRectHead(&rc,&off);
 	g_pSprite->Draw(texHead, &rc, NULL,
-		&D3DXVECTOR3(float(posx+8), float(posy-18), 0.0f),
+		&D3DXVECTOR3(float(posx+8+off), float(posy-18+3*off), 0.0f),
 		0xFFFFFFFF);
 	/*
 	if(Critter->GetSelected())

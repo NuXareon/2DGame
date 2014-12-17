@@ -46,7 +46,7 @@ public:
 	void nextHead();
 	void prevHead();
 	int getHead();
-	void getRectHead(RECT *rc);
+	void getRectHead(RECT *rc,float *off);
 
 	void UseSkill1(int cx, int cy, int enemyId);
 	void updateSkill1Seq();
@@ -65,6 +65,8 @@ private:
 	int hp, energy, damage, step_length;
 	int target;
 	int head;
+	float head_offset;
+	bool head_dir;
 
 	//cTrajectory Trajectory;
 	cPath Trajectory;

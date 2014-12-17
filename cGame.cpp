@@ -34,6 +34,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Scene.LoadMap("map.txt");
 	Scene.LoadMapLogic();
+	Scene.LoadMapTiles();
 
 	// Provisional initialization for testing purposes (TODO: range!)
 /*
