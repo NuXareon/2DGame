@@ -56,7 +56,7 @@ private:
 
 	bool attack;			//Order to attack established (moving for attack)
 	bool shoot;				//Begin attack (to shoot)
-	int shoot_seq;			//Shooter sequence animation control
+	int shoot_seq;			//Shooter shoot_seq animation control
 	int shoot_delay;		//Shooter animation delay
 };
 

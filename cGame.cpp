@@ -188,7 +188,7 @@ void cGame::ProcessOrder()
 								if(Mouse->In(x,y,x+rc.right-rc.left,y+rc.bottom-rc.top))
 								{
 									Enemies[i].GetCell(&cx,&cy);
-									Critter.GoToEnemy(Scene.map,Scene.cx+cx,Scene.cx+cy,i);
+									Critter.GoToEnemy(Scene.map,cx,cy,i);
 									attack=true;
 								}
 							}
@@ -292,11 +292,18 @@ void cGame::ProcessOrder()
 
 void cGame::ProcessAttacks()
 {
-	if (Critter.GetShooting()&&Critter.isHit()) {
+	Critter.updateAttackSeq();
+	if (Critter.GetShooting()&&Critter.isHit()) { // TODO: Check distance from target
 		int enemyId = Critter.getTarget();
 		Enemies[enemyId].reduceHP(Critter.getDamage());
 		if (!Enemies[enemyId].isActive()) Critter.stopAttack();
 	}
+	/*
+	for (int i = 0; i < nEnemies; i++) {
+		cSkeleton enemy = Enemies[i];
+
+	}
+	*/
 }
 
 // Method to implement enemy actions

@@ -37,6 +37,7 @@ public:
 	bool isHit();
 	int getDamage();
 
+	void updateAttackSeq();
 	void PutInStart(int level); //Puts the player at the level start
 	void Restart();
 
