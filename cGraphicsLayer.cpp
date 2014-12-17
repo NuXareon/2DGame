@@ -128,6 +128,10 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texHead);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "sword.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texSlash);
+
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skeleton.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texSkeleton);
@@ -185,6 +189,12 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texMain->Release();
 		texMain = NULL;
+	}
+	if (texSlash)
+	{
+
+		texSlash->Release();
+		texSlash = NULL;
 	}
 	if (texCreation)
 	{
@@ -456,25 +466,17 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 						&D3DXVECTOR3(ix,iy,0.0f), 
 						0xFFFFFFFF);
 	}
-	/*
+	
 	//Draw Fire
 	if(Critter->GetShooting())
 	{
-		if(Critter->IsFiring())
-		{
-			//Advance animation & draw
 			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
+		//	Enemies[Critter->getTarget()].GetPosition(&posx,&posy);
+			g_pSprite->Draw(texSlash,&rc,NULL, 
 							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 							0xFFFFFFFF);
-		}
-		else
-		{
-			//Advance animation
-			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-		}
 	}
-	*/
+	
 	return true;
 }
 
