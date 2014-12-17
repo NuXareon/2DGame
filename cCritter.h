@@ -44,7 +44,7 @@ public:
 
 private:
 	int x,y;			//Position in total map
-	int ix,iy;			//Position in total isometric map
+	float ix,iy;			//Position in total isometric map
 	int cx,cy;			//Cell position in total map in cartesian 
 	int icx, icy;		//Cell position in total map in isometric
 	bool selected;		//Selected for move or attack
