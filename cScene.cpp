@@ -195,31 +195,6 @@ void cScene::LoadMapLogic()
 
 }
 
-int cScene::LoadEnemiesFromLogicMap(cSkeleton* Enemies)
-{
-	int numberOfEnemies = 0;
-	for (int i = 0; i < SCENE_AREA; i++)
-	{
-		if (mapLogic[i]>3)
-		{
-			//Position from map index
-			int x = i%SCENE_AREA;
-			int y = i / SCENE_AREA;
-			//Create enemies
-			if (mapLogic[i] == 4)
-			{
-				Enemies[numberOfEnemies].Init(x, y, 100, 5, 2, SKELETON_TYPE);
-			}
-		}
-
-	}
-
-
-
-
-
-}
-
 void cScene::Move(int pointer)
 {
 	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15

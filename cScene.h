@@ -2,8 +2,6 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
-#include "cSkeleton.h"
-
 //Resolution
 #define SCREEN_RES_X	800
 #define SCREEN_RES_Y	600
@@ -50,7 +48,6 @@ public:
 
 	void LoadMap(char *file);
 	void LoadMapLogic();
-	int LoadEnemiesFromLogicMap(cSkeleton* Enemies);
 
 	void Move(int pointer); // ajustar condicions? --v
 	void MoveByRadar(int x,int y);
