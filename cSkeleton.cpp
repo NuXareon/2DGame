@@ -24,7 +24,7 @@ cSkeleton::~cSkeleton()
 
 }
 
-void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, MonsterType _type)
+void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, int sight, int range, MonsterType _type)
 {
 	SetPosition(nx*32,ny*32);
 	SetCell(nx,ny);
@@ -34,6 +34,8 @@ void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, Mons
 	damage = _damage;
 	step_length = _step_length;
 	type = _type;
+	sightRadius=sight;
+	attackRange=range;
 }
 
 
@@ -71,6 +73,14 @@ void cSkeleton::Move()
 		}
 		else if (mov == CONTINUE)
 		{
+			if (attack && (attackRange > 0)) {
+				int mobToPlayerDistance = (int)sqrt(pow((float)Trajectory.xf - cx, 2) + pow((float)Trajectory.yf - cy, 2));
+				if (mobToPlayerDistance <= attackRange) {
+					Trajectory.Done();
+					seq=0;
+					shoot=true;
+				}
+			}
 		}
 	}
 	else

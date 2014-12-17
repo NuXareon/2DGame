@@ -37,14 +37,14 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene.LoadMapLogic();
 
 	// Provisional initialization for testing purposes (TODO: range!)
-	Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
-	Enemies[1].Init(30,7,200,10,1,GOLEM_TYPE);
-	Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
-	Enemies[3].Init(55,55,50,20,4,EXPLOSION_TYPE);
-	Enemies[4].Init(50,50,50,20,4,EXPLOSION_TYPE);
-	Enemies[5].Init(53,55,50,20,4,EXPLOSION_TYPE);
-	Enemies[6].Init(55,53,50,20,4,EXPLOSION_TYPE);
-	Enemies[7].Init(53,53,50,20,4,EXPLOSION_TYPE);
+	Enemies[0].Init(5,7,100,5,2,4,0,SKELETON_TYPE);
+	Enemies[1].Init(30,7,200,10,1,4,0,GOLEM_TYPE);
+	Enemies[2].Init(50,7,100,4,2,7,4,FIRELOCK_TYPE);
+	Enemies[3].Init(55,55,50,20,4,4,0,EXPLOSION_TYPE);
+	Enemies[4].Init(50,50,50,20,4,4,0,EXPLOSION_TYPE);
+	Enemies[5].Init(53,55,50,20,4,4,0,EXPLOSION_TYPE);
+	Enemies[6].Init(55,53,50,20,4,4,0,EXPLOSION_TYPE);
+	Enemies[7].Init(53,53,50,20,4,4,0,EXPLOSION_TYPE);
 	nEnemies=8;
 
 	//
@@ -292,12 +292,36 @@ void cGame::ProcessOrder()
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
+
+	if(Input.KeyDown(DIK_1)) // <-- windowz plz, f*ck u.
+	{
+		// TODO: Comprovar posicion mouse per cada enemy + range
+		int target=-1;
+		Mouse->GetPosition(&x,&y);
+		Scene.TileSelected(x,y,&fcx,&fcy);
+		Critter.GetCell(&cx,&cy);
+		int mouseToPlayerDistance = (int)sqrt(pow((float)cx - fcx, 2) + pow((float)cy - fcy, 2));
+		if (mouseToPlayerDistance <= Critter.GetSkill1Range()) {
+			for (int i = 0; i < nEnemies; ++i) {
+				if (Enemies[i].isActive()) {
+					Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
+					if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top)) target=i;
+				}
+			}
+		}
+		if (target!=-1) Critter.UseSkill1(fcx,fcy,target);
+	}
 }
 
 void cGame::ProcessAttacks()
 {
 	Critter.updateAttackSeq();
-	if (Critter.GetShooting()&&Critter.isHit()) { // TODO: Check distance from target
+	Critter.updateSkill1Seq();
+	if(Critter.GetSkill1()&&Critter.Skill1Hit()) {
+		int enemyId = Critter.GetSkill1Target();
+		if (Enemies[enemyId].isActive()) Enemies[enemyId].reduceHP(Critter.getSkill1Damage());
+	}
+	else if (Critter.GetShooting()&&Critter.isHit()) { // TODO: Check distance from target
 		int enemyId = Critter.getTarget();
 		Enemies[enemyId].reduceHP(Critter.getDamage());
 		if (!Enemies[enemyId].isActive()) Critter.stopAttack();

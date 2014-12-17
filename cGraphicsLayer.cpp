@@ -135,6 +135,10 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texExplosion);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skills.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texSkills);
+
 	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -202,6 +206,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texExplosion->Release();
 		texExplosion = NULL;
+	}
+	if (texSkills)
+	{
+		texSkills->Release();
+		texSkills = NULL;
 	}
 	if(texMouse)
 	{
@@ -293,13 +302,6 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	float ix,iy;
 	RECT rc;
 
-	//Draw Critter
-	Critter->GetCell(&cx,&cy);
-	Critter->GetRect(&rc,&posx,&posy,Scene);
-
-	g_pSprite->Draw(texWarlock,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
 	/*
 	if(Critter->GetSelected())
 	{
@@ -341,6 +343,24 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 								0xFFFFFFFF);
 			}
 		}
+	}
+
+	//Draw Critter
+	Critter->GetCell(&cx,&cy);
+	Critter->GetRect(&rc,&posx,&posy,Scene);
+
+	g_pSprite->Draw(texWarlock,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+
+	// Skills
+	if(Critter->GetSkill1()) {
+		int enemyId = Critter->GetSkill1Target();
+		Enemies[enemyId].GetRect(&rc,&ix,&iy,Scene);
+		SetRect(&rc,0,575,90,875);
+		g_pSprite->Draw(texSkills,&rc,NULL, 
+						&D3DXVECTOR3(ix,iy,0.0f), 
+						0xFFFFFFFF);
 	}
 	/*
 	//Draw Fire
