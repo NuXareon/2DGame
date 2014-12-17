@@ -390,7 +390,8 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 			int screenTileX = x-Scene->cx;
 			int screenTileY = y-Scene->cy;
 			float screenX = ISO_OFFSET_X + TILE_SIZE_X*((float)screenTileX-screenTileY)/2;
-			float screenY = TILE_SIZE_Y*((float)screenTileX+screenTileY)/2;
+			//float screenY = TILE_SIZE_Y*((float)screenTileX + screenTileY) / 2;
+			float screenY = TILE_SIZE_Y*((float)screenTileX + screenTileY) / 2;
 
 			n = Scene->mapTiles[(y*SCENE_AREA)+x];
 			n--;
