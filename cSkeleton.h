@@ -30,6 +30,8 @@ public:
 	MonsterType GetType();
 	bool isActive();
 
+	void SetActive(bool turn);
+
 	void reduceHP(int x);
 
 	// Enemy IA

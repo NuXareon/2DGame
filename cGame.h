@@ -26,6 +26,8 @@ private:
 	bool LoopProcess();
 	bool LoopOutput();
 
+	int LoadEnemies();
+
 	cGraphicsLayer Graphics;
 	cInputLayer Input;
 	cScene Scene;
@@ -35,7 +37,6 @@ private:
 	int nEnemies;
 
 	cEventManager Event;
-	bool isEventUp;
 
 	//Dynamic vector of enemies
 	std::vector <cSkeleton> Mobs;

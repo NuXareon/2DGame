@@ -5,8 +5,7 @@
 
 //Intitialize EventManager instance
 cGame::cGame() :
-Event(&Scene, &Critter, &Mobs),
-isEventUp(false)
+Event(&Scene, &Critter, &Mobs)
 {
 }
 cGame::~cGame(){}
@@ -37,11 +36,12 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene.LoadMapLogic();
 
 	// Provisional initialization for testing purposes (TODO: range!)
-	Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
-	Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
-	Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
-	Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
-	nEnemies=4;
+	//Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
+	//Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+	//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
+	//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+	//nEnemies = 4;
+	nEnemies = LoadEnemies();
 
 	//
 	return true;
@@ -342,8 +342,60 @@ void cGame::ProcessEvents()
 		if (Event.GetEventType() == 2) //Next Level
 		{
 			Event.GoToNextLevel();
+
+			for (int i = 0; i < nEnemies; i++)
+				Enemies[i].SetActive(false);
+			nEnemies = LoadEnemies();
 		}
 
 	}
+
+}
+
+int cGame::LoadEnemies()
+{
+	int numEnem = 0;
+
+	for (int i = 0; i < SCENE_AREA*SCENE_AREA; i++)
+	{
+		if (Scene.mapLogic[i]>3)
+		{
+			int x = i%SCENE_AREA;
+			int y = (int)i / SCENE_AREA;
+
+			//Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
+			//Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
+			//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
+			//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
+			//nEnemies = 4;
+
+			if (Scene.mapLogic[i] == 4)
+			{
+				Enemies[numEnem].Init(x,y,100,5,2,SKELETON_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			if (Scene.mapLogic[i] == 5)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2, GOLEM_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			if (Scene.mapLogic[i] == 6)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2, FIRELOCK_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+			if (Scene.mapLogic[i] == 7)
+			{
+				Enemies[numEnem].Init(x, y, 100, 5, 2, EXPLOSION_TYPE);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
+		}	
+	}
+
+	return numEnem;
 
 }

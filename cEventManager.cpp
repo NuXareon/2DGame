@@ -25,7 +25,7 @@ bool cEventManager::CheckForEvent()
 
 	eventType = Scene->mapLogic[mapIndex];
 
-	if ( eventType != 0)
+	if ( eventType != 0 && eventType < 4)
 	{
 		return true;
 	}

@@ -175,6 +175,11 @@ bool cSkeleton::isActive()
 	return active;
 }
 
+void cSkeleton::SetActive(bool turn)
+{
+	active = turn;
+}
+
 void cSkeleton::reduceHP(int x)
 {
 	hp -= x;
