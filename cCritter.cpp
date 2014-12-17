@@ -10,6 +10,7 @@ cCritter::cCritter()
 	//SetCell(2,2);
 	
 	Init(3, 61);
+	//PutInStart(2);
 	SetSelected(true);
 	sprite_height = 64;
 
@@ -250,8 +251,6 @@ void cCritter::PutInStart(int level)
 	{
 		Init(24, 62);
 	}
-
-
 }
 
 void cCritter::Restart()
