@@ -24,6 +24,7 @@ cCritter::cCritter()
 	hp=100;
 	energy=6;
 	damage=20;
+	step_length=2;
 }
 cCritter::~cCritter()
 {
@@ -153,7 +154,7 @@ void cCritter::Move()
 
 	if(!Trajectory.IsDone())
 	{
-		mov=Trajectory.NextStep(&x,&y,&cx,&cy,&ix,&iy);
+		mov=Trajectory.NextStep(&x,&y,&cx,&cy,&ix,&iy,step_length);
 
 		if(mov==ARRIVE)
 		{

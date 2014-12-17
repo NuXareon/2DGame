@@ -46,7 +46,7 @@ private:
 	int cx,cy;			//Cell position in total map in cartesian 
 	int icx, icy;		//Cell position in total map in isometric
 	bool selected;		//Selected for move or attack
-	int hp, energy, damage, attackSpeed;
+	int hp, energy, damage, step_length;
 	int target;
 
 	//cTrajectory Trajectory;

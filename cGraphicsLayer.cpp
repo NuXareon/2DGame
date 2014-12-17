@@ -123,6 +123,17 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texSkeleton);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "golem.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texGolem);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "firelock.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texFirelock);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "explosion.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texExplosion);
 
 	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
@@ -171,6 +182,26 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texWarlock->Release();
 		texWarlock = NULL;
+	}
+	if (texSkeleton)
+	{
+		texSkeleton->Release();
+		texSkeleton = NULL;
+	}
+	if (texGolem)
+	{
+		texGolem->Release();
+		texGolem = NULL;
+	}
+	if (texFirelock)
+	{
+		texFirelock->Release();
+		texFirelock = NULL;
+	}
+	if (texExplosion)
+	{
+		texExplosion->Release();
+		texExplosion = NULL;
 	}
 	if(texMouse)
 	{
@@ -288,9 +319,26 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 		cSkeleton enemy = Enemies[i];
 		if (enemy.isActive()){
 			enemy.GetRect(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texSkeleton,&rc,NULL, 
-							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-							0xFFFFFFFF);
+			if (enemy.GetType() == SKELETON_TYPE){
+				g_pSprite->Draw(texSkeleton,&rc,NULL, 
+								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								0xFFFFFFFF);
+			} 
+			else if (enemy.GetType() == GOLEM_TYPE){
+				g_pSprite->Draw(texGolem,&rc,NULL, 
+								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								0xFFFFFFFF);
+			}
+			else if (enemy.GetType() == FIRELOCK_TYPE){
+				g_pSprite->Draw(texFirelock,&rc,NULL, 
+								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								0xFFFFFFFF);
+			}
+			else if (enemy.GetType() == EXPLOSION_TYPE){
+				g_pSprite->Draw(texExplosion,&rc,NULL, 
+								&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+								0xFFFFFFFF);
+			}
 		}
 	}
 
