@@ -131,20 +131,20 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case N:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 			case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case STOPS:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 			case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-			case E:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-			case SE:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case SE:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case E:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
 			case STOPE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
 			case STOPSE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
 			case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
-			case N:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
-			case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
+			case NE:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case S:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			}
@@ -176,21 +176,21 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case N:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
 			case SO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
-			case STOPS:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; 
+			case STOPN:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; 
 			case STOPSO:	SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
-			case E:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
-			case SE:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
-			case STOPE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
-			case STOPSE:	SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; //E,SE
+			case SE:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case E:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case STOPSE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPE:	SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; //E,SE
 			case O:			SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case NO:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case STOPNO:	SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NOV
-			case N:			SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
-			case NE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
-			case STOPN:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
+			case NE:			SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
+			case S:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
+			case STOPS:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
 			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
 			}
 			/*
@@ -216,21 +216,21 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			shoot_seq = 0;
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //S,SO
+			case N:			SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //S,SO
 			case SO:		SetRect(rc, 80 * seq, 220 + 440, 80 * (seq + 1), 330 + 440); break;
-			case STOPS:		SetRect(rc, 80 * seq, 110, 80 * (seq + 1), 220); break; //S,SO
+			case STOPN:		SetRect(rc, 80 * seq, 110, 80 * (seq + 1), 220); break; //S,SO
 			case STOPSO:	SetRect(rc, 80 * seq, 220, 80 * (seq + 1), 330); break;
-			case E:			SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break;
-			case SE:		SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //E,SE
-			case STOPE:		SetRect(rc, 80 * seq, 0, 80 * (seq + 1), 110); break;
-			case STOPSE:	SetRect(rc, 80 * seq, 110, 80 * (seq + 1), 220); break; //E,SE
+			case SE:			SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break;
+			case E:		SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //E,SE
+			case STOPSE:		SetRect(rc, 80 * seq, 0, 80 * (seq + 1), 110); break;
+			case STOPE:	SetRect(rc, 80 * seq, 110, 80 * (seq + 1), 220); break; //E,SE
 			case O:			SetRect(rc, 80 * seq, 220 + 440, 80 * (seq + 1), 330 + 440); break;
 			case NO:		SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break; //O,NO
 			case STOPO:		SetRect(rc, 80 * seq, 220, 80 * (seq + 1), 330); break;
 			case STOPNO:	SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break; //O,NOV
-			case N:			SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break;
+			case S:			SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break;
 			case NE:		SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break; //N,NE
-			case STOPN:		SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break;
+			case STOPS:		SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break;
 			case STOPNE:	SetRect(rc, 80 * seq, 0, 80 * (seq + 1), 110); break; //N,NE
 			}
 			if (!Trajectory.IsDone())
@@ -259,19 +259,19 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			seq = 0;
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
+			case N:			SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
 			case SO:		SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
 			case STOPS:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
 			case STOPSO:	SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
-			case E:			SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
-			case SE:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
+			case SE:			SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
+			case E:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
 			case STOPE:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
 			case STOPSE:	SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break; //E,SE
 			case O:			SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
 			case NO:		SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break; //O,NO
 			case STOPO:		SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
 			case STOPNO:	SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break; //O,NOV
-			case N:			SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
+			case S:			SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
 			case NE:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break; //N,NE
 			case STOPN:		SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
 			case STOPNE:	SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break; //N,NE
@@ -293,21 +293,21 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * seq, 100 + 400, 64 * (seq + 1), 200 + 400); break; //S,SO
+			case N:			SetRect(rc, 64 * seq, 100 + 400, 64 * (seq + 1), 200 + 400); break; //S,SO
 			case SO:		SetRect(rc, 64 * seq, 200 + 400, 64 * (seq + 1), 300 + 400); break;
-			case STOPS:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case STOPN:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 			case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-			case E:			SetRect(rc, 64 * seq, 0 + 400, 64 * (seq + 1), 100 + 400); break;
-			case SE:		SetRect(rc, 64 * seq, 100 + 400, 64 * (seq + 1), 200 + 400); break; //E,SE
-			case STOPE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-			case STOPSE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case SE:			SetRect(rc, 64 * seq, 0 + 400, 64 * (seq + 1), 100 + 400); break;
+			case E:		SetRect(rc, 64 * seq, 100 + 400, 64 * (seq + 1), 200 + 400); break; //E,SE
+			case STOPSE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case STOPE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
 			case O:			SetRect(rc, 64 * seq, 200 + 400, 64 * (seq + 1), 300 + 400); break;
 			case NO:		SetRect(rc, 64 * seq, 300 + 400, 64 * (seq + 1), 400 + 400); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
-			case N:			SetRect(rc, 64 * seq, 300 + 400, 64 * (seq + 1), 400 + 400); break;
+			case S:			SetRect(rc, 64 * seq, 300 + 400, 64 * (seq + 1), 400 + 400); break;
 			case NE:		SetRect(rc, 64 * seq, 0 + 400, 64 * (seq + 1), 100 + 400); break; //N,NE
-			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case STOPS:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			}
 			if (update) {
@@ -339,19 +339,19 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			seq = 0;
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break;
+			case N:			SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break;
 			case SO:		SetRect(rc, 64 * shoot_seq, 600 + 400, 64 * (shoot_seq + 1), 700 + 400); break;
 			case STOPS:		SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break;
 			case STOPSO:	SetRect(rc, 64 * shoot_seq, 600 + 400, 64 * (shoot_seq + 1), 700 + 400); break;
-			case E:			SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break;
-			case SE:		SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break;
+			case SE:			SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break;
+			case E:		SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break;
 			case STOPE:		SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break;
 			case STOPSE:	SetRect(rc, 64 * shoot_seq, 500 + 400, 64 * (shoot_seq + 1), 600 + 400); break; //E,SE
 			case O:			SetRect(rc, 64 * shoot_seq, 600 + 400, 64 * (shoot_seq + 1), 700 + 400); break;
 			case NO:		SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * shoot_seq, 600 + 400, 64 * (shoot_seq + 1), 700 + 400); break;
 			case STOPNO:	SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break; //O,NOV
-			case N:			SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break;
+			case S:			SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break;
 			case NE:		SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break; //N,NE
 			case STOPN:		SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break;
 			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break; //N,NE
@@ -371,21 +371,21 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 	{
 				switch (Trajectory.Faced()) // 0, 0, 64, 100
 				{
-				case S:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200 ); break; //S,SO
+				case N:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200 ); break; //S,SO
 				case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300 ); break;
-				case STOPS:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+				case STOPN:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 				case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-				case E:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-				case SE:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
-				case STOPE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-				case STOPSE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+				case SE:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+				case E:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+				case STOPSE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+				case STOPE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
 				case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 				case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
 				case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 				case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
-				case N:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+				case S:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 				case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
-				case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+				case STOPS:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 				case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 				}
 					delay++;
@@ -403,21 +403,21 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case N:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 			case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-			case STOPS:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case STOPN:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
 			case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-			case E:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-			case SE:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
-			case STOPE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-			case STOPSE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case SE:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case E:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case STOPSE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case STOPE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
 			case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
 			case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
-			case N:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case S:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
-			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case STOPS:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			}
 			if (update) {
@@ -437,19 +437,19 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case S:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case N:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
 			case SO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case STOPS:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
 			case STOPSO:	SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
-			case E:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
-			case SE:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case SE:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case E:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
 			case STOPE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
 			case STOPSE:	SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; //E,SE
 			case O:			SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case NO:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NO
 			case STOPO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case STOPNO:	SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NOV
-			case N:			SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
+			case S:			SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
 			case NE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
 			case STOPN:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
 			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
