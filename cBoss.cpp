@@ -7,7 +7,8 @@ cBoss::cBoss(void)
 	x=320;y=1600;
 	cx=10;cy=50;
 	sprite_height = 68;
-	ix=iy=1024;
+	ix=-320;
+	iy=2240;
 	active=true;
 	hp=100;
 	damage=15;

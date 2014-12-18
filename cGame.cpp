@@ -199,6 +199,7 @@ void cGame::ProcessOrder()
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
 
+	// Camera fixe en critter!
 	Critter.GetCell(&cx,&cy);
 	Scene.cx=cx-SCENE_WIDTH/2+5;
 	Scene.cy=cy-SCENE_HEIGHT+5;
