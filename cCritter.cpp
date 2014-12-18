@@ -193,31 +193,39 @@ void cCritter::GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
+	int offDirX, offDirY;
+	offDirX=offDirY=0;
+	//offDirX=-300;
+	//offDirY=-100;
+	switch(shoot_dir)
+	{
+	case NO:	SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400); offDirY=-100; offDirX=-50;	break; // N - > NE   NO - > N  O -> NO SO -> O S -> SO SE -> S
+
+	case O:		SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); offDirY=-80; offDirX=-100;	break;
+
+	case SO:	SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); offDirY=-50; offDirX=-100;	break;
+
+	case S:		SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600); offDirY=0; offDirX=-100;	break;
+
+	case SE:	SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600); offDirY=10; offDirX=-50; break;
+
+	case E:		SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800); offDirY=-50; offDirX=-20;  break;
+
+	case NE:	SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800); offDirY=-50; offDirX=0; break;
+
+	case N:		SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400); offDirY=-100; offDirX=-20; break;
+	}
+
 	int offX = ix - sprite_height;
 	int offY = iy - sprite_height;
 
 	*posx = ISO_OFFSET_X + ((float)(offX - Scene->cx*TILE_SIZE_X) - (offY - Scene->cy*TILE_SIZE_X)) / 2;
 	*posy = ((float)(offX - Scene->cx*TILE_SIZE_Y) + (offY - Scene->cy*TILE_SIZE_Y)) / 2;
 
-	SetRect(rc,shoot_seq*200,0,(shoot_seq+1)*200,200);
-	switch(shoot_dir)
-	{
-	case NO:	SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400); *posy = *posy - 100;	break; // N - > NE   NO - > N  O -> NO SO -> O S -> SO SE -> S
+	*posx += offDirX;
+	*posy += offDirY;
 
-	case O:		SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); *posy = *posy - 100; *posx = *posx - 64;	break;
-
-	case SO:	SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); *posx = *posx - 64;	break;
-
-	case S:		SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600); *posx = *posx - 64; *posy = *posy + 100;	break;
-
-	case SE:	SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600);  break;
-
-	case E:		SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800);  break;
-
-	case NE:	SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800);	break;
-
-	case N:		SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400);	break;
-	}
+	SetRect(rc,shoot_seq*200,0,(shoot_seq+1)*200,200);	
 	/*
 	shoot_delay++;
 	if(shoot_delay==4)
