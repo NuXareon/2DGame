@@ -492,6 +492,10 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 				g_pSprite->Draw(texExplosion,&rc,NULL, 
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
+			} else if (Enemies[i].GetType() == BOSS_AD) {
+				g_pSprite->Draw(texBossAD, &rc, NULL,
+					&D3DXVECTOR3(ix, iy, 0.0f),
+					0xFFFFFFFF);
 			}
 		} else if (Enemies[i].isDead()){
 			Enemies[i].GetIsoPos(&ix,&iy,Scene);
@@ -511,7 +515,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 					&D3DXVECTOR3(ix,iy,0.0f), 
 					0xFFFFFFFF);
 			} else if (Enemies[i].GetType() == BOSS_AD) {
-				SetRect(&rc, 320, 1320, 400, 1430);
+				SetRect(&rc, 320,	800, 384, 900);
 				g_pSprite->Draw(texBossAD, &rc, NULL,
 					&D3DXVECTOR3(ix, iy, 0.0f),
 					0xFFFFFFFF);

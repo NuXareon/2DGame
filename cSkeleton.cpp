@@ -427,7 +427,7 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 					if (delay >= 8)
 					{
 						seq++;
-						if (seq > 5) seq = 0;
+						if (seq > 4) seq = 0;
 						delay = 0;
 					}
 				
