@@ -560,7 +560,7 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 		Critter->GetPosition(&posx, &posy);
 		Critter->getSkill2Rect(&rc);
 		g_pSprite->Draw(texSkills, &rc, NULL,
-			&D3DXVECTOR3(400, 300, 0.0f),
+			&D3DXVECTOR3(300, 200, 0.0f),
 			0xFFFFFFFF);
 	//	g_pSprite->Draw(texBoss, &rc, NULL, &D3DXVECTOR3(400, 300, 0.0f),
 	//		0xFFFFFFFF);
@@ -586,6 +586,10 @@ bool cGraphicsLayer::DrawBoss(cScene *Scene, cBoss *Boss)
 		g_pSprite->Draw(texBoss,&rc,NULL, 
 						&D3DXVECTOR3(ix,iy,0.0f), 
 						0xFFFFFFFF);
+		Boss->GetRectPilar(&rc, &ix, &iy, Scene);
+		g_pSprite->Draw(texBoss, &rc, NULL,
+			&D3DXVECTOR3(ix, iy, 0.0f),
+			0xFFFFFFFF);
 	}
 
 	return true;

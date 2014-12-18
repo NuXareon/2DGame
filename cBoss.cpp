@@ -15,6 +15,7 @@ cBoss::cBoss(void)
 
 	seq=0;
 	delay=0;
+	delay2 = 0;
 }
 
 
@@ -30,7 +31,18 @@ void cBoss::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene)
 	*posx = ISO_OFFSET_X + ((float)(offX - Scene->cx*TILE_SIZE_X) - (offY - Scene->cy*TILE_SIZE_X)) / 2;
 	*posy = ((float)(offX - Scene->cx*TILE_SIZE_Y) + (offY - Scene->cy*TILE_SIZE_Y)) / 2;
 
-	SetRect(rc,0,0,110,175);
+	SetRect(rc,110*seq,0,110*(seq+1),175);
+}
+void cBoss::GetRectPilar(RECT *rc, float *posx, float *posy, cScene *Scene)
+{
+	float offX = ix - sprite_height;
+	float offY = iy - sprite_height;
+
+	*posx = ISO_OFFSET_X + ((float)(offX - Scene->cx*TILE_SIZE_X) - (offY - Scene->cy*TILE_SIZE_X)) / 2;
+	*posy = ((float)(offX - Scene->cx*TILE_SIZE_Y) + (offY - Scene->cy*TILE_SIZE_Y)) / 2;
+	if (seqpilar<=6)
+	SetRect(rc, 110 * seqpilar, 880, 110 * (seqpilar + 1), 990);
+	else(rc, 110 * (seqpilar - 7), 990, 110 * (seqpilar - 6), 1100);
 }
 int cBoss::getDamage()
 {
@@ -45,6 +57,32 @@ void cBoss::SetActive(bool turn)
 {
 }
 
-void cBoss::updateAttackSeq()
+void cBoss::updateAttackSeq(cCritter Player)
 {
+	if (seqpilar == 0) Player.GetCell(&cxpilar, &cypilar);
+	delay2++;
+	if (delay2 == 4)
+	{
+		seqpilar++;
+		if (seqpilar == 16)
+		{
+			seqpilar = 0;
+		}
+		delay2 = 0;
+	}
+
+}
+
+void cBoss::updateBoss()
+{
+	delay++;
+	if (delay == 4)
+	{
+		seq++;
+		if (seq == 6)
+		{
+			seq = 0;
+		}
+		delay = 0;
+	}
 }
