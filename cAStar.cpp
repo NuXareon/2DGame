@@ -84,8 +84,7 @@ void cAStar::EndPathfinder()
 {
 	for (int x = 0; x < numberPeople+1; x++)
 	{
-		// suck bugfix, much memory
-		// free (pathBank [x]);
+		free (pathBank [x]);
 	}
 }
 
