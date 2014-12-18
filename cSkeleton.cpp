@@ -4,7 +4,8 @@
 
 cSkeleton::cSkeleton() :
 playerDetected(false),
-sightRadius(4) 
+sightRadius(4),
+isDead(false)
 {
 	SetPosition(0,0);
 	SetCell(0,0);
@@ -486,7 +487,11 @@ void cSkeleton::SetActive(bool turn)
 void cSkeleton::reduceHP(int x)
 {
 	hp -= x;
-	if (hp<=0) active=false;
+	if (hp <= 0) 
+	{ 
+		isDead = true;
+		active = false; 
+	}
 }
 
 void cSkeleton::updateAttackSeq()
