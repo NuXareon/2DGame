@@ -148,6 +148,12 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texExplosion);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "boss_ad.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texBossAD);
+
+
+
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "skills.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texSkills);
@@ -209,6 +215,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 
 		texSlash->Release();
+		texSlash = NULL;
+	}
+	if (texBossAD)
+	{
+		texBossAD->Release();
 		texSlash = NULL;
 	}
 	if (texCreation)
@@ -485,6 +496,11 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 				SetRect(&rc,320,1320,400,1430);
 				g_pSprite->Draw(texGolem,&rc,NULL, 
 					&D3DXVECTOR3(ix,iy,0.0f), 
+					0xFFFFFFFF);
+			} else if (Enemies[i].GetType() == BOSS_AD) {
+				SetRect(&rc, 320, 1320, 400, 1430);
+				g_pSprite->Draw(texBossAD, &rc, NULL,
+					&D3DXVECTOR3(ix, iy, 0.0f),
 					0xFFFFFFFF);
 			}
 		}

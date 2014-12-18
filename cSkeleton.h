@@ -6,7 +6,7 @@
 #include "cCritter.h"
 #include <cmath>
 
-enum MonsterType {SKELETON_TYPE, GOLEM_TYPE, FIRELOCK_TYPE, EXPLOSION_TYPE};
+enum MonsterType {SKELETON_TYPE, GOLEM_TYPE, FIRELOCK_TYPE, EXPLOSION_TYPE, BOSS_AD};
 
 class cScene;
 

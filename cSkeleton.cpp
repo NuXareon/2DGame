@@ -397,6 +397,66 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 					}
 				
 	}
+	else if (type == BOSS_AD)
+	{
+		if (!shoot)
+		{
+			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			{
+			case S:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case STOPS:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case E:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case SE:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case STOPE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case STOPSE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
+			case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
+			case N:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
+			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
+			}
+			if (update) {
+				shoot_seq = 0;
+				
+					delay++;
+					if (delay >= 8)
+					{
+						seq++;
+						if (seq > 5) seq = 0;
+						delay = 0;
+					}
+				
+			}
+		}
+		else
+		{
+			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			{
+			case S:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case SO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
+			case STOPS:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case STOPSO:	SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
+			case E:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case SE:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case STOPE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPSE:	SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; //E,SE
+			case O:			SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
+			case NO:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NO
+			case STOPO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
+			case STOPNO:	SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break; //O,NOV
+			case N:			SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
+			case NE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
+			case STOPN:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
+			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
+			}
+		}
+	}
+			
 	else SetRect(rc,128,32,160,64); //useless
 }
 
@@ -530,7 +590,7 @@ void cSkeleton::updateAttackSeq()
 				shoot_delay = 0;
 			}
 		}
-		else if (type == FIRELOCK_TYPE)
+		else if (type == FIRELOCK_TYPE || type == BOSS_AD)
 		{
 			if (shoot_delay == 8)
 			{
