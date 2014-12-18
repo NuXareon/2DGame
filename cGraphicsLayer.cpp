@@ -102,6 +102,9 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"main.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "end.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		NULL, NULL, NULL, &texEnd);
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "buttons.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 								NULL, NULL, NULL, &texButtons);
@@ -210,6 +213,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texMain->Release();
 		texMain = NULL;
+	}
+	if (texEnd)
+	{
+		texEnd->Release();
+		texEnd = NULL;
 	}
 	if (texSlash)
 	{
@@ -381,6 +389,11 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 								DrawUI(Critter);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;
+				case STATE_END:
+						
+					g_pSprite->Draw(texEnd, NULL, NULL, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+						
+					break;
 			}
 
 		g_pSprite->End();

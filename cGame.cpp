@@ -159,6 +159,9 @@ bool cGame::LoopProcess()
 						ProcessAttacks();
 						ProcessEvents();
 						break;
+
+		case STATE_END:
+			break;
 	}
 
 	return true;
