@@ -214,6 +214,7 @@ void cGame::ProcessOrder()
 					{
 						attack=false;
 						//Attack
+						/*
 						Skeleton.GetRect(&rc, &ix, &iy, &Scene);
 						if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
 						{
@@ -223,6 +224,7 @@ void cGame::ProcessOrder()
 								attack=true;
 							}
 						}
+						*/
 						for (int i = 0; i < nEnemies; ++i) {
 							if (Enemies[i].isActive()){
 								Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
@@ -298,12 +300,14 @@ void cGame::ProcessOrder()
 		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
 		//Mouse over Enemy
 		attack=false;
+		/*
 		Skeleton.GetCell(&cx,&cy);
 		if(Mouse->InCell(&Scene,cx,cy))
 		{
 			Mouse->SetPointer(ATTACK);
 			attack=true;
 		}
+		*/
 		for (int i = 0; i < nEnemies; ++i) {
 			if (Enemies[i].isActive()) {
 				Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
@@ -352,16 +356,21 @@ void cGame::ProcessOrder()
 
 void cGame::ProcessAttacks()
 {
+	int cx,cy;
 	Critter.updateAttackSeq();
 	Critter.updateSkill1Seq();
 	if(Critter.GetSkill1()&&Critter.Skill1Hit()) {
 		int enemyId = Critter.GetSkill1Target();
 		if (Enemies[enemyId].isActive()) Enemies[enemyId].reduceHP(Critter.getSkill1Damage());
 	}
-	else if (Critter.GetShooting()&&Critter.isHit()) { // TODO: Check distance from target
+	else if (Critter.GetShooting()) {
 		int enemyId = Critter.getTarget();
-		Enemies[enemyId].reduceHP(Critter.getDamage());
-		if (!Enemies[enemyId].isActive()) Critter.stopAttack();
+		Enemies[enemyId].GetCell(&cx,&cy);
+		Critter.enemyFaced(cx, cy);
+		if (Critter.isHit()) { // TODO: Check distance from target
+			Enemies[enemyId].reduceHP(Critter.getDamage());
+			if (!Enemies[enemyId].isActive()) Critter.stopAttack();
+		}
 	}
 	for (int i = 0; i < nEnemies; i++) {
 		if (Enemies[i].isActive()) {
