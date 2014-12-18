@@ -491,6 +491,12 @@ int cGame::LoadEnemies()
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
+			else if (Scene.mapLogic[i] == 8)
+			{
+				Enemies[numEnem].Init(x, y, 60, 5, 2, 5, 0, BOSS_AD);
+				Enemies[numEnem].SetActive(true);
+				numEnem++;
+			}
 		}	
 	}
 
