@@ -196,6 +196,10 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texMana);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "ThankYouForPlaying.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		NULL, NULL, NULL, &texEnd);
+
 }
 
 void cGraphicsLayer::UnLoadData()
@@ -297,6 +301,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texUI->Release();
 		texUI = NULL;
+	}
+	if (texEnd)
+	{
+		texEnd->Release();
+		texEnd = NULL;
 	}
 	if(g_pSprite)
 	{
@@ -646,4 +655,13 @@ bool cGraphicsLayer::DrawRect(RECT rc, D3DCOLOR color)
 	g_pD3DDevice->Clear(1,(D3DRECT *)&rect,D3DCLEAR_TARGET,color,1.0f,0);
 	
 	return true;
+}
+
+bool cGraphicsLayer::DrawEnd()
+{
+
+	g_pSprite->Draw(texEnd, NULL, NULL, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+	
+	return true;
+
 }

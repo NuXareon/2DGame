@@ -37,6 +37,7 @@ public:
 	bool DrawUI(cCritter *Critter);
 	bool DrawMouse(cMouse *Mouse);
 	bool DrawRect(RECT rc, D3DCOLOR color);
+	bool DrawEnd();
 
 private:
 
@@ -61,7 +62,8 @@ private:
 	LPDIRECT3DTEXTURE9 texHead;
 	LPDIRECT3DTEXTURE9 texCreation;
 	LPDIRECT3DTEXTURE9 texSlash;
-
+	LPDIRECT3DTEXTURE9 texEnd;
+	
 	LPD3DXFONT font;
 };
 

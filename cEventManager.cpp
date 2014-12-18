@@ -36,6 +36,8 @@ bool cEventManager::CheckForEvent()
 void cEventManager::GoToNextLevel()
 {
 	(Scene->level)++;
+	
+
 	Scene->LoadMap("map.txt");
 	Scene->LoadMapTiles();
 	Scene->LoadMapLogic();
