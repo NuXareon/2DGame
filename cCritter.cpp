@@ -147,7 +147,7 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 			case O:		SetRect(rc, 0 + (64 * shoot_seq), 1100, 64 + (64 * shoot_seq), 1200);		break;
 			}
 			shoot_delay++;
-			if (shoot_delay >= 20)
+			if (shoot_delay > 20)
 			{
 				shoot_seq++;
 				if (shoot_seq > 5) shoot_seq = 0;
