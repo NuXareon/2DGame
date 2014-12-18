@@ -487,7 +487,6 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	if(Critter->GetShooting())
 	{
 			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-		//	Enemies[Critter->getTarget()].GetPosition(&posx,&posy);
 			g_pSprite->Draw(texSlash,&rc,NULL, 
 							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 							0xFFFFFFFF);

@@ -200,14 +200,23 @@ void cCritter::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posy = ((float)(offX - Scene->cx*TILE_SIZE_Y) + (offY - Scene->cy*TILE_SIZE_Y)) / 2;
 
 	SetRect(rc,shoot_seq*200,0,(shoot_seq+1)*200,200);
-	switch(shoot_seq)
+	switch(shoot_dir)
 	{
-		case 0:	*posx+=5;	break;
-		case 1:	*posx-=2;	break;
-		case 2: *posx-=8;	break;
-		case 3: *posx-=16;	break;
-		case 4: *posx-=24;	break;
-		case 5:	*posx-=32;	break;
+	case NO:	SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400); *posy = *posy - 100;	break; // N - > NE   NO - > N  O -> NO SO -> O S -> SO SE -> S
+
+	case O:		SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); *posy = *posy - 100; *posx = *posx - 64;	break;
+
+	case SO:	SetRect(rc, shoot_seq * 200, 0, (shoot_seq + 1) * 200, 200); *posx = *posx - 64;	break;
+
+	case S:		SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600); *posx = *posx - 64; *posy = *posy + 100;	break;
+
+	case SE:	SetRect(rc, shoot_seq * 200, 400, (shoot_seq + 1) * 200, 600);  break;
+
+	case E:		SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800);  break;
+
+	case NE:	SetRect(rc, shoot_seq * 200, 600, (shoot_seq + 1) * 200, 800);	break;
+
+	case N:		SetRect(rc, shoot_seq * 200, 200, (shoot_seq + 1) * 200, 400);	break;
 	}
 	/*
 	shoot_delay++;
