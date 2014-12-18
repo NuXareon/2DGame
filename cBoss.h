@@ -9,9 +9,11 @@ public:
 	~cBoss(void);
 
 	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
+	void GetCell(int *cellx,int *celly);
 	void GetRectPilar(RECT *rc, float *posx, float *posy,cScene *Scene);
 	int getDamage();
 	bool isActive();
+	void reduceHP(int damage);
 
 	void SetActive(bool turn);
 
