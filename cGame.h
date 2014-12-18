@@ -52,6 +52,8 @@ private:
 	void ProcessAttacks();
 	bool Render();
 	void SetEnd();
+
+	bool oneTimeBitch;
 };
 
 #endif

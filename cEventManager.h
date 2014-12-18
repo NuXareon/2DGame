@@ -20,8 +20,6 @@ public:
 	bool CheckForEvent();
 	int GetEventType();
 	void IsDone();
-	bool oneTimeBitch;
-
 private:
 	int eventType;
 };

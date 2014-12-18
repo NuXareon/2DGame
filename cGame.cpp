@@ -5,7 +5,8 @@
 
 //Intitialize EventManager instance
 cGame::cGame() :
-Event(&Scene, &Critter, &Mobs)
+Event(&Scene, &Critter, &Mobs),
+oneTimeBitch(false)
 {
 }
 cGame::~cGame(){}
@@ -541,9 +542,9 @@ void cGame::ProcessEvents()
 			SetEnd();
 
 		// Ambush event on level 2
-		if (Scene.level == 2 && Event.GetEventType() == 3 && !(Event.oneTimeBitch))
+		if (Scene.level == 2 && Event.GetEventType() == 3 && !(oneTimeBitch))
 		{
-			Event.oneTimeBitch = true;
+			oneTimeBitch = true;
 			for (int i = 0; i < nEnemies; i++)
 			{
 				if (!Enemies[i].isDead())
