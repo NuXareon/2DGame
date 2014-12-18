@@ -35,7 +35,7 @@ private:
 	cScene Scene;
 	cCritter Critter;
 	cSkeleton Skeleton;
-	cSkeleton Enemies[100];
+	cSkeleton Enemies[1000];
 	cBoss Boss;
 	int nEnemies;
 
