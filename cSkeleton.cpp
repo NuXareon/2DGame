@@ -216,9 +216,9 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			shoot_seq = 0;
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case N:			SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //S,SO
-			case SO:		SetRect(rc, 80 * seq, 220 + 440, 80 * (seq + 1), 330 + 440); break;
-			case STOPN:		SetRect(rc, 80 * seq, 110, 80 * (seq + 1), 220); break; //S,SO
+			case N:			SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break; //S,SO
+			case SO:		SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break;
+			case STOPN:		SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break; //S,SO
 			case STOPSO:	SetRect(rc, 80 * seq, 220, 80 * (seq + 1), 330); break;
 			case SE:			SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break;
 			case E:		SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //E,SE
@@ -228,8 +228,8 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			case NO:		SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break; //O,NO
 			case STOPO:		SetRect(rc, 80 * seq, 220, 80 * (seq + 1), 330); break;
 			case STOPNO:	SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break; //O,NOV
-			case S:			SetRect(rc, 80 * seq, 330 + 440, 80 * (seq + 1), 440 + 440); break;
-			case NE:		SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break; //N,NE
+			case S:			SetRect(rc, 80 * seq, 0 + 440, 80 * (seq + 1), 110 + 440); break;
+			case NE:		SetRect(rc, 80 * seq, 110 + 440, 80 * (seq + 1), 220 + 440); break; //N,NE
 			case STOPS:		SetRect(rc, 80 * seq, 330, 80 * (seq + 1), 440); break;
 			case STOPNE:	SetRect(rc, 80 * seq, 0, 80 * (seq + 1), 110); break; //N,NE
 			}
@@ -257,24 +257,25 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 		else
 		{
 			seq = 0;
+			int a = Trajectory.Faced();
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
-			case N:			SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
+			case N:			SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
 			case SO:		SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
-			case STOPS:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
+			case STOPS:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
 			case STOPSO:	SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
-			case SE:			SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
-			case E:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
+			case SE:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
+			case E:			SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break;
 			case STOPE:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break;
 			case STOPSE:	SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break; //E,SE
 			case O:			SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
 			case NO:		SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break; //O,NO
 			case STOPO:		SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
 			case STOPNO:	SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break; //O,NOV
-			case S:			SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
-			case NE:		SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break; //N,NE
+			case S:			SetRect(rc, 80 * shoot_seq, 660 + 440, 80 * (shoot_seq + 1), 770 + 440); break;
+			case NE:		SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break; //N,NE
 			case STOPN:		SetRect(rc, 80 * shoot_seq, 770 + 440, 80 * (shoot_seq + 1), 880 + 440); break;
-			case STOPNE:	SetRect(rc, 80 * shoot_seq, 440 + 440, 80 * (shoot_seq + 1), 550 + 440); break; //N,NE
+			case STOPNE:	SetRect(rc, 80 * shoot_seq, 550 + 440, 80 * (shoot_seq + 1), 660 + 440); break; //N,NE
 			}
 			/*
 			shoot_delay++;
