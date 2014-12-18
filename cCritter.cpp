@@ -13,6 +13,7 @@ cCritter::cCritter()
 	head_dir=0;
 	
 	Init(3, 61);
+	//Init(3, 30);
 	//PutInStart(2);
 	SetSelected(true);
 	sprite_height = 64;
