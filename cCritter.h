@@ -39,6 +39,7 @@ public:
 	bool isDead();
 	int getDamage();
 	bool reduceHP(int hp);
+	void enemyFaced(int enemy_cx, int enemy_cy);
 
 	void updateAttackSeq();
 	void PutInStart(int level); //Puts the player at the level start
@@ -81,6 +82,7 @@ private:
 	bool shoot;			//Begin attack (to shoot)
 	int shoot_seq;		//Shooter sequence animation control
 	int shoot_delay;	//Shooter animation delay
+	int shoot_dir;
 	bool skill1;
 	int skill1x,skill1y;
 	int skill1_seq;

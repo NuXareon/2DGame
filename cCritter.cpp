@@ -13,6 +13,7 @@ cCritter::cCritter()
 	head_dir=0;
 	
 	Init(3, 61);
+	//Init(3, 30);
 	//PutInStart(2);
 	SetSelected(true);
 	sprite_height = 64;
@@ -24,6 +25,7 @@ cCritter::cCritter()
 	shoot=false;
 	shoot_seq=0;
 	shoot_delay=0;
+	shoot_dir=N;
 
 	skill1 = false;
 	skill1_seq=0;
@@ -112,7 +114,7 @@ void cCritter::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 		if (shoot)
 		{
-			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			switch (shoot_dir) 
 			{
 			case STOPN:	SetRect(rc, 0 + (64 * shoot_seq), 1200, 64 + (64 * shoot_seq), 1300);		break;
 
@@ -523,7 +525,7 @@ void cCritter::getRectHead(RECT *rc, float *off)
 		}
 		else
 		{
-			switch (Trajectory.Faced())
+			switch (shoot_dir)
 			{
 				case NO:			SetRect(rc, 200, 0 + head * 50, 250, 50 + head * 50);	break; 
 				case STOPNO:		SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
@@ -549,6 +551,7 @@ void cCritter::getRectHead(RECT *rc, float *off)
 				case N:				SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break;
 				case STOPN:			SetRect(rc, 250, 0 + head * 50, 300, 50 + head * 50);	break; // N, NE
 			}
+			int a=0;
 		}
 		if (head_dir) head_offset-=0.05f;
 		else head_offset+=0.05f;
@@ -578,6 +581,7 @@ void cCritter::getRectHead(RECT *rc, float *off)
 		}*/
 	}
 }
+
 int cCritter::GetHP()
 {
 	return hp;
@@ -591,4 +595,16 @@ int cCritter::GetMana()
 int cCritter::GetCD()
 {
 	return skill1_cd;
+
+
+void cCritter::enemyFaced(int enemy_cx, int enemy_cy)
+{
+	if (enemy_cx==cx && enemy_cy<cy) shoot_dir=N;
+	if (enemy_cx==cx && enemy_cy>cy) shoot_dir=S;
+	if (enemy_cx<cx && enemy_cy==cy) shoot_dir=O;
+	if (enemy_cx>cx && enemy_cy==cy) shoot_dir=E;
+	if (enemy_cx<cx && enemy_cy<cy) shoot_dir=NO;
+	if (enemy_cx>cx && enemy_cy<cy) shoot_dir=NE;
+	if (enemy_cx>cx && enemy_cy>cy) shoot_dir=SE;
+	if (enemy_cx<cx && enemy_cy>cy) shoot_dir=SO;
 }

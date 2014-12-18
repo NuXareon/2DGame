@@ -439,12 +439,12 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 						0xFFFFFFFF);
 		*/
 	//}
-
+	/*
 	Skeleton->GetRect(&rc,&ix,&iy,Scene);
 	g_pSprite->Draw(texSkeleton,&rc,NULL, 
 					&D3DXVECTOR3(ix,iy,0.0f), 
 					0xFFFFFFFF);
-
+*/
 	//Draw enemies
 	for (int i = 0; i < nEnemies; ++i) {
 		cSkeleton enemy = Enemies[i];

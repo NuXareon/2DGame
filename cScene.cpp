@@ -225,7 +225,7 @@ void cScene::LoadMapTiles()
 	else if (level == 2)
 	{
 		FILE *f;
-		f = fopen("level2_Logic.txt", "r");
+		f = fopen("level2_Tiles.txt", "r");
 		k = 0;
 		for (i = 0; i<SCENE_AREA; i++)
 		{
@@ -242,7 +242,7 @@ void cScene::LoadMapTiles()
 	else if (level == 3)
 	{
 		FILE *f;
-		f = fopen("level3_Logic.txt", "r");
+		f = fopen("level3_Tiles.txt", "r");
 		k = 0;
 		for (i = 0; i<SCENE_AREA; i++)
 		{
@@ -259,7 +259,7 @@ void cScene::LoadMapTiles()
 	else if (level == 4)
 	{
 		FILE *f;
-		f = fopen("level4_Logic.txt", "r");
+		f = fopen("level4_Tiles.txt", "r");
 		k = 0;
 		for (i = 0; i<SCENE_AREA; i++)
 		{
