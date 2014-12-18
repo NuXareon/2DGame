@@ -392,13 +392,24 @@ void cGame::ProcessOrder()
 
 void cGame::ProcessAttacks()
 {
-	int cx,cy;
+	int cx,cy,ecx,ecy;
 	Critter.updateAttackSeq();
 	Critter.updateSkill1Seq();
 	Critter.updateSkill2Seq();
 	if(Critter.GetSkill1()&&Critter.Skill1Hit()) {
 		int enemyId = Critter.GetSkill1Target();
 		if (Enemies[enemyId].isActive()) Enemies[enemyId].reduceHP(Critter.getSkill1Damage());
+	}
+	if (Critter.GetSkill2()&&Critter.Skill2Hit()) {
+		Critter.GetCell(&cx,&cy);
+		for (int i = 0; i < nEnemies; ++i) {
+			if (Enemies[i].isActive()) {
+				Enemies[i].GetCell(&ecx,&ecy);
+				if ((ecx==cx&&ecy==cy)||(ecx==cx-1&&ecy==cy)||(ecx==cx-1&&ecy==cy-1)||(ecx==cx&&ecy==cy-1)||(ecx==cx+1&&ecy==cy-1)||(ecx==cx+1&&ecy==cy)||(ecx==cx+1&&ecy==cy+1)||(ecx==cx&&ecy==cy+1)||(ecx==cx-1||ecy==cy+1)) {
+					Enemies[i].reduceHP(Critter.getSkill2Damage());
+				}
+			}
+		}
 	}
 	else if (Critter.GetShooting()) {
 		int enemyId = Critter.getTarget();
