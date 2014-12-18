@@ -479,8 +479,9 @@ void cGame::ProcessAttacks()
 			if (cx==ecx&&cy==ecy) Critter.reduceHP(Boss.getDamage());
 		}
 	}
-	if (Boss.getHP() < 1) {
-		  SetEnd();
+	if (Boss.getHP() < 1)
+	{
+		SetEnd();
 	}
 }
 

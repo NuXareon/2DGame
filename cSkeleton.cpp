@@ -369,32 +369,58 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 	}
 	else if (type == EXPLOSION_TYPE)
 	{
-				switch (Trajectory.Faced()) // 0, 0, 64, 100
-				{
-				case N:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200 ); break; //S,SO
-				case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300 ); break;
-				case STOPN:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
-				case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-				case SE:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-				case E:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
-				case STOPSE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
-				case STOPE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
-				case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-				case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
-				case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
-				case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
-				case S:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
-				case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
-				case STOPS:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
-				case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
-				}
-					delay++;
-					if (delay >= 8)
-					{
-						seq++;
-						if (seq > 7) seq = 0;
-						delay = 0;
-					}
+		if (!shoot)
+		{
+			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			{
+			case N:			SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case SO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case STOPN:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //S,SO
+			case STOPSO:	SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case SE:			SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case E:		SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case STOPSE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break;
+			case STOPE:	SetRect(rc, 64 * seq, 100, 64 * (seq + 1), 200); break; //E,SE
+			case O:			SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case NO:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NO
+			case STOPO:		SetRect(rc, 64 * seq, 200, 64 * (seq + 1), 300); break;
+			case STOPNO:	SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break; //O,NOV
+			case S:			SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case NE:		SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
+			case STOPS:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
+			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
+			}
+			delay++;
+			if (delay >= 8)
+			{
+				seq++;
+				if (seq > 7) seq = 0;
+				delay = 0;
+			}
+		}
+		else
+		{
+			switch (Trajectory.Faced()) // 0, 0, 64, 100
+			{
+			case N:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //S,SO
+			case SO:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPN:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //S,SO
+			case STOPSO:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case SE:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case E:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //E,SE
+			case STOPSE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //E,SE
+			case O:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case NO:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //O,NO
+			case STOPO:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPNO:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //O,NOV
+			case S:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case NE:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
+			case STOPS:		SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
+			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
+			}
+		}
+
 				
 	}
 	else if (type == BOSS_AD)
@@ -507,7 +533,7 @@ int cSkeleton::getDamage()
 }
 bool cSkeleton::isHit()
 {
-	if (type==EXPLOSION_TYPE) return (shoot_seq==2);
+	if (type==EXPLOSION_TYPE) return (shoot_seq==8);
 	return (shoot_seq==4&&shoot_delay==0);  // TODO: update depending enemy attack animation;
 }
 MonsterType cSkeleton::GetType()
@@ -619,7 +645,7 @@ void cSkeleton::updateAttackSeq()
 			if (shoot_delay == 4)
 			{
 				shoot_seq++;
-				if (shoot_seq == 2)
+				if (shoot_seq == 8)
 				{
 					active = false;
 				}
