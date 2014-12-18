@@ -583,25 +583,25 @@ int cGame::LoadEnemies()
 			}
 			else if (Scene.mapLogic[i] == 5)
 			{
-				Enemies[numEnem].Init(x, y, 100, 5, 2,5,0, GOLEM_TYPE);
+				Enemies[numEnem].Init(x, y, 120, 25, 2,5,0, GOLEM_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
 			else if (Scene.mapLogic[i] == 6)
 			{
-				Enemies[numEnem].Init(x, y, 40, 2, 2,8,5, FIRELOCK_TYPE);
+				Enemies[numEnem].Init(x, y, 40, 5, 2,8,5, FIRELOCK_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
 			else if (Scene.mapLogic[i] == 7)
 			{
-				Enemies[numEnem].Init(x, y, 10, 15, 2,7,0, EXPLOSION_TYPE);
+				Enemies[numEnem].Init(x, y, 10, 40, 2,7,0, EXPLOSION_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
 			else if (Scene.mapLogic[i] == 8)
 			{
-				Enemies[numEnem].Init(x, y, 60, 5, 2, 5, 0, BOSS_AD);
+				Enemies[numEnem].Init(x, y, 40, 5, 2, 5, 0, BOSS_AD);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
