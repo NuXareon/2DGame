@@ -161,6 +161,7 @@ bool cGame::LoopProcess()
 						break;
 
 		case STATE_END:
+
 			break;
 	}
 
@@ -435,6 +436,11 @@ void cGame::ProcessEvents()
 		{
 			Event.GoToNextLevel();
 
+			if (Scene.level == 4)
+			{
+				SetEnd();
+			}
+
 			for (int i = 0; i < nEnemies; i++)
 				Enemies[i].Restart();
 
@@ -504,4 +510,9 @@ int cGame::LoadEnemies()
 
 	return numEnem;
 
+}
+
+void cGame::SetEnd()
+{
+	state = STATE_END;
 }

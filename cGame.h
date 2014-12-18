@@ -11,7 +11,7 @@
 #define STATE_MAIN		0
 #define STATE_CREATION	1
 #define STATE_GAME		2
-#define STATE_END		3
+#define STATE_END       3 
 
 class cGame
 {
@@ -50,6 +50,7 @@ private:
 	void ProcessOrder();
 	void ProcessAttacks();
 	bool Render();
+	void SetEnd();
 };
 
 #endif
