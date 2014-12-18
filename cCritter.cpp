@@ -332,7 +332,7 @@ bool cCritter::IsFiring()
 }
 bool cCritter::isHit()
 {
-	return (shoot_seq==8&&shoot_delay==0);
+	return (shoot_seq==6&&shoot_delay==0);
 }
 int cCritter::getDamage()
 {
@@ -406,7 +406,7 @@ void cCritter::updateAttackSeq()
 		if(shoot_delay==4)
 		{
 			shoot_seq++;
-			if(shoot_seq==16) shoot_seq=0;
+			if(shoot_seq==6) shoot_seq=0;
 			shoot_delay=0;
 		}
 	}
