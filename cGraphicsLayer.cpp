@@ -367,7 +367,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 								DrawScene(Scene);
 								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
 								DrawDebug(Scene, Mouse);
-								DrawUI();
+								DrawUI(Critter);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;
 			}
@@ -533,13 +533,45 @@ bool cGraphicsLayer::DrawDebug(cScene *Scene, cMouse *Mouse)
 	return true;
 }
 
-bool cGraphicsLayer::DrawUI()
+bool cGraphicsLayer::DrawUI(cCritter *Critter)
 {
 	RECT rc;
-	SetRect( &rc, 0, 0, 572, 202);
-	g_pSprite->Draw(texUI,&rc,NULL, 
-					&D3DXVECTOR3(float((800-572)/2),float(600-202),0.0f), 
+
+	g_pSprite->Draw(texUI,NULL,NULL, 
+					&D3DXVECTOR3(float((800-611)/2),float(600-172),0.0f), 
 					0xFFFFFFFF);
+	SetRect(&rc, 0, 0, 65, 105);
+	g_pSprite->Draw(texHP, &rc, NULL,
+		&D3DXVECTOR3(float((800 - 611) / 2) + 9.0f, float(600 - 105), 0.0f),
+		0xFFFFFFFF);
+	SetRect(&rc, 65, 100-Critter->GetHP(), 130, 105);
+	g_pSprite->Draw(texHP, &rc, NULL,
+		&D3DXVECTOR3(float((800 - 611) / 2) + 9.0f, float(600 - 105 + 100 - Critter->GetHP()), 0.0f),
+		0xFFFFFFFF);
+	SetRect(&rc, 115 * Critter->GetMana(), 0, 115 * (Critter->GetMana() + 1), 105);
+	g_pSprite->Draw(texMana, &rc, NULL,
+		&D3DXVECTOR3(float(611-28) , float(600 - 105), 0.0f),
+		0xFFFFFFFF);
+
+	SetRect(&rc, 50, 50, 100, 100);
+
+	g_pSprite->Draw(texIcons, &rc, NULL,
+		&D3DXVECTOR3(float(611 - 250), float(600 - 60), 0.0f),
+		0xFFFFFFFF);
+
+	if (Critter->GetMana() > 0)
+	{
+		SetRect(&rc, 100, 50 + Critter->GetCD(), 150, 100);
+	}
+	else
+	{
+		SetRect(&rc, 0, 50 + Critter->GetCD(), 50, 100);
+	}
+
+		g_pSprite->Draw(texIcons, &rc, NULL,
+			&D3DXVECTOR3(float(611 - 250), float(600 - 60 + Critter->GetCD()), 0.0f),
+			0xFFFFFFFF);
+
 	return true;
 }
 

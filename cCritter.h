@@ -55,6 +55,9 @@ public:
 	int GetSkill1Target();
 	int getSkill1Damage();
 	int GetSkill1Range();
+	int GetHP();
+	int GetMana();
+	int GetCD();
 
 private:
 	int x,y;			//Position in total map
