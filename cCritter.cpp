@@ -37,7 +37,7 @@ cCritter::cCritter()
 
 	hp=100;
 	energy=6;
-	damage=20;
+	damage=100;
 	step_length=2;
 }
 cCritter::~cCritter()
