@@ -447,25 +447,24 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 */
 	//Draw enemies
 	for (int i = 0; i < nEnemies; ++i) {
-		cSkeleton enemy = Enemies[i];
-		if (enemy.isActive()){
-			enemy.GetRect(&rc,&ix,&iy,Scene);
-			if (enemy.GetType() == SKELETON_TYPE){
+		if (Enemies[i].isActive()){
+			Enemies[i].GetRect(&rc,&ix,&iy,Scene,true);
+			if (Enemies[i].GetType() == SKELETON_TYPE){
 				g_pSprite->Draw(texSkeleton,&rc,NULL, 
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			} 
-			else if (enemy.GetType() == GOLEM_TYPE){
+			else if (Enemies[i].GetType() == GOLEM_TYPE){
 				g_pSprite->Draw(texGolem,&rc,NULL, 
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
-			else if (enemy.GetType() == FIRELOCK_TYPE){
+			else if (Enemies[i].GetType() == FIRELOCK_TYPE){
 				g_pSprite->Draw(texFirelock,&rc,NULL, 
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
-			else if (enemy.GetType() == EXPLOSION_TYPE){
+			else if (Enemies[i].GetType() == EXPLOSION_TYPE){
 				g_pSprite->Draw(texExplosion,&rc,NULL, 
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
@@ -476,7 +475,8 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	// Skills
 	if(Critter->GetSkill1()) {
 		int enemyId = Critter->GetSkill1Target();
-		Enemies[enemyId].GetRect(&rc,&ix,&iy,Scene);
+		//Enemies[enemyId].GetRect(&rc,&ix,&iy,Scene);
+		Enemies[enemyId].GetIsoPos(&ix,&iy,Scene);
 		SetRect(&rc,0,575,90,875);
 		g_pSprite->Draw(texSkills,&rc,NULL, 
 						&D3DXVECTOR3(ix,iy,0.0f), 

@@ -80,6 +80,11 @@ void cSkeleton::Move()
 					seq=0;
 					shoot=true;
 				}
+				if (mobToPlayerDistance > sightRadius+1) {
+					Trajectory.Done();
+					seq=0;
+					shoot=true;
+				}
 			}
 		}
 	}
@@ -96,8 +101,7 @@ void cSkeleton::Move()
 	}
 }
 
-
-void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
+void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool update)
 {
 	float offX = ix - sprite_height;
 	float offY = iy - sprite_height;
@@ -108,7 +112,7 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 
 	if (type == SKELETON_TYPE)
 	{
-		if (!shoot && shoot_seq == 0)
+		if (!shoot)
 		{
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
@@ -129,24 +133,27 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			}
-			if (!Trajectory.IsDone())
-			{
-				delay++;
-				if (delay >= 8)
+			if (update) {
+				shoot_seq = 0;
+				if (!Trajectory.IsDone())
 				{
-					seq++;
-					if (seq > 7) seq = 0;
-					delay = 0;
+					delay++;
+					if (delay >= 8)
+					{
+						seq++;
+						if (seq > 7) seq = 0;
+						delay = 0;
+					}
 				}
-			}
-			else
-			{
-				delay++;
-				if (delay >= 8)
+				else
 				{
-					seq++;
-					if (seq > 3) seq = 0;
-					delay = 0;
+					delay++;
+					if (delay >= 8)
+					{
+						seq++;
+						if (seq > 3) seq = 0;
+						delay = 0;
+					}
 				}
 			}
 		}
@@ -156,7 +163,7 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 			{
 			case S:			SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
 			case SO:		SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
-			case STOPS:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
+			case STOPS:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break; 
 			case STOPSO:	SetRect(rc, 64 * shoot_seq, 600, 64 * (shoot_seq + 1), 700); break;
 			case E:			SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break;
 			case SE:		SetRect(rc, 64 * shoot_seq, 500, 64 * (shoot_seq + 1), 600); break;
@@ -171,22 +178,20 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 			case STOPN:		SetRect(rc, 64 * shoot_seq, 700, 64 * (shoot_seq + 1), 800); break;
 			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400, 64 * (shoot_seq + 1), 500); break; //N,NE
 			}
-			shoot_delay++;
-			if (shoot_delay >= 8)
-			{
-
-				if (shoot_seq > 7) shoot_seq = 0;
-				shoot_delay = 0;
+			/*
+			if (update) {
+			seq = 0;
+				shoot_delay++;
+				if (shoot_delay >= 8)
+				{
+					shoot_seq++;
+					if (shoot_seq > 7) shoot_seq = 0;
+					shoot_delay = 0;
+				}
 			}
+			*/
 		}
-
-
-
-
-
-
-
-
+		//		SetRect(rc, 0, 0, 64, 100); TODO: variar dependiendo de animacion
 		//		SetRect(rc, 0, 0, 64, 100); TODO: variar dependiendo de animacion
 	}
 	else if (type == GOLEM_TYPE) SetRect(rc, 0, 0, 80, 110);
@@ -257,6 +262,7 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 			case STOPN:		SetRect(rc, 64 * shoot_seq, 700 + 400, 64 * (shoot_seq + 1), 800 + 400); break;
 			case STOPNE:	SetRect(rc, 64 * shoot_seq, 400 + 400, 64 * (shoot_seq + 1), 500 + 400); break; //N,NE
 			}
+			/*
 			shoot_delay++;
 			if (shoot_delay >= 8)
 			{
@@ -264,12 +270,20 @@ void cSkeleton::GetRect(RECT *rc, float *posx, float *posy, cScene *Scene)
 				if (shoot_seq > 4) shoot_seq = 0;
 				shoot_delay = 0;
 			}
+			*/
 		}
 	}
 	else if (type == EXPLOSION_TYPE) SetRect(rc,0,0,64,100);
 	else SetRect(rc,128,32,160,64); //useless
+}
 
+void cSkeleton::GetIsoPos(float *posx,float *posy,cScene *Scene)
+{
+	float offX = ix-sprite_height;
+	float offY = iy-sprite_height;
 
+	*posx = ISO_OFFSET_X + ((float)(offX-Scene->cx*TILE_SIZE_X)-(offY-Scene->cy*TILE_SIZE_X))/2;
+	*posy = ((float)(offX-Scene->cx*TILE_SIZE_Y)+(offY-Scene->cy*TILE_SIZE_Y))/2;
 }
 
 void cSkeleton::GetRectRadar(RECT *rc,int *posx,int *posy)
@@ -311,7 +325,7 @@ int cSkeleton::getDamage()
 bool cSkeleton::isHit()
 {
 	if (type==EXPLOSION_TYPE) return (shoot_seq==2);
-	return (shoot_seq==8&&shoot_delay==0);  // TODO: update depending enemy attack animation;
+	return (shoot_seq==5&&shoot_delay==0);  // TODO: update depending enemy attack animation;
 }
 MonsterType cSkeleton::GetType()
 {
@@ -377,7 +391,7 @@ void cSkeleton::updateAttackSeq()
 		{
 			shoot_seq++;
 			if(type==EXPLOSION_TYPE&&shoot_seq==2) active=false;
-			if(shoot_seq==16) {
+			if(shoot_seq>7) {
 				shoot_seq=0;
 				shoot=false;
 			}
