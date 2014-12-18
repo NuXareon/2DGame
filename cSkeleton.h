@@ -33,6 +33,7 @@ public:
 	bool isHit();
 	MonsterType GetType();
 	bool isActive();
+	bool isDead();
 
 	void SetActive(bool turn);
 
@@ -51,6 +52,7 @@ private:
 	int cx,cy;				//Cell position in total map in cartesian
 	float ix, iy;				//Position in total map in isometric
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
+	bool dead;
 
 	bool active;
 	int hp,damage,step_length,attackRange;

@@ -18,6 +18,7 @@ sightRadius(4)
 
 	shoot_delay=0;
 	shoot_seq=0;
+	dead=false;
 }
 cSkeleton::~cSkeleton()
 {
@@ -199,7 +200,6 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 	{
 		if (!shoot)
 		{
-			shoot_seq = 0;
 			switch (Trajectory.Faced()) // 0, 0, 64, 100
 			{
 			case S:			SetRect(rc, 64 * seq, 100 + 400, 64 * (seq + 1), 200 + 400); break; //S,SO
@@ -219,24 +219,27 @@ void cSkeleton::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool upd
 			case STOPN:		SetRect(rc, 64 * seq, 300, 64 * (seq + 1), 400); break;
 			case STOPNE:	SetRect(rc, 64 * seq, 0, 64 * (seq + 1), 100); break; //N,NE
 			}
-			if (!Trajectory.IsDone())
-			{
-				delay++;
-				if (delay >= 8)
+			if (update) {
+				shoot_seq = 0;
+				if (!Trajectory.IsDone())
 				{
-					seq++;
-					if (seq > 4) seq = 0;
-					delay = 0;
+					delay++;
+					if (delay >= 8)
+					{
+						seq++;
+						if (seq > 4) seq = 0;
+						delay = 0;
+					}
 				}
-			}
-			else
-			{
-				delay++;
-				if (delay >= 8)
+				else
 				{
-					seq++;
-					if (seq > 5) seq = 0;
-					delay = 0;
+					delay++;
+					if (delay >= 8)
+					{
+						seq++;
+						if (seq > 5) seq = 0;
+						delay = 0;
+					}
 				}
 			}
 		}
@@ -325,7 +328,7 @@ int cSkeleton::getDamage()
 bool cSkeleton::isHit()
 {
 	if (type==EXPLOSION_TYPE) return (shoot_seq==2);
-	return (shoot_seq==5&&shoot_delay==0);  // TODO: update depending enemy attack animation;
+	return (shoot_seq==4&&shoot_delay==0);  // TODO: update depending enemy attack animation;
 }
 MonsterType cSkeleton::GetType()
 {
@@ -380,7 +383,15 @@ void cSkeleton::SetActive(bool turn)
 void cSkeleton::reduceHP(int x)
 {
 	hp -= x;
-	if (hp<=0) active=false;
+	if (hp<=0) {
+		active=false;
+		dead=true;
+	}
+}
+
+bool cSkeleton::isDead()
+{
+	return dead;
 }
 
 void cSkeleton::updateAttackSeq()
@@ -391,11 +402,14 @@ void cSkeleton::updateAttackSeq()
 		{
 			shoot_seq++;
 			if(type==EXPLOSION_TYPE&&shoot_seq==2) active=false;
-			if(shoot_seq>7) {
+			if(type==SKELETON_TYPE&&shoot_seq>7) {
 				shoot_seq=0;
 				shoot=false;
 			}
-			shoot_delay=0;
+			if(type==FIRELOCK_TYPE&&shoot_seq>4) {
+				shoot_seq=0;
+				shoot=false;
+			}
 		}
 	}
 	else {

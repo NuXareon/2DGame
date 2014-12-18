@@ -155,7 +155,7 @@ bool cGame::LoopProcess()
 						ProcessOrder();
 						Critter.Move();
 						Skeleton.Move();
-						for(int i = 0; i < nEnemies; ++i) Enemies[i].Move();
+						for(int i = 0; i < nEnemies; ++i) if(Enemies[i].isActive()) Enemies[i].Move();
 						ProcessAttacks();
 						ProcessEvents();
 						break;

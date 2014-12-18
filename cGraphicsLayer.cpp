@@ -469,7 +469,26 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 								&D3DXVECTOR3(ix,iy,0.0f), 
 								0xFFFFFFFF);
 			}
+		} else if (Enemies[i].isDead()){
+			Enemies[i].GetIsoPos(&ix,&iy,Scene);
+			if (Enemies[i].GetType() == SKELETON_TYPE) {
+				SetRect(&rc,256,800,320,900);
+				g_pSprite->Draw(texSkeleton,&rc,NULL, 
+					&D3DXVECTOR3(ix,iy,0.0f), 
+					0xFFFFFFFF);
+			} else if (Enemies[i].GetType() == FIRELOCK_TYPE) {
+				SetRect(&rc,256,1200,320,1300);
+				g_pSprite->Draw(texFirelock,&rc,NULL, 
+					&D3DXVECTOR3(ix,iy,0.0f), 
+					0xFFFFFFFF);
+			} else if (Enemies[i].GetType() == GOLEM_TYPE) {
+				SetRect(&rc,320,1320,400,1430);
+				g_pSprite->Draw(texGolem,&rc,NULL, 
+					&D3DXVECTOR3(ix,iy,0.0f), 
+					0xFFFFFFFF);
+			}
 		}
+
 	}
 
 	// Skills
