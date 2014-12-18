@@ -372,14 +372,13 @@ void cGame::ProcessAttacks()
 		Critter.enemyFaced(cx, cy);
 		if (Critter.isHit()) { // TODO: Check distance from target
 			Enemies[enemyId].reduceHP(Critter.getDamage());
-			if (Enemies[enemyId].isDead())
-				Critter.increaseHP(20);
-
 			if (!Enemies[enemyId].isActive())
 			{
 				Critter.stopAttack(); 
 			}
 		}
+		if (Enemies[enemyId].isDead())
+			Critter.increaseHP(20);
 	}
 	for (int i = 0; i < nEnemies; i++) {
 		if (Enemies[i].isActive()) {
