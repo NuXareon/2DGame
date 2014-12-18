@@ -227,7 +227,8 @@ void cGame::ProcessOrder()
 						*/
 						for (int i = 0; i < nEnemies; ++i) {
 							if (Enemies[i].isActive()){
-								Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
+								Enemies[i].GetRect(&rc,&ix,&iy,&Scene,false);
+								//Enemies[i].GetIsoPos(&ix,&iy,&Scene);
 								if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
 								{
 									Enemies[i].GetCell(&cx,&cy);
@@ -310,7 +311,8 @@ void cGame::ProcessOrder()
 		*/
 		for (int i = 0; i < nEnemies; ++i) {
 			if (Enemies[i].isActive()) {
-				Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
+				Enemies[i].GetRect(&rc,&ix,&iy,&Scene,false);
+				//Enemies[i].GetIsoPos(&ix,&iy,&Scene);
 				if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
 				{
 					Mouse->SetPointer(ATTACK);
@@ -345,7 +347,8 @@ void cGame::ProcessOrder()
 		if (mouseToPlayerDistance <= Critter.GetSkill1Range()) {
 			for (int i = 0; i < nEnemies; ++i) {
 				if (Enemies[i].isActive()) {
-					Enemies[i].GetRect(&rc,&ix,&iy,&Scene);
+					Enemies[i].GetRect(&rc,&ix,&iy,&Scene,false);
+					//Enemies[i].GetIsoPos(&ix,&iy,&Scene);
 					if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top)) target=i;
 				}
 			}

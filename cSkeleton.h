@@ -20,7 +20,8 @@ public:
 	void GoToCell(int *map, int destcx, int destcy,int type); //type= 0 - normal, 1 - attack
 	void GoToPlayer(int *map, int destcx, int destcy);
 	void Move();
-	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
+	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene, bool update);
+	void GetIsoPos(float *posx,float *posy,cScene *Scene);
 	void GetRectRadar(RECT *rc,int *posx,int *posy);
 
 	void SetPosition(int posx,int posy);
