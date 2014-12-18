@@ -40,6 +40,7 @@ public:
 	void updateAttackSeq();
 	void reduceHP(int x);
 
+	void Restart();
 	// Enemy IA
 	void LookForPlayer(cCritter& thePlayer);
 	void AttackPlayer(int* map,cCritter& thePlayer);

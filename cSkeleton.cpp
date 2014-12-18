@@ -39,6 +39,20 @@ void cSkeleton::Init(int nx, int ny,int _hp, int _damage, int _step_length, int 
 	attackRange=range;
 }
 
+void cSkeleton::Restart()
+{
+	seq = 0;
+	delay = 0;
+
+	attack = false;
+	shoot = false;
+	shoot_seq = 0;
+	shoot_delay = 0;
+
+	playerDetected = false;
+
+	Trajectory.Restart();
+}
 
 void cSkeleton::GoToCell(int *map, int destcx, int destcy, int type)
 {
