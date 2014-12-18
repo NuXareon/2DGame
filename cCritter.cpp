@@ -596,7 +596,7 @@ int cCritter::GetCD()
 {
 	return skill1_cd;
 
-
+}
 void cCritter::enemyFaced(int enemy_cx, int enemy_cy)
 {
 	if (enemy_cx==cx && enemy_cy<cy) shoot_dir=N;
