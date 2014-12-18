@@ -199,10 +199,6 @@ void cGame::ProcessOrder()
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
 
-	Critter.GetCell(&cx,&cy);
-	Scene.cx=cx-SCENE_WIDTH/2+5;
-	Scene.cy=cy-SCENE_HEIGHT+5;
-	
     // Enemy Moves!
 	DoEnemyTurn();
 
@@ -293,8 +289,6 @@ void cGame::ProcessOrder()
 			Mouse->SetPointer(SELECT);
 			return;
 		}
-
-		/*
 				//Arrow mouse pointers to move through scene
 		if	   (Mouse->In(             s,             s,SCREEN_RES_X-s,SCREEN_RES_Y-s)) Mouse->SetPointer(NORMAL);
 		else if(Mouse->In(             s,             0,SCREEN_RES_X-s,             s)) Mouse->SetPointer(MN);
@@ -309,7 +303,6 @@ void cGame::ProcessOrder()
 
 		p = Mouse->GetPointer();
 		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
-		*/
 		//Mouse over Enemy
 		attack=false;
 		/*
@@ -366,6 +359,13 @@ void cGame::ProcessOrder()
 		}
 		if (target!=-1) Critter.UseSkill1(fcx,fcy,target);
 	}
+
+	if (Input.KeyDown(DIK_2)) // <-- windowz plz, f*ck u.
+	{
+		// TODO: Comprovar posicion mouse per cada enemy + range
+		Critter.UseSkill2();
+	}
+
 }
 
 void cGame::ProcessAttacks()
@@ -373,6 +373,7 @@ void cGame::ProcessAttacks()
 	int cx,cy;
 	Critter.updateAttackSeq();
 	Critter.updateSkill1Seq();
+	Critter.updateSkill2Seq();
 	if(Critter.GetSkill1()&&Critter.Skill1Hit()) {
 		int enemyId = Critter.GetSkill1Target();
 		if (Enemies[enemyId].isActive()) Enemies[enemyId].reduceHP(Critter.getSkill1Damage());

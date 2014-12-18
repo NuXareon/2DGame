@@ -59,9 +59,18 @@ public:
 	int GetSkill1Target();
 	int getSkill1Damage();
 	int GetSkill1Range();
+
+	void UseSkill2();
+	void updateSkill2Seq();
+	void getSkill2Rect(RECT *rc);
+	bool GetSkill2();
+	bool Skill2Hit();
+	int getSkill2Damage();
+
 	int GetHP();
 	int GetMana();
-	int GetCD();
+	int GetCD1();
+	int GetCD2();
 
 private:
 	int x,y;			//Position in total map
@@ -86,6 +95,7 @@ private:
 	int shoot_seq;		//Shooter sequence animation control
 	int shoot_delay;	//Shooter animation delay
 	int shoot_dir;
+	
 	bool skill1;
 	int skill1x,skill1y;
 	int skill1_seq;
@@ -95,6 +105,14 @@ private:
 	int skill1_cost;
 	int skill1_damage;
 	int skill1_target;
+
+	bool skill2 = false;
+	int skill2_seq;
+	int skill2_delay;
+	int skill2_cd;
+	int skill2_cost;
+	int skill2_damage;
+
 	int sprite_height;	//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 };
 

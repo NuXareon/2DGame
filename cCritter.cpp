@@ -35,6 +35,14 @@ cCritter::cCritter()
 	skill1_cost=1;
 	skill1_damage=20;
 
+	skill2 = false;
+	skill2_seq = 0;
+	skill2_delay = 0;
+	skill2_cd = 0;
+	skill2_cost = 1;
+	skill2_damage = 10;
+
+
 	hp=100;
 	energy=6;
 	damage=40;
@@ -628,11 +636,18 @@ int cCritter::GetMana()
 	return energy;
 }
 
-int cCritter::GetCD()
+int cCritter::GetCD1()
 {
 	return skill1_cd;
 
 }
+
+int cCritter::GetCD2()
+{
+	return skill2_cd;
+
+}
+
 void cCritter::enemyFaced(int enemy_cx, int enemy_cy)
 {
 	if (enemy_cx==cx && enemy_cy<cy) shoot_dir=N;
@@ -643,4 +658,49 @@ void cCritter::enemyFaced(int enemy_cx, int enemy_cy)
 	if (enemy_cx>cx && enemy_cy<cy) shoot_dir=NE;
 	if (enemy_cx>cx && enemy_cy>cy) shoot_dir=SE;
 	if (enemy_cx<cx && enemy_cy>cy) shoot_dir=SO;
+}
+
+void cCritter::getSkill2Rect(RECT *rc)
+{
+	SetRect(rc, 110 * skill2_seq, 0, 110 * (skill2_seq + 1), 140);
+}
+
+void cCritter::updateSkill2Seq()
+{
+	if (skill2) {
+		skill2_delay++;
+		if (skill2_delay == 10)
+		{
+			skill2_seq++;
+			if (skill2_seq>8) {
+				skill2_seq = 0;
+				skill2 = false;
+			}
+			skill2_delay = 0;
+		}
+	}
+	else {
+		skill2_delay = 0;
+		skill2_seq = 0;
+	}
+	if (skill2_cd>0)--skill2_cd;
+}
+
+bool cCritter::GetSkill2()
+{
+	return skill2;
+}
+
+void cCritter::UseSkill2()
+{
+	if (!skill2&&skill2_cd == 0 && energy >= skill2_cost) {
+		energy -= skill2_cost;
+		skill2_seq = 0;
+		skill2_delay = 0;
+		skill2_cd = 50;
+		skill2 = true;
+		shoot = false;
+		//attack=false;
+		//Trajectory.Restart();
+	}
 }
