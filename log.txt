@@ -1,4 +1,0 @@
-Error: Creating Direct3D device
-Code: E_INVALIDARG
-Description: An invalid parameter was passed to the returning function
-Error initializing Graphics!
