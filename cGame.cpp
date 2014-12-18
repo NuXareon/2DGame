@@ -434,7 +434,7 @@ void cGame::ProcessEvents()
 			Event.GoToNextLevel();
 
 			for (int i = 0; i < nEnemies; i++)
-				Enemies[i].SetActive(false);
+				Enemies[i].Restart();
 
 			nEnemies = LoadEnemies();
 		}
