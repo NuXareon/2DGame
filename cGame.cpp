@@ -452,15 +452,9 @@ int cGame::LoadEnemies()
 			int x = i%SCENE_AREA;
 			int y = (int)i / SCENE_AREA;
 
-			//Enemies[0].Init(5,7,100,5,2,SKELETON_TYPE);
-			//Enemies[1].Init(30,7,200,7,1,GOLEM_TYPE);
-			//Enemies[2].Init(50,7,100,4,2,FIRELOCK_TYPE);
-			//Enemies[3].Init(55,55,50,12,4,EXPLOSION_TYPE);
-			//nEnemies = 4;
-
 			if (Scene.mapLogic[i] == 4)
 			{
-				Enemies[numEnem].Init(x,y,100,5,2,5,0,SKELETON_TYPE);
+				Enemies[numEnem].Init(x,y,60,5,2,5,0,SKELETON_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
@@ -472,13 +466,13 @@ int cGame::LoadEnemies()
 			}
 			else if (Scene.mapLogic[i] == 6)
 			{
-				Enemies[numEnem].Init(x, y, 100, 5, 2,8,5, FIRELOCK_TYPE);
+				Enemies[numEnem].Init(x, y, 40, 2, 2,8,5, FIRELOCK_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
 			else if (Scene.mapLogic[i] == 7)
 			{
-				Enemies[numEnem].Init(x, y, 100, 5, 2,7,0, EXPLOSION_TYPE);
+				Enemies[numEnem].Init(x, y, 10, 15, 2,7,0, EXPLOSION_TYPE);
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}
