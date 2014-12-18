@@ -178,7 +178,7 @@ bool cGame::LoopOutput()
 bool cGame::Render()
 {
 	bool res;
-	res = Graphics.Render(state,Input.GetMouse(),&Scene,&Critter,&Skeleton,Enemies,nEnemies);
+	res = Graphics.Render(state,Input.GetMouse(),&Scene,&Critter,&Skeleton,Enemies,nEnemies,&Boss);
 	return res;
 }
 

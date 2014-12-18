@@ -15,6 +15,7 @@
 #include "cMouse.h"
 #include "cCritter.h"
 #include "cSkeleton.h"
+#include "cBoss.h"
 
 class cGraphicsLayer  
 {
@@ -29,10 +30,11 @@ public:
 	
 	void LoadData();
 	void UnLoadData();
-	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
+	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies, cBoss *Boss);
 
 	bool DrawScene(cScene *Scene, cCritter *Critter);
 	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
+	bool DrawBoss(cScene *Scene, cBoss *Boss);
 	bool DrawDebug(cScene *Scene, cMouse *Mouse);
 	bool DrawUI(cCritter *Critter);
 	bool DrawMouse(cMouse *Mouse);
@@ -62,6 +64,7 @@ private:
 	LPDIRECT3DTEXTURE9 texCreation;
 	LPDIRECT3DTEXTURE9 texSlash;
 	LPDIRECT3DTEXTURE9 texBossAD;
+	LPDIRECT3DTEXTURE9 texBoss;
 	LPDIRECT3DTEXTURE9 texEnd;
 
 	LPD3DXFONT font;
