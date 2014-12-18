@@ -449,6 +449,10 @@ void cGame::ProcessAttacks()
 				}
 			}
 		}
+		if (Boss.isActive()){
+			Boss.updateAttackSeq(Critter);
+			Boss.updateBoss();
+		}
 	}
 }
 
