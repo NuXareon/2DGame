@@ -203,7 +203,10 @@ void cGraphicsLayer::LoadData()
 		0x00ff00ff, NULL, NULL, &texHP);
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "mana.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
-		0x00ff00ff, NULL, NULL, &texMana);
+		0x00ff00ff, NULL, NULL, &texMana); 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "boss.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0x00ff00ff, NULL, NULL, &texBoss);
 
 	D3DXCreateTextureFromFileEx(g_pD3DDevice, "boss.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
@@ -237,7 +240,12 @@ void cGraphicsLayer::UnLoadData()
 	if (texBossAD)
 	{
 		texBossAD->Release();
-		texSlash = NULL;
+		texBossAD = NULL;
+	}
+	if (texBoss)
+	{
+		texBoss->Release();
+		texBoss = NULL;
 	}
 	if (texCreation)
 	{
@@ -262,7 +270,6 @@ void cGraphicsLayer::UnLoadData()
 
 	if (texButtons)
 	{
-
 		texButtons->Release();
 		texButtons = NULL; 
 	}
@@ -333,7 +340,7 @@ void cGraphicsLayer::UnLoadData()
 	}
 }
 
-bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[],int nEnemies)
+bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[],int nEnemies, cBoss *Boss)
 {
 	//HRESULT Draw( LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect,
 	//				CONST D3DXVECTOR3 *pCenter,  CONST D3DXVECTOR3 *pPosition,
@@ -394,6 +401,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 				case STATE_GAME:
 								DrawScene(Scene,Critter);
 								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
+								DrawBoss(Scene,Boss);
 								DrawDebug(Scene, Mouse);
 								DrawUI(Critter);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
@@ -564,6 +572,20 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 							0xFFFFFFFF);
 	}
 	
+	return true;
+}
+
+bool cGraphicsLayer::DrawBoss(cScene *Scene, cBoss *Boss)
+{
+	RECT rc;
+	float ix,iy;
+	if (Boss->isActive()){
+		Boss->GetRect(&rc,&ix,&iy,Scene);
+		g_pSprite->Draw(texBoss,&rc,NULL, 
+						&D3DXVECTOR3(ix,iy,0.0f), 
+						0xFFFFFFFF);
+	}
+
 	return true;
 }
 

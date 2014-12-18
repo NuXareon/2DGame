@@ -36,6 +36,7 @@ private:
 	cCritter Critter;
 	cSkeleton Skeleton;
 	cSkeleton Enemies[100];
+	cBoss Boss;
 	int nEnemies;
 
 	cEventManager Event;

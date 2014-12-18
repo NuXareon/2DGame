@@ -51,7 +51,7 @@ private:
 	int sightRadius;		//Radius of sight
 	int x,y;				//Position in total map
 	int cx,cy;				//Cell position in total map in cartesian
-	float ix, iy;				//Position in total map in isometric
+	float ix, iy;			//Position in total map in isometric
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 	bool dead;
 
