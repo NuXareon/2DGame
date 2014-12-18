@@ -40,7 +40,7 @@ cCritter::cCritter()
 	skill2_delay = 0;
 	skill2_cd = 0;
 	skill2_cost = 1;
-	skill2_damage = 10;
+	skill2_damage = 20;
 
 
 	hp=100;
@@ -703,4 +703,14 @@ void cCritter::UseSkill2()
 		//attack=false;
 		//Trajectory.Restart();
 	}
+}
+
+bool cCritter::Skill2Hit()
+{
+	return (skill2_seq==3&&skill2_delay==1);
+}
+
+int cCritter::getSkill2Damage()
+{
+	return skill2_damage;
 }
