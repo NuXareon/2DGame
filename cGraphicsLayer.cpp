@@ -560,8 +560,10 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 		Critter->GetPosition(&posx, &posy);
 		Critter->getSkill2Rect(&rc);
 		g_pSprite->Draw(texSkills, &rc, NULL,
-			&D3DXVECTOR3(float(posx), float(posy), 0.0f),
+			&D3DXVECTOR3(400, 300, 0.0f),
 			0xFFFFFFFF);
+	//	g_pSprite->Draw(texBoss, &rc, NULL, &D3DXVECTOR3(400, 300, 0.0f),
+	//		0xFFFFFFFF);
 	}
 	//Draw Fire
 	if(Critter->GetShooting())
@@ -646,6 +648,8 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 		&D3DXVECTOR3(float(611-28) , float(600 - 105), 0.0f),
 		0xFFFFFFFF);
 
+
+
 	SetRect(&rc, 50, 50, 100, 100);
 
 	g_pSprite->Draw(texIcons, &rc, NULL,
@@ -663,6 +667,27 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 
 		g_pSprite->Draw(texIcons, &rc, NULL,
 			&D3DXVECTOR3(float(611 - 250), float(600 - 60 + Critter->GetCD1()), 0.0f),
+			0xFFFFFFFF);
+
+		//
+
+		SetRect(&rc, 50, 0, 100, 50);
+
+		g_pSprite->Draw(texIcons, &rc, NULL,
+			&D3DXVECTOR3(float(611 - 300), float(600 - 60), 0.0f),
+			0xFFFFFFFF);
+
+		if (Critter->GetMana() > 0)
+		{
+			SetRect(&rc, 100, Critter->GetCD2(), 150, 50);
+		}
+		else
+		{
+			SetRect(&rc, 0, Critter->GetCD2(), 50, 50);
+		}
+
+		g_pSprite->Draw(texIcons, &rc, NULL,
+			&D3DXVECTOR3(float(611 - 300), float(600 - 60 + Critter->GetCD2()), 0.0f),
 			0xFFFFFFFF);
 
 	return true;
