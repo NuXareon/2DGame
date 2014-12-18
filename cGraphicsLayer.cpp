@@ -383,7 +383,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 								break;
 
 				case STATE_GAME:
-								DrawScene(Scene);
+								DrawScene(Scene,Critter);
 								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
 								DrawDebug(Scene, Mouse);
 								DrawUI(Critter);
@@ -406,13 +406,16 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 	return true;
 }
 
-bool cGraphicsLayer::DrawScene(cScene *Scene)
+bool cGraphicsLayer::DrawScene(cScene *Scene, cCritter *Critter)
 {
 	RECT rc;
 	int x,y,n,
 		fx,fy,
 		pantx,panty;
+	float posx,posy;
 
+	//Critter->GetPosition(&posx,&posy);
+	Critter->GetIsoCell(&posx,&posy);
 	//Tile based map
 	fx=Scene->cx+SCENE_WIDTH;
 	fy=Scene->cy+SCENE_HEIGHT;
@@ -439,13 +442,14 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 
 bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton,cSkeleton Enemies[],int nEnemies)
 {
-	int cx,cy,posx,posy;
+	int cx,cy,posx,posy,posx2,posy2;
 	float ix,iy,off;
 	RECT rc;
 
 	//Draw Critter
 	Critter->GetCell(&cx,&cy);
 	Critter->GetRect(&rc,&posx,&posy,Scene);
+	//Critter->GetPosition(&posx2,&posy2);
 
 	g_pSprite->Draw(texWarlock,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 

@@ -15,7 +15,7 @@
 //#define SCENE_ISO_X		50  // (550+32*32)/32
 //#define SCENE_ISO_X		50  // (550+32*32)/32
 //#define SCENE_ISO_Y		32
-#define SCENE_ISO_X		73  // (550+64*64)/64
+#define SCENE_ISO_X		80  // (550+64*64)/64
 #define SCENE_ISO_Y		64
 
 

@@ -199,6 +199,10 @@ void cGame::ProcessOrder()
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
 
+	Critter.GetCell(&cx,&cy);
+	Scene.cx=cx-SCENE_WIDTH/2+5;
+	Scene.cy=cy-SCENE_HEIGHT+5;
+	
     // Enemy Moves!
 	DoEnemyTurn();
 
@@ -289,6 +293,8 @@ void cGame::ProcessOrder()
 			Mouse->SetPointer(SELECT);
 			return;
 		}
+
+		/*
 				//Arrow mouse pointers to move through scene
 		if	   (Mouse->In(             s,             s,SCREEN_RES_X-s,SCREEN_RES_Y-s)) Mouse->SetPointer(NORMAL);
 		else if(Mouse->In(             s,             0,SCREEN_RES_X-s,             s)) Mouse->SetPointer(MN);
@@ -303,6 +309,7 @@ void cGame::ProcessOrder()
 
 		p = Mouse->GetPointer();
 		if((p>=MN)&&(p<=MSO))	Scene.Move(p);
+		*/
 		//Mouse over Enemy
 		attack=false;
 		/*

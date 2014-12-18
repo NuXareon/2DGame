@@ -28,6 +28,7 @@ public:
 	void GetPosition(int *posx,int *posy);
 	void SetCell(int cellx,int celly);
 	void GetCell(int *cellx,int *celly);
+	void GetIsoCell(float *cellx,float *celly);
 	void SetSelected(bool sel);
 	bool GetSelected();
 	bool GetShooting();

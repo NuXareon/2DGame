@@ -31,7 +31,7 @@ public:
 	void UnLoadData();
 	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 
-	bool DrawScene(cScene *Scene);
+	bool DrawScene(cScene *Scene, cCritter *Critter);
 	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 	bool DrawDebug(cScene *Scene, cMouse *Mouse);
 	bool DrawUI(cCritter *Critter);

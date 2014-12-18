@@ -314,6 +314,11 @@ void cCritter::GetCell(int *cellx,int *celly)
 	*cellx = cx;
 	*celly = cy;
 }
+void cCritter::GetIsoCell(float *cellx,float *celly)
+{
+	*cellx = ix;
+	*celly = iy;
+}
 void cCritter::SetSelected(bool sel)
 {
 	selected = sel;
