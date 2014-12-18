@@ -714,3 +714,8 @@ int cCritter::getSkill2Damage()
 {
 	return skill2_damage;
 }
+
+void cCritter::increaseEN()
+{
+	if(energy<6)energy ++;
+}

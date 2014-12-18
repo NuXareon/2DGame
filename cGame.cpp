@@ -424,7 +424,10 @@ void cGame::ProcessAttacks()
 				}
 			}
 			if (Enemies[enemyId].isDead())
+			{
 				Critter.increaseHP(20);
+				Critter.increaseEN();
+			}
 		}
 		else {
 			if (Boss.isActive() && enemyId==-1){
