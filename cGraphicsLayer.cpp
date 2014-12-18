@@ -496,9 +496,9 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 		int enemyId = Critter->GetSkill1Target();
 		//Enemies[enemyId].GetRect(&rc,&ix,&iy,Scene);
 		Enemies[enemyId].GetIsoPos(&ix,&iy,Scene);
-		SetRect(&rc,0,575,90,875);
+		Critter->getSkiill1Rect(&rc);
 		g_pSprite->Draw(texSkills,&rc,NULL, 
-						&D3DXVECTOR3(ix,iy,0.0f), 
+						&D3DXVECTOR3(ix-30,iy-275,0.0f), 
 						0xFFFFFFFF);
 	}
 	

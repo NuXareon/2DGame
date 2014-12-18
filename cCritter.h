@@ -52,6 +52,7 @@ public:
 
 	void UseSkill1(int cx, int cy, int enemyId);
 	void updateSkill1Seq();
+	void getSkiill1Rect(RECT *rc);
 	bool GetSkill1();
 	bool Skill1Hit();
 	int GetSkill1Target();
