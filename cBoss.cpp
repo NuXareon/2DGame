@@ -38,8 +38,8 @@ void cBoss::GetRectPilar(RECT *rc, float *posx, float *posy, cScene *Scene)
 	float offX = ix - sprite_height;
 	float offY = iy - sprite_height;
 
-	*posx = ISO_OFFSET_X + ((float)(offX - cx*TILE_SIZE_X) - (offY - cy*TILE_SIZE_X)) / 2;
-	*posy = ((float)(offX - cx*TILE_SIZE_Y) + (offY - cy*TILE_SIZE_Y)) / 2;
+	*posx = ISO_OFFSET_X + ((float)(offX + cx*TILE_SIZE_X - Scene->cx*TILE_SIZE_X) - (offY + cy*TILE_SIZE_X - Scene->cy*TILE_SIZE_X)) / 2;
+	*posy = ((float)(offX + cx*TILE_SIZE_Y - Scene->cx*TILE_SIZE_Y) + (offY  + cy*TILE_SIZE_Y- Scene->cy*TILE_SIZE_Y)) / 2;
 	if (seqpilar<=6)SetRect(rc, 110 * seqpilar, 2450, 110 * (seqpilar + 1), 2625);
 	else SetRect(rc, 110 * (seqpilar - 7), 2625, 110 * (seqpilar - 6), 2800);
 }
@@ -94,4 +94,9 @@ void cBoss::updateBoss()
 		}
 		delay = 0;
 	}
+}
+
+int cBoss::getHP()
+{
+	return hp;
 }
