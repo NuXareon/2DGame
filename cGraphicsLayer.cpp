@@ -402,7 +402,7 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 								DrawScene(Scene,Critter);
 								DrawUnits(Scene,Critter,Skeleton,Enemies,nEnemies);
 								DrawBoss(Scene,Boss);
-								DrawDebug(Scene, Mouse);
+							//	DrawDebug(Scene, Mouse);
 								DrawUI(Critter);
 								//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF); //Graphic User Interface
 								break;

@@ -17,6 +17,7 @@ public:
 	bool isActive();
 	void reduceHP(int damage);
 	bool pilarIsHit();
+	int getHP();
 
 	void SetActive(bool turn);
 	void SetSpawnCD(int cd);

@@ -41,6 +41,7 @@ public:
 	int getDamage();
 	bool reduceHP(int hp);
 	void increaseHP(int hp);
+	void increaseEN();
 	void enemyFaced(int enemy_cx, int enemy_cy);
 
 	void updateAttackSeq();

@@ -119,3 +119,8 @@ bool cBoss::pilarIsHit()
 {
 	return (seqpilar>=7) ;
 }
+
+int cBoss::getHP()
+{
+	return hp;
+}
