@@ -6,11 +6,11 @@ cBoss::cBoss(void)
 	
 	x=320;y=1600;
 	cx=10;cy=50;
-	sprite_height = 68;
+	sprite_height = 143;
 	ix=-320;
 	iy=2240;
 	active=true;
-	hp=100;
+	hp=1000;
 	damage=15;
 
 	seq=0;
@@ -32,9 +32,19 @@ void cBoss::GetRect(RECT *rc,float *posx,float *posy,cScene *Scene)
 
 	SetRect(rc,0,0,110,175);
 }
+void cBoss::GetCell(int *cellx,int *celly)
+{
+	*cellx = cx;
+	*celly = cy;
+}
 int cBoss::getDamage()
 {
 	return damage;
+}
+void cBoss::reduceHP(int damage)
+{
+	hp-=damage;
+	if(hp <= 0) active=false;
 }
 bool cBoss::isActive()
 {

@@ -106,7 +106,7 @@ private:
 	int skill1_damage;
 	int skill1_target;
 
-	bool skill2 = false;
+	bool skill2;
 	int skill2_seq;
 	int skill2_delay;
 	int skill2_cd;

@@ -246,6 +246,15 @@ void cGame::ProcessOrder()
 								}
 							}
 						}
+						if (Boss.isActive()) {
+							Boss.GetRect(&rc, &ix, &iy, &Scene);
+							if(Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
+								{
+									Boss.GetCell(&cx,&cy);
+									Critter.GoToEnemy(Scene.map,cx,cy,-1);
+									attack=true;
+								}
+						}
 						//Movement
 						if (!attack) //Si estas atacant a un enemic el seguent goto sera un moviment normal!
 						{
@@ -329,6 +338,14 @@ void cGame::ProcessOrder()
 				}
 			}
 		}
+		if (Boss.isActive()) {
+			Boss.GetRect(&rc,&ix,&iy,&Scene);
+			if (Mouse->In(ix,iy,ix+rc.right-rc.left,iy+rc.bottom-rc.top))
+			{
+				Mouse->SetPointer(ATTACK);
+				attack=true;
+			}
+		}
 		if(!attack&&Mouse->In(s,SCENE_Yo,SCENE_Xf,SCENE_Yf-s))
 		{
 			//Critter selected pointing, where to move
@@ -385,17 +402,29 @@ void cGame::ProcessAttacks()
 	}
 	else if (Critter.GetShooting()) {
 		int enemyId = Critter.getTarget();
-		Enemies[enemyId].GetCell(&cx,&cy);
-		Critter.enemyFaced(cx, cy);
-		if (Critter.isHit()) { // TODO: Check distance from target
-			Enemies[enemyId].reduceHP(Critter.getDamage());
-			if (!Enemies[enemyId].isActive())
-			{
-				Critter.stopAttack(); 
+		if (enemyId > -1) {
+			Enemies[enemyId].GetCell(&cx,&cy);
+			Critter.enemyFaced(cx, cy);
+			if (Critter.isHit()) { // TODO: Check distance from target
+				Enemies[enemyId].reduceHP(Critter.getDamage());
+				if (!Enemies[enemyId].isActive())
+				{
+					Critter.stopAttack(); 
+				}
+			}
+			if (Enemies[enemyId].isDead())
+				Critter.increaseHP(20);
+		}
+		else {
+			if (Boss.isActive() && enemyId==-1){
+				Boss.GetCell(&cx,&cy);
+				Critter.enemyFaced(cx, cy);
+				if (Critter.isHit()) {
+					Boss.reduceHP(Critter.getDamage());
+					if (!Boss.isActive()) Critter.stopAttack();
+				}
 			}
 		}
-		if (Enemies[enemyId].isDead())
-			Critter.increaseHP(20);
 	}
 	for (int i = 0; i < nEnemies; i++) {
 		if (Enemies[i].isActive()) {

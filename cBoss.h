@@ -8,8 +8,10 @@ public:
 	~cBoss(void);
 
 	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
+	void GetCell(int *cellx,int *celly);
 	int getDamage();
 	bool isActive();
+	void reduceHP(int damage);
 
 	void SetActive(bool turn);
 
