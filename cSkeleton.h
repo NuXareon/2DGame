@@ -43,7 +43,7 @@ public:
 	void LookForPlayer(cCritter& thePlayer);
 	void AttackPlayer(int* map,cCritter& thePlayer);
 	bool PlayerIsDetected();
-
+	bool isDead;
 private:
 	bool playerDetected;	// Flag for player detection
 	int sightRadius;		//Radius of sight

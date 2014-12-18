@@ -336,6 +336,16 @@ bool cCritter::reduceHP(int _hp)
 	return (hp<=0);
 }
 
+void cCritter::increaseHP(int _hp)
+{
+	int value = this->hp + _hp;
+
+	if (value <= 100)
+		this->hp += _hp;
+	else
+		this->hp = 100;
+}
+
 void cCritter::stopAttack()
 {
 	attack=false;
