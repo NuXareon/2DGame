@@ -11,11 +11,15 @@ public:
 	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
 	void GetCell(int *cellx,int *celly);
 	void GetRectPilar(RECT *rc, float *posx, float *posy,cScene *Scene);
+	void GetPilarCell(int *cellx,int *celly);
 	int getDamage();
+	int getSpawnCd();
 	bool isActive();
 	void reduceHP(int damage);
+	bool pilarIsHit();
 
 	void SetActive(bool turn);
+	void SetSpawnCD(int cd);
 
 	void updateAttackSeq(cCritter Player);
 	void updateBoss();
@@ -28,6 +32,7 @@ private:
 	int sprite_height;		//Offset to aply on the vertical axis in case the sprite is larger than 1 tile
 	int hp,damage;
 	bool active;
+	int spawn_cd;
 
 	int seq;				//Sequence animation control
 	int delay;	

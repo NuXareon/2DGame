@@ -449,9 +449,27 @@ void cGame::ProcessAttacks()
 				}
 			}
 		}
-		if (Boss.isActive()){
-			Boss.updateAttackSeq(Critter);
-			Boss.updateBoss();
+	}
+	if (Boss.isActive()){
+		Boss.updateAttackSeq(Critter);
+		Boss.updateBoss();
+		if (Boss.getSpawnCd()==0) {
+			if (nEnemies<1500-3) {
+				Boss.SetSpawnCD(1000);
+				Boss.GetCell(&cx,&cy);
+				Enemies[nEnemies].Init(cx+2, cy, 40, 2, 2, 15, 0, BOSS_AD);
+				Enemies[nEnemies].SetActive(true);
+				Enemies[nEnemies+1].Init(cx, cy+2, 40, 2, 2, 15, 0, BOSS_AD);
+				Enemies[nEnemies+1].SetActive(true);
+				Enemies[nEnemies+2].Init(cx+2, cy+2, 40, 2, 2, 15, 0, BOSS_AD);
+				Enemies[nEnemies+2].SetActive(true);
+				nEnemies+=3;
+			}
+		}
+		if (Boss.pilarIsHit()) {
+			Critter.GetCell(&cx,&cy);
+			Boss.GetPilarCell(&ecx,&ecy);
+			if (cx==ecx&&cy==ecy) Critter.reduceHP(Boss.getDamage());
 		}
 	}
 }
