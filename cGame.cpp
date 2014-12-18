@@ -433,13 +433,6 @@ void cGame::ProcessEvents()
 		{
 			Event.GoToNextLevel();
 
-			if (Scene.level == 4)
-			{
-
-				Graphics.DrawEnd();
-
-			}
-
 			for (int i = 0; i < nEnemies; i++)
 				Enemies[i].SetActive(false);
 

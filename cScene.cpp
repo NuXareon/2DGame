@@ -7,7 +7,7 @@
 
 
 cScene::cScene():
-level(3)
+level(1)
 {
 	cx=0;
 	cy=0;
