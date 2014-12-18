@@ -25,10 +25,13 @@ bool cEventManager::CheckForEvent()
 
 	eventType = Scene->mapLogic[mapIndex];
 
-	if ( eventType != 0 && eventType < 4)
+	if (eventType != 0 && eventType < 4)
 	{
 		return true;
 	}
+	else if (eventType == 9)
+		return true;
+
 	else
 		return false;
 }
@@ -37,7 +40,6 @@ void cEventManager::GoToNextLevel()
 {
 	(Scene->level)++;
 	
-
 	Scene->LoadMap("map.txt");
 	Scene->LoadMapTiles();
 	Scene->LoadMapLogic();
