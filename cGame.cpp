@@ -446,10 +446,12 @@ void cGame::ProcessAttacks()
 			Enemies[i].updateAttackSeq();
 			if (Enemies[i].GetShooting()&&Enemies[i].isHit()) { // TODO: Check distance from target for ranged enemies
 				dead = Critter.reduceHP(Enemies[i].getDamage());
-				if(dead) {
+				if(dead) 
+				{
 					Critter.Restart();
 					Critter.PutInStart(Scene.level);
-					for (int j = 0; j < nEnemies; ++j) {
+					for (int j = 0; j < nEnemies; ++j) 
+					{
 						Enemies[j].Restart();
 					}
 					// TODO: Reset enemies (read logical map?)
@@ -476,7 +478,14 @@ void cGame::ProcessAttacks()
 		if (Boss.pilarIsHit()) {
 			Critter.GetCell(&cx,&cy);
 			Boss.GetPilarCell(&ecx,&ecy);
-			if (cx==ecx&&cy==ecy) Critter.reduceHP(Boss.getDamage());
+			if (cx == ecx&&cy == ecy) {
+				dead = Critter.reduceHP(Boss.getDamage()); 
+				if (dead)
+				{
+					Critter.Restart();
+					Critter.PutInStart(Scene.level);
+				}
+			}
 		}
 	}
 	if (Boss.getHP() < 1)
@@ -532,11 +541,16 @@ void cGame::ProcessEvents()
 			SetEnd();
 
 		// Ambush event on level 2
-		if (Scene.level == 2 && Event.GetEventType() == 3)
+		if (Scene.level == 2 && Event.GetEventType() == 3 && !(Event.oneTimeBitch))
 		{
+			Event.oneTimeBitch = true;
 			for (int i = 0; i < nEnemies; i++)
-				Enemies[i].SetActive(true);
+			{
+				if (!Enemies[i].isDead())
+					Enemies[i].SetActive(true);
+			}
 		}
+
 	}
 
 }
@@ -555,7 +569,14 @@ int cGame::LoadEnemies()
 
 			if (Scene.mapLogic[i] == 4)
 			{
-				Enemies[numEnem].Init(x,y,60,5,2,5,0,SKELETON_TYPE);
+				if (Scene.level == 4)
+				{
+					Boss.Init(x, y);
+					Boss.SetActive(true);
+				}
+				else
+					Enemies[numEnem].Init(x,y,60,5,2,5,0,SKELETON_TYPE);
+				
 				Enemies[numEnem].SetActive(true);
 				numEnem++;
 			}

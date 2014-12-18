@@ -124,3 +124,23 @@ int cBoss::getHP()
 {
 	return hp;
 }
+void cBoss::SetPosition(int posx, int posy)
+{
+	x = posx;
+	y = posy;
+}
+
+void cBoss::SetCell(int cellx, int celly)
+{
+	cx = cellx;
+	cy = celly;
+}
+
+void cBoss::Init(int nx, int ny)
+{
+	SetPosition(nx * 32, ny * 32);
+	SetCell(nx, ny);
+	ix = 48 * nx - 16 * ny;
+	iy = 48 * ny - 16 * nx;
+
+}

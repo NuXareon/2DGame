@@ -2,7 +2,8 @@
 
 
 cEventManager::cEventManager(cScene* _Scene, cCritter* _Player, std::vector <cSkeleton>* _Mobs):
-eventType(0)
+eventType(0),
+oneTimeBitch(false)
 {
 	this->Scene = _Scene;
 	this->Player = _Player;

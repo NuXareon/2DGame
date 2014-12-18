@@ -8,6 +8,10 @@ public:
 	cBoss(void);
 	~cBoss(void);
 
+	void Init(int x, int y);
+	void SetCell(int cellx, int celly);
+	void SetPosition(int posx, int posy);
+
 	void GetRect(RECT *rc,float *posx,float *posy,cScene *Scene);
 	void GetCell(int *cellx,int *celly);
 	void GetRectPilar(RECT *rc, float *posx, float *posy,cScene *Scene);
