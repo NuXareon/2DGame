@@ -436,16 +436,14 @@ void cGame::ProcessEvents()
 		{
 			Event.GoToNextLevel();
 
-			if (Scene.level == 4)
-			{
-				SetEnd();
-			}
-
 			for (int i = 0; i < nEnemies; i++)
 				Enemies[i].Restart();
 
 			nEnemies = LoadEnemies();
 		}
+
+		if (Event.GetEventType() == 9)
+			SetEnd();
 
 		// Ambush event on level 2
 		if (Scene.level == 2 && Event.GetEventType() == 3)
