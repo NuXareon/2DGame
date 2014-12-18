@@ -609,7 +609,7 @@ int cGame::LoadEnemies()
 	}
 
 	//Deactivating mobs in level 2 for the ambush
-	if (Scene.level == 2)
+	if (Scene.level == 2 && !(oneTimeBitch))
 	{
 		for (int i = 0; i < nEnemies; i++)
 		{
