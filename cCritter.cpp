@@ -420,10 +420,10 @@ void cCritter::updateSkill1Seq()
 {
 	if (skill1) {
 		skill1_delay++;
-		if(skill1_delay==2)
+		if(skill1_delay==10)
 		{
 			skill1_seq++;
-			if(skill1_seq==8) {
+			if(skill1_seq>8) {
 				skill1_seq=0;
 				skill1=false;
 			}
@@ -458,6 +458,10 @@ void cCritter::UseSkill1(int cx, int cy, int enemyId)
 bool cCritter::GetSkill1()
 {
 	return skill1;
+}
+void cCritter::getSkiill1Rect(RECT *rc)
+{
+	SetRect(rc, 110 * skill1_seq, 525, 110 * (skill1_seq + 1), 875);
 }
 
 bool cCritter::Skill1Hit() 
