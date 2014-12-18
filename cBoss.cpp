@@ -9,10 +9,10 @@ cBoss::cBoss(void)
 	sprite_height = 143;
 	ix=-320;
 	iy=2240;
-	active=true;
-	hp=1000;
-	damage=1;
-	spawn_cd=100;
+	active=false;
+	hp=250;
+	damage=2;
+	spawn_cd=500;
 
 	seq=0;
 	delay=0;

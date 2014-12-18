@@ -392,6 +392,7 @@ void cGame::ProcessOrder()
 
 void cGame::ProcessAttacks()
 {
+	bool dead = false;
 	int cx,cy,ecx,ecy;
 	Critter.updateAttackSeq();
 	Critter.updateSkill1Seq();
@@ -441,13 +442,16 @@ void cGame::ProcessAttacks()
 		}
 	}
 	for (int i = 0; i < nEnemies; i++) {
-		if (Enemies[i].isActive()) {
+		if (Enemies[i].isActive()&&!dead) {
 			Enemies[i].updateAttackSeq();
 			if (Enemies[i].GetShooting()&&Enemies[i].isHit()) { // TODO: Check distance from target for ranged enemies
-				bool dead = Critter.reduceHP(Enemies[i].getDamage());
+				dead = Critter.reduceHP(Enemies[i].getDamage());
 				if(dead) {
 					Critter.Restart();
 					Critter.PutInStart(Scene.level);
+					for (int j = 0; j < nEnemies; ++j) {
+						Enemies[j].Restart();
+					}
 					// TODO: Reset enemies (read logical map?)
 				}
 			}
@@ -474,6 +478,9 @@ void cGame::ProcessAttacks()
 			Boss.GetPilarCell(&ecx,&ecy);
 			if (cx==ecx&&cy==ecy) Critter.reduceHP(Boss.getDamage());
 		}
+	}
+	if (Boss.getHP() < 1) {
+		  SetEnd();
 	}
 }
 
