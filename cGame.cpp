@@ -161,7 +161,7 @@ bool cGame::LoopProcess()
 						break;
 
 		case STATE_END:
-			return false;
+
 			break;
 	}
 
