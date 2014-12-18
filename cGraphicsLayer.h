@@ -34,7 +34,7 @@ public:
 	bool DrawScene(cScene *Scene);
 	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[], int nEnemies);
 	bool DrawDebug(cScene *Scene, cMouse *Mouse);
-	bool DrawUI();
+	bool DrawUI(cCritter *Critter);
 	bool DrawMouse(cMouse *Mouse);
 	bool DrawRect(RECT rc, D3DCOLOR color);
 

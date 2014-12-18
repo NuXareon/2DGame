@@ -425,7 +425,7 @@ void cCritter::UseSkill1(int cx, int cy, int enemyId)
 		energy-=skill1_cost;
 		skill1_seq=0;
 		skill1_delay=0;
-		skill1_cd=60;
+		skill1_cd=50;
 		skill1x=cx;
 		skill1y=cy;
 		skill1_target=enemyId;
@@ -582,6 +582,21 @@ void cCritter::getRectHead(RECT *rc, float *off)
 	}
 }
 
+int cCritter::GetHP()
+{
+	return hp;
+}
+
+int cCritter::GetMana()
+{
+	return energy;
+}
+
+int cCritter::GetCD()
+{
+	return skill1_cd;
+
+}
 void cCritter::enemyFaced(int enemy_cx, int enemy_cy)
 {
 	if (enemy_cx==cx && enemy_cy<cy) shoot_dir=N;
