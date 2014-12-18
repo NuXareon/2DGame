@@ -37,7 +37,7 @@ cCritter::cCritter()
 
 	hp=100;
 	energy=6;
-	damage=100;
+	damage=40;
 	step_length=2;
 }
 cCritter::~cCritter()
@@ -340,7 +340,7 @@ bool cCritter::IsFiring()
 }
 bool cCritter::isHit()
 {
-	return (shoot_seq==6&&shoot_delay==0);
+	return (shoot_seq==3&&shoot_delay==1);
 }
 int cCritter::getDamage()
 {

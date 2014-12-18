@@ -84,7 +84,7 @@ void cAStar::EndPathfinder()
 {
 	for (int x = 0; x < numberPeople+1; x++)
 	{
-		free (pathBank [x]);
+		//free (pathBank [x]);
 	}
 }
 
