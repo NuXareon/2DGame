@@ -208,6 +208,10 @@ void cGraphicsLayer::LoadData()
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 		0x00ff00ff, NULL, NULL, &texBoss);
 
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "boss.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		NULL, NULL, NULL, &texBoss);
+
 }
 
 void cGraphicsLayer::UnLoadData()
@@ -216,6 +220,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texMain->Release();
 		texMain = NULL;
+	}
+	if (texBoss)
+	{
+		texBoss->Release();
+		texBoss = NULL;
 	}
 	if (texEnd)
 	{
@@ -546,7 +555,14 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 						&D3DXVECTOR3(ix-30,iy-275,0.0f), 
 						0xFFFFFFFF);
 	}
-	
+	if (Critter->GetSkill2()) {
+
+		Critter->GetPosition(&posx, &posy);
+		Critter->getSkill2Rect(&rc);
+		g_pSprite->Draw(texSkills, &rc, NULL,
+			&D3DXVECTOR3(float(posx), float(posy), 0.0f),
+			0xFFFFFFFF);
+	}
 	//Draw Fire
 	if(Critter->GetShooting())
 	{
@@ -638,15 +654,15 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 
 	if (Critter->GetMana() > 0)
 	{
-		SetRect(&rc, 100, 50 + Critter->GetCD(), 150, 100);
+		SetRect(&rc, 100, 50 + Critter->GetCD1(), 150, 100);
 	}
 	else
 	{
-		SetRect(&rc, 0, 50 + Critter->GetCD(), 50, 100);
+		SetRect(&rc, 0, 50 + Critter->GetCD1(), 50, 100);
 	}
 
 		g_pSprite->Draw(texIcons, &rc, NULL,
-			&D3DXVECTOR3(float(611 - 250), float(600 - 60 + Critter->GetCD()), 0.0f),
+			&D3DXVECTOR3(float(611 - 250), float(600 - 60 + Critter->GetCD1()), 0.0f),
 			0xFFFFFFFF);
 
 	return true;
