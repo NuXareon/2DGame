@@ -61,7 +61,7 @@ private:
 	LPDIRECT3DTEXTURE9 texHead;
 	LPDIRECT3DTEXTURE9 texCreation;
 	LPDIRECT3DTEXTURE9 texSlash;
-
+	
 	LPD3DXFONT font;
 };
 

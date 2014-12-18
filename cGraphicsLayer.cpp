@@ -665,3 +665,4 @@ bool cGraphicsLayer::DrawRect(RECT rc, D3DCOLOR color)
 	
 	return true;
 }
+
