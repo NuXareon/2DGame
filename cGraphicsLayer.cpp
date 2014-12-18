@@ -657,7 +657,7 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 	SetRect(&rc, 50, 50, 100, 100);
 
 	g_pSprite->Draw(texIcons, &rc, NULL,
-		&D3DXVECTOR3(float(611 - 250), float(600 - 60), 0.0f),
+		&D3DXVECTOR3(float(611 - 320), float(600 - 70), 0.0f),
 		0xFFFFFFFF);
 
 	if (Critter->GetMana() > 0)
@@ -670,7 +670,7 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 	}
 
 		g_pSprite->Draw(texIcons, &rc, NULL,
-			&D3DXVECTOR3(float(611 - 250), float(600 - 60 + Critter->GetCD1()), 0.0f),
+			&D3DXVECTOR3(float(611 - 320), float(600 - 70 + Critter->GetCD1()), 0.0f),
 			0xFFFFFFFF);
 
 		//
@@ -678,7 +678,7 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 		SetRect(&rc, 50, 0, 100, 50);
 
 		g_pSprite->Draw(texIcons, &rc, NULL,
-			&D3DXVECTOR3(float(611 - 300), float(600 - 60), 0.0f),
+			&D3DXVECTOR3(float(611 - 220), float(600 - 70), 0.0f),
 			0xFFFFFFFF);
 
 		if (Critter->GetMana() > 0)
@@ -691,7 +691,7 @@ bool cGraphicsLayer::DrawUI(cCritter *Critter)
 		}
 
 		g_pSprite->Draw(texIcons, &rc, NULL,
-			&D3DXVECTOR3(float(611 - 300), float(600 - 60 + Critter->GetCD2()), 0.0f),
+			&D3DXVECTOR3(float(611 - 220), float(600 - 70 + Critter->GetCD2()), 0.0f),
 			0xFFFFFFFF);
 
 	return true;
