@@ -50,6 +50,7 @@ public:
 	void LoadMap(char *file);
 	void LoadMapLogic();
 	void LoadMapTiles();
+	void LoadMapFloor();
 
 
 	void Move(int pointer); // ajustar condicions? --v
@@ -67,6 +68,7 @@ public:
 	int *map; // level map
 	int *mapLogic; //Map level with event triggers
 	int *mapTiles;
+	int *mapFloor;
 
 	int cx,cy; // cartesian coordinates
 	float isox, isoy; // isometric coordinates

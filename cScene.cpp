@@ -3,6 +3,7 @@
 #include "cMouse.h"
 #include <stdio.h>
 #include "cLog.h"
+#include <time.h>
 
 
 
@@ -15,6 +16,9 @@ level(1)
 	map = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 	mapLogic = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
 	mapTiles = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+	mapFloor = (int *)malloc(sizeof(int)*(SCENE_AREA*SCENE_AREA));
+
+	srand(time(NULL));
 
 }
 
@@ -23,6 +27,7 @@ cScene::~cScene()
 	free(map);
 	free(mapLogic);
 	free(mapTiles);
+	free(mapFloor);
 }
 
 void cScene::LoadMap(char *file)
@@ -275,6 +280,22 @@ void cScene::LoadMapTiles()
 	}
 
 }
+
+void cScene::LoadMapFloor()
+{
+	for (int i = 0; i < SCENE_AREA*SCENE_AREA; i++)
+	{
+		if (mapTiles[i] == 5)
+		{
+			mapFloor[i] = rand() % 15; //Get a random floor
+		}
+		else
+		{
+			mapFloor[i] = -1;
+		}
+	}
+}
+
 void cScene::Move(int pointer)
 {
 	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15

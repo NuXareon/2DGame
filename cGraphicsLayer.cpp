@@ -11,6 +11,7 @@ cGraphicsLayer::cGraphicsLayer()
 	g_pD3DDevice = NULL;
 	g_pSprite = NULL;
 	font = NULL;
+
 }
 
 cGraphicsLayer::~cGraphicsLayer(){}
@@ -211,6 +212,11 @@ void cGraphicsLayer::LoadData()
 //	D3DXCreateTextureFromFileEx(g_pD3DDevice, "boss.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
 //		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
 //		NULL, NULL, NULL, &texBoss);
+	
+	//Dungeon Floor textures
+	D3DXCreateTextureFromFileEx(g_pD3DDevice, "dungeon_floor.png", 0, 0, 1, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+		0xFF408080, NULL, NULL, &texFloor);
 
 }
 
@@ -338,6 +344,11 @@ void cGraphicsLayer::UnLoadData()
 		g_pSprite->Release();
 		g_pSprite = NULL;
 	}
+	if (texFloor)
+	{
+		texFloor->Release();
+		texFloor = NULL;
+	}
 }
 
 bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton, cSkeleton Enemies[],int nEnemies, cBoss *Boss)
@@ -450,8 +461,28 @@ bool cGraphicsLayer::DrawScene(cScene *Scene, cCritter *Critter)
 			n = Scene->mapTiles[(y*SCENE_AREA)+x];
 			n--;
 
-			if (n>=0)
-			g_pSprite->Draw(texTilesIso[n],NULL,NULL,&D3DXVECTOR3( screenX, screenY, 0.0f),0xFFFFFFFF);
+			if (n >= 0)
+			{
+				
+				if (n == 4)
+				{
+					int pictureRow = (int)Scene->mapFloor[(y*SCENE_AREA) + x] % 5;
+					int pictureColumn = (int)Scene->mapFloor[(y*SCENE_AREA) + x] / 5;
+					int rectX = pictureRow * 64;
+					int rectY = pictureColumn * 32;
+					//SetRect(&rc, 0, 0, 64, 32);
+					SetRect(&rc, rectX, rectY, 64+rectX, 32+rectY);
+
+					
+					g_pSprite->Draw(texFloor, &rc, NULL, &D3DXVECTOR3(screenX, screenY, 0.0f), 0xFFFFFFFF);
+				}
+				else
+					g_pSprite->Draw(texTilesIso[n], NULL, NULL, &D3DXVECTOR3(screenX, screenY+ISO_OFFSET_Y, 0.0f), 0xFFFFFFFF);
+
+			}
+
+
+
 		}
 	}
 	return true;

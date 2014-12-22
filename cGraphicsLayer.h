@@ -16,6 +16,7 @@
 #include "cCritter.h"
 #include "cSkeleton.h"
 #include "cBoss.h"
+#include <cstdlib>
 
 class cGraphicsLayer  
 {
@@ -67,7 +68,11 @@ private:
 	LPDIRECT3DTEXTURE9 texEnd;
 	LPDIRECT3DTEXTURE9 texBoss;
 
+	LPDIRECT3DTEXTURE9 texFloor;
+
 	LPD3DXFONT font;
+
+
 };
 
 
